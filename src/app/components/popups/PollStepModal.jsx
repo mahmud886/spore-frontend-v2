@@ -1,0 +1,300 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import PollLeftPopup from "./PollLeftPopup";
+import PollMiddlePopup from "./PollMiddlePopup";
+
+export default function PollStepModal({
+  isOpen,
+  onClose,
+  autoOpenDelay = 3000,
+  episodeId = null,
+  pollData = null,
+  onVoteSuccess = null,
+}) {
+  const router = useRouter();
+  const [step, setStep] = useState(1); // 1: left, 2: middle, 3: right
+  const [mounted, setMounted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentEpisodeId, setCurrentEpisodeId] = useState(episodeId);
+  const [currentPollData, setCurrentPollData] = useState(pollData);
+  const [formData, setFormData] = useState({
+    codename: "SPECTRE_01",
+    faction: "Evolve",
+    factionIcon: "microscope",
+    designation: "SPECTRE_01",
+    episodeId: episodeId,
+    pollId: pollData?.id || null,
+  });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen && autoOpenDelay > 0) {
+      const timer = setTimeout(() => {
+        setStep(1);
+      }, autoOpenDelay);
+      return () => clearTimeout(timer);
+    } else if (isOpen) {
+      setStep(1);
+    } else {
+      // Reset step and submitting state when modal closes
+      setStep(1);
+      setIsSubmitting(false);
+      // Don't clear pollData/episodeId here - let parent component handle it
+    }
+  }, [isOpen, autoOpenDelay]);
+
+  // Update state when pollData or episodeId props change
+  useEffect(() => {
+    console.log("PollStepModal - pollData prop:", pollData);
+    console.log("PollStepModal - episodeId prop:", episodeId);
+
+    if (episodeId) {
+      setCurrentEpisodeId(episodeId);
+    }
+    if (pollData) {
+      console.log("PollStepModal - Setting currentPollData:", pollData);
+      console.log("PollStepModal - pollData.options:", pollData.options);
+      console.log("PollStepModal - pollData.title:", pollData.title);
+      console.log("PollStepModal - pollData.question:", pollData.question);
+      setCurrentPollData(pollData);
+    }
+  }, [pollData, episodeId]);
+
+  // Update formData when pollData or episodeId changes
+  useEffect(() => {
+    if (currentPollData || currentEpisodeId) {
+      setFormData((prev) => ({
+        ...prev,
+        episodeId: currentEpisodeId,
+        pollId: currentPollData?.id || null,
+      }));
+    }
+  }, [currentPollData, currentEpisodeId]);
+
+  const handleLeftNext = (codename) => {
+    setFormData((prev) => ({ ...prev, codename, designation: codename }));
+    setStep(2);
+  };
+
+  const handleMiddleNext = async (faction, optionId = null) => {
+    // Prevent double submission
+    if (isSubmitting) {
+      return;
+    }
+
+    const factionData = {
+      Evolve: { faction: "Evolve", factionIcon: "biotech" },
+      Contain: { faction: "Contain", factionIcon: "shield" },
+      Resist: { faction: "Resist", factionIcon: "shield" },
+    };
+    setFormData((prev) => ({
+      ...prev,
+      ...(factionData[faction] || {
+        faction: "Evolve",
+        factionIcon: "biotech",
+      }),
+    }));
+
+    // Use currentEpisodeId from state (more reliable than prop)
+    const episodeIdToUse = currentEpisodeId || episodeId;
+
+    // Validate required data
+    if (!episodeIdToUse) {
+      alert("Episode ID is missing. Cannot submit vote.");
+      return;
+    }
+
+    if (!optionId) {
+      alert("Option ID is missing. Cannot submit vote.");
+      return;
+    }
+
+    // Submit vote by episode ID - wait for completion before redirecting
+    setIsSubmitting(true);
+    try {
+      const response = await fetch(`/api/polls/episode/${encodeURIComponent(episodeIdToUse)}/vote`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          optionId: optionId,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(`Failed to submit vote: ${data.error || data.message || "Unknown error"}`);
+        setIsSubmitting(false);
+        return; // Don't redirect if vote failed
+      }
+
+      // Mark user as voted for this specific episode in localStorage
+      const votedEpisodes = JSON.parse(localStorage.getItem("sporefall_voted_episodes") || "[]");
+      // Convert to strings for consistent comparison
+      const episodeIdStr = String(episodeIdToUse);
+      const votedEpisodesStr = votedEpisodes.map((id) => String(id));
+
+      if (!votedEpisodesStr.includes(episodeIdStr)) {
+        votedEpisodes.push(episodeIdToUse);
+        localStorage.setItem("sporefall_voted_episodes", JSON.stringify(votedEpisodes));
+      }
+      // Also clear modal closed flag since user completed the action
+      localStorage.removeItem("sporefall_modal_closed");
+
+      // Notify parent component about successful vote
+      if (onVoteSuccess) {
+        onVoteSuccess(episodeIdToUse);
+      }
+
+      // Close modal and redirect to result page with episode ID
+      if (onClose) {
+        onClose();
+      }
+
+      // Small delay to ensure modal closes smoothly
+      setTimeout(() => {
+        const resultUrl = episodeIdToUse ? `/result?episode=${encodeURIComponent(episodeIdToUse)}` : "/result";
+        router.push(resultUrl);
+      }, 100);
+    } catch (error) {
+      alert(`Error submitting vote: ${error.message}`);
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleRightComplete = () => {
+    setStep(1);
+    if (onClose) {
+      onClose();
+    }
+  };
+
+  const handleClose = () => {
+    setStep(1);
+    // Mark modal as closed in localStorage
+    localStorage.setItem("sporefall_modal_closed", "true");
+    if (onClose) {
+      onClose();
+    }
+  };
+
+  if (!mounted || !isOpen) return null;
+
+  const modalContent = (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+      <div className="relative w-full h-full flex items-center justify-center">
+        {/* Step 1: Left Popup */}
+        {step === 1 && (
+          <div className="flex items-center justify-center w-full h-full relative z-10">
+            <PollLeftPopup
+              codename={formData.codename}
+              onInitiateLink={handleLeftNext}
+              onClose={handleClose}
+              show={true}
+            />
+          </div>
+        )}
+
+        {/* Step 2: Middle Popup */}
+        {step === 2 &&
+          (currentPollData || pollData) &&
+          (() => {
+            const pollDataToUse = currentPollData || pollData;
+            const options = pollDataToUse?.options || [];
+            const firstOption = options[0];
+            const secondOption = options[1];
+
+            console.log("PollStepModal - Step 2 - pollDataToUse:", pollDataToUse);
+            console.log("PollStepModal - Step 2 - options:", options);
+            console.log("PollStepModal - Step 2 - firstOption:", firstOption);
+            console.log("PollStepModal - Step 2 - secondOption:", secondOption);
+            console.log("PollStepModal - Step 2 - title:", pollDataToUse?.title);
+            console.log("PollStepModal - Step 2 - question:", pollDataToUse?.question);
+
+            // Get dynamic option names and descriptions
+            const firstOptionName = firstOption?.name || firstOption?.text || "EVOLVE";
+            const secondOptionName = secondOption?.name || secondOption?.text || "RESIST";
+            const firstOptionDescription =
+              firstOption?.description || "Transcend humanity. Unlock your latent code. Be something more.";
+            const secondOptionDescription =
+              secondOption?.description || "Preserve Order. Burn the old world. Rebuild from ashes.";
+
+            return (
+              <div className="flex items-center justify-center w-full h-full relative z-10">
+                <PollMiddlePopup
+                  phase={pollDataToUse?.title || "Phase 02: Alignment"}
+                  title={
+                    pollDataToUse?.question ||
+                    pollDataToUse?.title ||
+                    pollDataToUse?.description ||
+                    "Shape The Next Chapter of the Story"
+                  }
+                  subtitle={
+                    options.length > 0
+                      ? options
+                          .map((opt) => opt?.name || opt?.text || "")
+                          .filter(Boolean)
+                          .join(" vs ")
+                      : "RESIST vs EVOLVE"
+                  }
+                  firstOptionName={firstOptionName}
+                  secondOptionName={secondOptionName}
+                  firstOptionDescription={firstOptionDescription}
+                  secondOptionDescription={secondOptionDescription}
+                  onEvolveClick={() => {
+                    if (isSubmitting) return; // Prevent clicks while submitting
+
+                    // Find first option (typically Evolve)
+                    if (firstOption && firstOption.id) {
+                      handleMiddleNext(firstOptionName, firstOption.id);
+                    } else {
+                      alert("Poll option not available. Please try again.");
+                    }
+                  }}
+                  onContainClick={() => {
+                    if (isSubmitting) return; // Prevent clicks while submitting
+
+                    // Find second option (typically Resist/Contain)
+                    if (secondOption && secondOption.id) {
+                      handleMiddleNext(secondOptionName, secondOption.id);
+                    } else {
+                      alert("Poll option not available. Please try again.");
+                    }
+                  }}
+                  onClose={handleClose}
+                  showWaitingMessage={!isSubmitting}
+                />
+              </div>
+            );
+          })()}
+
+        {/* Step 3: Right Popup - Commented out, redirects to result page instead */}
+        {/* {step === 3 && (
+          <div className="flex items-center justify-center w-full h-full relative z-10">
+            <PollRightPopup
+              designation={formData.designation}
+              faction={formData.faction}
+              factionIcon={formData.factionIcon}
+              onClose={handleClose}
+              onEmailSubmit={(email) => {
+                // Email submitted
+              }}
+              onClaimBadge={handleRightComplete}
+              show={true}
+            />
+          </div>
+        )} */}
+      </div>
+    </div>
+  );
+
+  return createPortal(modalContent, document.body);
+}
