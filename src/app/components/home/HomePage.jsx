@@ -54,7 +54,7 @@ const homePageLogs = [
   },
 ];
 
-export default function HomePage() {
+export default function HomePage({ episodes = [], blogPosts = [] }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasModalBeenShown, setHasModalBeenShown] = useState(false);
 
@@ -169,14 +169,20 @@ export default function HomePage() {
           {/* <AboutSection /> */}
 
           <div id="shop">
-            <EpisodesSection />
+            <EpisodesSection episodes={episodes} />
           </div>
           <div className="px-10 ">
             <NewsletterSection />
           </div>
           <CharacterLogsSection />
           <div id="spore-log" className="pb-4 px-8 ">
-            <SporeBlogSection title="Spore Logs" className="" sectionClassName="" fetchFromAPI={true} />
+            <SporeBlogSection
+              title="Spore Logs"
+              className=""
+              sectionClassName=""
+              fetchFromAPI={false}
+              posts={blogPosts}
+            />
           </div>
         </div>
         <PollStepModal

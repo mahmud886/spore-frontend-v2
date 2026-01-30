@@ -11,9 +11,9 @@ import Carousel from "../shared/Carousel";
 import { SectionTitle } from "../shared/SectionTitle";
 import ShimmerCard from "../shared/ShimmerCard";
 
-export default function EpisodesSection() {
+export default function EpisodesSection({ episodes: episodesProp = [] }) {
   const [episodes, setEpisodes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isPollModalOpen, setIsPollModalOpen] = useState(false);
   const [selectedEpisodeId, setSelectedEpisodeId] = useState(null);
@@ -28,82 +28,11 @@ export default function EpisodesSection() {
   const [notificationMessage, setNotificationMessage] = useState("");
 
   useEffect(() => {
-    const loadEpisodes = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        // Fetch episodes from API route
-        const response = await fetch("/api/episodes", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || `Failed to fetch episodes: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        // Check if we have episodes
-        if (!data.episodes || data.episodes.length === 0) {
-          // No episodes found
-        }
-
-        // Map API response to match component's expected format
-        const mappedEpisodes = (data.episodes || []).map((episode) => {
-          // Map visibility to status
-          let status = "locked"; // default
-          if (episode.visibility === "AVAILABLE") {
-            status = "available";
-          } else if (episode.visibility === "UPCOMING" || episode.visibility === "COMING_SOON") {
-            status = "upcoming";
-          } else if (episode.visibility === "LOCKED" || episode.visibility === "PRIVATE") {
-            status = "locked";
-          }
-
-          return {
-            id: episode.id || episode._id,
-            title:
-              episode.title ||
-              `Episode ${episode.episode_number || episode.episodeNumber || ""} : ${episode.name || ""}`,
-            description: episode.description || episode.summary || "",
-            thumbnail:
-              episode.thumb_image_url ||
-              episode.thumbnail ||
-              episode.image ||
-              episode.coverImage ||
-              episode.banner_image_url ||
-              "/assets/images/episodes/default.png",
-            status: status,
-            runtime: episode.runtime || episode.duration || "40:15 m",
-            // Additional fields that might be useful
-            episodeNumber: episode.episode_number || episode.episodeNumber,
-            seasonNumber: episode.season_number || episode.seasonNumber,
-            uniqueEpisodeId: episode.unique_episode_id || episode.uniqueEpisodeId,
-            videoUrl: episode.video_url || episode.videoUrl,
-            releaseDate: episode.release_datetime || episode.releaseDate,
-          };
-        });
-
-        setEpisodes(mappedEpisodes);
-        setEpisodesLoaded(true);
-      } catch (err) {
-        const errorMessage = err.message || "Failed to load episodes";
-        setError(errorMessage);
-        // Fallback to empty array on error
-        setEpisodes([]);
-        setEpisodesLoaded(true); // Mark as loaded even on error
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadEpisodes();
-  }, []);
+    setEpisodes(Array.isArray(episodesProp) ? episodesProp : []);
+    setEpisodesLoaded(true);
+    setLoading(false);
+    setError(null);
+  }, [episodesProp]);
 
   // Load voted episodes from localStorage on mount
   useEffect(() => {
