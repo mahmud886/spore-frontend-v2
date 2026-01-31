@@ -8,7 +8,7 @@ export async function getEpisodes({ limit = 100, offset = 0, visibility, accessL
   if (visibility) params.set("visibility", visibility);
   if (accessLevel) params.set("access_level", accessLevel);
   if (status) params.set("status", status);
-  const res = await fetch(`${base}/api/episodes?${params.toString()}`, { next: { revalidate: 3600 } });
+  const res = await fetch(`${base}/api/episodes?${params.toString()}`, { next: { revalidate: 60 } });
   if (!res.ok) return [];
   const json = await res.json();
   const data = json.episodes || [];
