@@ -190,10 +190,14 @@ export default function Carousel({
 
   // Show items starting from currentIndex, wrapping around if needed
   const getVisibleItems = () => {
+    if (!items || items.length === 0) return [];
     const visible = [];
     for (let i = 0; i < itemsPerSlide; i++) {
       const index = (currentIndex + i) % items.length;
-      visible.push({ item: items[index], originalIndex: index });
+      const item = items[index];
+      if (item !== undefined) {
+        visible.push({ item, originalIndex: index });
+      }
     }
     return visible;
   };

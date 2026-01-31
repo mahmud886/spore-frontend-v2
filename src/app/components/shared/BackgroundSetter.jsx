@@ -2,23 +2,12 @@
 
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import aboutBg from "../../../../public/assets/images/about-background.png";
-import homeBg from "../../../../public/assets/images/background.png";
-import resultBg from "../../../../public/assets/images/result-background.png";
+import resultBg from "../../../../public/assets/images/result-background.webp";
 
 export default function BackgroundSetter() {
   const pathname = usePathname();
 
-  const getImage = () => {
-    if (pathname === "/result" || pathname.startsWith("/result")) {
-      return resultBg;
-    }
-    if (pathname === "/about" || pathname.startsWith("/about")) {
-      return aboutBg;
-    }
-    return homeBg;
-  };
-  const image = getImage();
+  const image = resultBg;
   const isHomepage = pathname === "/";
 
   return (
