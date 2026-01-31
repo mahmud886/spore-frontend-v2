@@ -1,19 +1,22 @@
 "use client";
 
 import { ArrowRight, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function PollLeftPopup({ onInitiateLink, onClose, show = true }) {
   const [displayedText, setDisplayedText] = useState("");
   const [currentStep, setCurrentStep] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
 
-  const messages = [
-    { text: "Welcome User", color: "text-primary" },
-    { text: "> initiating contact to the Lionara mainframe", color: "text-blue-400" },
-    { text: "> initializing....", color: "text-yellow-400" },
-    { text: "> CONNECTED", color: "text-green-400" },
-  ];
+  const messages = useMemo(
+    () => [
+      { text: "Welcome User", color: "text-primary" },
+      { text: "> initiating contact to the Lionara mainframe", color: "text-blue-400" },
+      { text: "> initializing....", color: "text-yellow-400" },
+      { text: "> CONNECTED", color: "text-green-400" },
+    ],
+    [],
+  );
 
   useEffect(() => {
     if (!show) return;
@@ -41,7 +44,7 @@ export default function PollLeftPopup({ onInitiateLink, onClose, show = true }) 
     }, 25); // Typing speed
 
     return () => clearInterval(typingInterval);
-  }, [currentStep, show]);
+  }, [currentStep, show, messages]);
 
   if (!show) return null;
 

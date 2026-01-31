@@ -1,32 +1,23 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useLayoutEffect, useRef } from "react";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
 
 export default function NotificationPopup({ isOpen, onClose, message, title = "Notice" }) {
-  const isMountedRef = useRef(false);
+  const isClient = typeof window !== "undefined";
 
-  useLayoutEffect(() => {
-    // Set isMounted to true when component mounts
-    isMountedRef.current = true;
-
-    // Auto-close after 3 seconds
-    if (isOpen) {
-      const timer = setTimeout(() => {
-        if (onClose) {
-          onClose();
-        }
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-
-    return () => {
-      isMountedRef.current = false;
-    };
+  useEffect(() => {
+    if (!isOpen) return;
+    const timer = setTimeout(() => {
+      if (onClose) {
+        onClose();
+      }
+    }, 3000);
+    return () => clearTimeout(timer);
   }, [isOpen, onClose]);
 
-  if (!isMountedRef.current || !isOpen) return null;
+  if (!isClient || !isOpen) return null;
 
   const modalContent = (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">

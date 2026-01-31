@@ -19,7 +19,7 @@ export default function AboutSection() {
           <p className="text-xl md:text-2xl font-light text-white/80 leading-relaxed italic max-w-3xl mx-auto">
             In the fractured city of Lionara where a deadly Spore pathogen outbreak is brutally suppressed by an
             iron-fisted regime, a disillusioned soldier and a rogue medic must bridge their ideological divide when her
-            infected brother develops predictive abilities that could accelerate humanity's evolution or end it.
+            infected brother develops predictive abilities that could accelerate humanity&#39;s evolution or end it.
           </p>
           <button className="bg-primary text-black px-10 py-3 font-display font-bold uppercase text-sm hover:brightness-110 transition-all inline-flex items-center gap-2 border-glow">
             Know More <span className="material-symbols-outlined text-base">arrow_forward</span>

@@ -1,15 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import PollStepModal from "../popups/PollStepModal";
-import SporeBlogSection from "../shared/SporeBlogSection";
+import dynamic from "next/dynamic";
 import { Wrapper } from "../shared/Wrapper";
-import CharacterLogsSection from "./CharacterLogsSection";
-import EpisodesSection from "./EpisodesSection";
 import HeroSection from "./HeroSection";
-import NewsletterSection from "./NewsletterSection";
 import { PrologueSection } from "./PrologueSection";
 import { Synopsis } from "./Synopsis";
+const PollStepModal = dynamic(() => import("../popups/PollStepModal"));
+const SporeBlogSection = dynamic(() => import("../shared/SporeBlogSection"));
+const CharacterLogsSection = dynamic(() => import("./CharacterLogsSection"));
+const EpisodesSection = dynamic(() => import("./EpisodesSection"));
+const NewsletterSection = dynamic(() => import("./NewsletterSection"));
 
 const homePageLogs = [
   {
@@ -56,7 +57,6 @@ const homePageLogs = [
 
 export default function HomePage({ episodes = [], blogPosts = [] }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [hasModalBeenShown, setHasModalBeenShown] = useState(false);
 
   // Check if user has voted - used to prevent modal from opening
   const checkIfUserVoted = () => {
@@ -74,69 +74,28 @@ export default function HomePage({ episodes = [], blogPosts = [] }) {
     return false; // User hasn't voted
   };
 
-  // Handle scroll detection for EpisodesSection
   useEffect(() => {
-    // Only set up observer if modal hasn't been shown yet
-    if (hasModalBeenShown) return;
-
-    // Check localStorage FIRST - if user has voted, don't open modal
-    if (checkIfUserVoted()) {
-      setHasModalBeenShown(true); // Mark as shown to prevent further checks
-      return; // Don't set up observer if user has voted
-    }
-
-    // Check if modal was closed
+    if (checkIfUserVoted()) return;
     const modalClosed = localStorage.getItem("sporefall_modal_closed");
-    if (modalClosed === "true") {
-      setHasModalBeenShown(true);
-      return; // Don't set up observer if modal was closed
-    }
-
+    if (modalClosed === "true") return;
     const episodesSection = document.getElementById("shop");
     if (!episodesSection) return;
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // When the section is visible in the viewport
-          if (entry.isIntersecting && !hasModalBeenShown) {
-            // Check localStorage again before opening (double safety check)
-            if (checkIfUserVoted()) {
-              setHasModalBeenShown(true);
-              observer.disconnect();
-              return; // User has voted, don't open modal
-            }
-
-            // Check if modal was closed
-            const modalClosedCheck = localStorage.getItem("sporefall_modal_closed");
-            if (modalClosedCheck === "true") {
-              setHasModalBeenShown(true);
-              observer.disconnect();
-              return; // Modal was closed, don't open
-            }
-
-            // All checks passed - safe to open modal
+          if (entry.isIntersecting) {
             setIsModalOpen(true);
-            setHasModalBeenShown(true);
-            // Disconnect observer after showing modal once
             observer.disconnect();
           }
         });
       },
-      {
-        // Trigger when at least 30% of the section is visible
-        threshold: 0.3,
-        // Add some margin from the top
-        rootMargin: "-80px 0px 0px 0px", // Account for navbar height
-      },
+      { threshold: 0.3, rootMargin: "-80px 0px 0px 0px" },
     );
-
     observer.observe(episodesSection);
-
     return () => {
       observer.disconnect();
     };
-  }, [hasModalBeenShown]);
+  }, []);
 
   // Handle hash navigation on page load
   useEffect(() => {
@@ -189,7 +148,6 @@ export default function HomePage({ episodes = [], blogPosts = [] }) {
           isOpen={isModalOpen}
           onClose={() => {
             setIsModalOpen(false);
-            setHasModalBeenShown(true); // Mark as shown even if closed manually
           }}
           autoOpenDelay={0}
         />

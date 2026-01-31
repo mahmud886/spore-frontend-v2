@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
 import PollLeftPopup from "./PollLeftPopup";
 import PollMiddlePopup from "./PollMiddlePopup";
@@ -16,10 +16,7 @@ export default function PollStepModal({
 }) {
   const router = useRouter();
   const [step, setStep] = useState(1); // 1: left, 2: middle, 3: right
-  const [mounted, setMounted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [currentEpisodeId, setCurrentEpisodeId] = useState(episodeId);
-  const [currentPollData, setCurrentPollData] = useState(pollData);
   const [formData, setFormData] = useState({
     codename: "SPECTRE_01",
     faction: "Evolve",
@@ -29,53 +26,7 @@ export default function PollStepModal({
     pollId: pollData?.id || null,
   });
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (isOpen && autoOpenDelay > 0) {
-      const timer = setTimeout(() => {
-        setStep(1);
-      }, autoOpenDelay);
-      return () => clearTimeout(timer);
-    } else if (isOpen) {
-      setStep(1);
-    } else {
-      // Reset step and submitting state when modal closes
-      setStep(1);
-      setIsSubmitting(false);
-      // Don't clear pollData/episodeId here - let parent component handle it
-    }
-  }, [isOpen, autoOpenDelay]);
-
-  // Update state when pollData or episodeId props change
-  useEffect(() => {
-    console.log("PollStepModal - pollData prop:", pollData);
-    console.log("PollStepModal - episodeId prop:", episodeId);
-
-    if (episodeId) {
-      setCurrentEpisodeId(episodeId);
-    }
-    if (pollData) {
-      console.log("PollStepModal - Setting currentPollData:", pollData);
-      console.log("PollStepModal - pollData.options:", pollData.options);
-      console.log("PollStepModal - pollData.title:", pollData.title);
-      console.log("PollStepModal - pollData.question:", pollData.question);
-      setCurrentPollData(pollData);
-    }
-  }, [pollData, episodeId]);
-
-  // Update formData when pollData or episodeId changes
-  useEffect(() => {
-    if (currentPollData || currentEpisodeId) {
-      setFormData((prev) => ({
-        ...prev,
-        episodeId: currentEpisodeId,
-        pollId: currentPollData?.id || null,
-      }));
-    }
-  }, [currentPollData, currentEpisodeId]);
+  const effectiveStep = isOpen ? step : 1;
 
   const handleLeftNext = (codename) => {
     setFormData((prev) => ({ ...prev, codename, designation: codename }));
@@ -102,7 +53,7 @@ export default function PollStepModal({
     }));
 
     // Use currentEpisodeId from state (more reliable than prop)
-    const episodeIdToUse = currentEpisodeId || episodeId;
+    const episodeIdToUse = episodeId;
 
     // Validate required data
     if (!episodeIdToUse) {
@@ -186,13 +137,14 @@ export default function PollStepModal({
     }
   };
 
-  if (!mounted || !isOpen) return null;
+  const isClient = typeof window !== "undefined";
+  if (!isClient || !isOpen) return null;
 
   const modalContent = (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
       <div className="relative w-full h-full flex items-center justify-center">
         {/* Step 1: Left Popup */}
-        {step === 1 && (
+        {effectiveStep === 1 && (
           <div className="flex items-center justify-center w-full h-full relative z-10">
             <PollLeftPopup
               codename={formData.codename}
@@ -204,10 +156,10 @@ export default function PollStepModal({
         )}
 
         {/* Step 2: Middle Popup */}
-        {step === 2 &&
-          (currentPollData || pollData) &&
+        {effectiveStep === 2 &&
+          pollData &&
           (() => {
-            const pollDataToUse = currentPollData || pollData;
+            const pollDataToUse = pollData;
             const options = pollDataToUse?.options || [];
             const firstOption = options[0];
             const secondOption = options[1];
