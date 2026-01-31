@@ -90,8 +90,6 @@ export default function HeroSection() {
     //   </div>
     // </section>
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Overlay */}
-      {/* Background Video */}
       <div className="absolute inset-0">
         <LazyBackgroundVideo
           className="w-full h-full object-cover"

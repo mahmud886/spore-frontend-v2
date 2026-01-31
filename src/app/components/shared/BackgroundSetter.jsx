@@ -1,24 +1,35 @@
 "use client";
 
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 
 export default function BackgroundSetter() {
   const pathname = usePathname();
 
-  useEffect(() => {
-    // Remove all background classes
-    document.documentElement.classList.remove("bg-home", "bg-result", "bg-about");
-
-    // Add appropriate background class based on route
+  const getSrc = () => {
     if (pathname === "/result" || pathname.startsWith("/result")) {
-      document.documentElement.classList.add("bg-result");
-    } else if (pathname === "/about" || pathname.startsWith("/about")) {
-      document.documentElement.classList.add("bg-about");
-    } else {
-      document.documentElement.classList.add("bg-home");
+      return "/assets/images/result-background.png";
     }
-  }, [pathname]);
+    if (pathname === "/about" || pathname.startsWith("/about")) {
+      return "/assets/images/about-background.png";
+    }
+    return "/assets/images/background.png";
+  };
+  const src = getSrc();
 
-  return null;
+  return (
+    <div key={pathname} className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
+      <Image
+        key={src}
+        src={src}
+        alt="Background"
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 100vw"
+        quality={60}
+        className="object-cover"
+        priority={pathname === "/"}
+      />
+      <div className="absolute inset-0 bg-black/60" />
+    </div>
+  );
 }

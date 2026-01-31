@@ -33,7 +33,7 @@ export function PrologueSection() {
             fill
             sizes="100vw"
             priority={false}
-            quality={75}
+            quality={60}
           />
           {/* Dark Overlay */}
           <div className="absolute inset-0 bg-white/10" />

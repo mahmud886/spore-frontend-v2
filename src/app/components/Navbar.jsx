@@ -3,33 +3,18 @@
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useLayoutEffect, useState } from "react";
+import { useState } from "react";
 import { Wrapper } from "./shared/Wrapper";
 
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [hash, setHash] = useState("");
-  const [isMounted, setIsMounted] = useState(false);
-
-  useLayoutEffect(() => {
-    setIsMounted(true);
-    if (typeof window !== "undefined") {
-      setHash(window.location.hash);
-
-      const handleHashChange = () => {
-        setHash(window.location.hash);
-      };
-
-      window.addEventListener("hashchange", handleHashChange);
-      return () => window.removeEventListener("hashchange", handleHashChange);
-    }
-  }, []);
+  const isClient = typeof window !== "undefined";
+  const currentHash = isClient ? window.location.hash : "";
 
   // Helper function to get active class names
   const getActiveClass = (condition) => {
-    if (!isMounted) return "text-white/60 hover:text-primary";
     return condition ? "text-primary" : "text-white/60 hover:text-primary";
   };
 
@@ -115,7 +100,7 @@ export default function Navbar() {
                   router.push("/");
                 }
               }}
-              className={`${getActiveClass(pathname === "/" && (!hash || hash === ""))} transition-colors`}
+              className={`${getActiveClass(pathname === "/" && (!currentHash || currentHash === ""))} transition-colors`}
             >
               HOME
             </Link>
@@ -129,9 +114,7 @@ export default function Navbar() {
                   router.push("/#spore-log");
                 }
               }}
-              className={`${getActiveClass(
-                pathname === "/" && typeof window !== "undefined" && window.location.hash === "#spore-log",
-              )} transition-colors`}
+              className={`${getActiveClass(pathname === "/" && isClient && window.location.hash === "#spore-log")} transition-colors`}
             >
               SPORE LOG
             </Link>
@@ -145,9 +128,7 @@ export default function Navbar() {
                   router.push("/result#shop");
                 }
               }}
-              className={`${getActiveClass(
-                pathname === "/result" && typeof window !== "undefined" && window.location.hash === "#shop",
-              )} transition-colors`}
+              className={`${getActiveClass(pathname === "/result" && isClient && window.location.hash === "#shop")} transition-colors`}
             >
               SHOP
             </Link>
@@ -183,9 +164,7 @@ export default function Navbar() {
                     router.push("/");
                   }
                 }}
-                className={`${getActiveClass(
-                  pathname === "/" && (!hash || hash === ""),
-                )} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                className={`${getActiveClass(pathname === "/" && (!isClient || window.location.hash === ""))} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
               >
                 HOME
               </Link>
@@ -199,9 +178,7 @@ export default function Navbar() {
                     router.push("/#spore-log");
                   }
                 }}
-                className={`${getActiveClass(
-                  pathname === "/" && typeof window !== "undefined" && window.location.hash === "#spore-log",
-                )} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                className={`${getActiveClass(pathname === "/" && isClient && window.location.hash === "#spore-log")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
               >
                 SPORE LOG
               </Link>
@@ -215,9 +192,7 @@ export default function Navbar() {
                     router.push("/result#shop");
                   }
                 }}
-                className={`${getActiveClass(
-                  pathname === "/result" && typeof window !== "undefined" && window.location.hash === "#shop",
-                )} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                className={`${getActiveClass(pathname === "/result" && isClient && window.location.hash === "#shop")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
               >
                 SHOP
               </Link>

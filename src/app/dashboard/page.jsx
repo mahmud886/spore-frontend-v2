@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { fadeUp, staggerContainer } from "../utils/animations";
@@ -14,18 +14,7 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetchDashboardData();
-    fetchGAData();
-    const interval = setInterval(() => {
-      fetchDashboardData();
-      fetchGAData();
-    }, 30000); // Refresh every 30 seconds
-
-    return () => clearInterval(interval);
-  }, [timeframe]);
-
-  const fetchDashboardData = async () => {
+  const fetchDashboardData = useCallback(async () => {
     try {
       const res = await fetch(`/api/analytics/dashboard?timeframe=${timeframe}`);
       if (!res.ok) throw new Error("Failed to fetch dashboard data");
@@ -37,9 +26,9 @@ export default function DashboardPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [timeframe]);
 
-  const fetchGAData = async () => {
+  const fetchGAData = useCallback(async () => {
     try {
       const res = await fetch("/api/analytics/google");
       if (!res.ok) return;
@@ -48,7 +37,17 @@ export default function DashboardPage() {
     } catch (err) {
       // Error fetching GA data
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchDashboardData();
+    fetchGAData();
+    const interval = setInterval(() => {
+      fetchDashboardData();
+      fetchGAData();
+    }, 30000);
+    return () => clearInterval(interval);
+  }, [timeframe, fetchDashboardData, fetchGAData]);
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);

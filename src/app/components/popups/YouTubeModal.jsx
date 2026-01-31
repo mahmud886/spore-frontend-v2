@@ -1,21 +1,10 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useLayoutEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 export default function YouTubeModal({ isOpen, onClose, videoUrl, title = "Watch Episode" }) {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useLayoutEffect(() => {
-    // Set mounted to true after component mounts to safely use createPortal
-    setIsMounted(true);
-
-    // Cleanup function
-    return () => {
-      setIsMounted(false);
-    };
-  }, []);
+  const isClient = typeof window !== "undefined";
 
   // Extract YouTube video ID from URL
   const getYouTubeVideoId = (url) => {
@@ -29,8 +18,7 @@ export default function YouTubeModal({ isOpen, onClose, videoUrl, title = "Watch
 
   const videoId = getYouTubeVideoId(videoUrl);
 
-  // Don't render if not mounted or no video ID
-  if (!isMounted || !isOpen || !videoId) return null;
+  if (!isClient || !isOpen || !videoId) return null;
 
   const handleClose = () => {
     onClose();

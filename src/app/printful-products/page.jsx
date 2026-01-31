@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import Image from "next/image";
 
 export default function PrintfulProductsPage() {
   const [products, setProducts] = useState([]);
@@ -14,8 +15,7 @@ export default function PrintfulProductsPage() {
   const [activeTab, setActiveTab] = useState("store"); // 'store', 'sync', 'available_products', or 'stores'
   const [fetchMethod, setFetchMethod] = useState(""); // Track how products were fetched
 
-  // Fetch data based on active tab
-  const fetchData = async (page = 1, tab = activeTab, storeId = null, storeType = null) => {
+  const fetchData = useCallback(async (page = 1, tab = activeTab, storeId = null, storeType = null) => {
     setLoading(true);
     setError(null);
 
@@ -91,7 +91,7 @@ export default function PrintfulProductsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [activeTab, limit]);
 
   // Fetch stores on initial load
   useEffect(() => {
@@ -123,7 +123,7 @@ export default function PrintfulProductsPage() {
     } else {
       fetchData(1, activeTab);
     }
-  }, [activeTab, selectedStore]);
+  }, [activeTab, selectedStore, fetchData]);
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -587,13 +587,13 @@ export default function PrintfulProductsPage() {
                 >
                   <div className="p-4">
                     {(product.image || product.thumbnail_url) && (
-                      <img
+                      <Image
                         src={product.image || product.thumbnail_url}
                         alt={product.title || product.name}
                         className="w-full h-48 object-cover rounded-lg mb-4"
-                        onError={(e) => {
-                          e.target.style.display = "none";
-                        }}
+                        width={400}
+                        height={192}
+                        unoptimized
                       />
                     )}
                     <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
