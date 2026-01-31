@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { scaleIn } from "../../utils/animations";
+import LazyBackgroundVideo from "../shared/LazyBackgroundVideo";
 
 export default function HeroSection() {
   const handleSeasonClick = () => {
@@ -92,15 +93,18 @@ export default function HeroSection() {
       {/* Background Image with Overlay */}
       {/* Background Video */}
       <div className="absolute inset-0">
-        <video
-          src="/assets/videos/infection_WIDE_2.mp4"
+        <LazyBackgroundVideo
           className="w-full h-full object-cover"
+          sources={[
+            { src: "/assets/videos/infection_WIDE_2.webm", type: "video/webm" },
+            { src: "/assets/videos/infection_WIDE_2.mp4", type: "video/mp4" },
+          ]}
+          poster="/assets/images/background.png"
+          preload="none"
           autoPlay
           loop
           muted
           playsInline
-          preload="none"
-          poster="/assets/images/background.png"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/20 to-black" />
       </div>
