@@ -27,7 +27,7 @@ export function PrologueSection() {
         {/* Background Image */}
         <div className="absolute inset-0 h-[800px]">
           <Image
-            src="/assets/images/synopsis.webp"
+            src="/assets/images/synopsis.png"
             alt="Prologue Background"
             className="w-full h-full object-cover"
             fill
