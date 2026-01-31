@@ -15,83 +15,88 @@ export default function PrintfulProductsPage() {
   const [activeTab, setActiveTab] = useState("store"); // 'store', 'sync', 'available_products', or 'stores'
   const [fetchMethod, setFetchMethod] = useState(""); // Track how products were fetched
 
-  const fetchData = useCallback(async (page = 1, tab = activeTab, storeId = null, storeType = null) => {
-    setLoading(true);
-    setError(null);
+  const fetchData = useCallback(
+    async (page = 1, tab = activeTab, storeId = null, storeType = null) => {
+      setLoading(true);
+      setError(null);
 
-    try {
-      const offset = (page - 1) * limit;
+      try {
+        const offset = (page - 1) * limit;
 
-      if (tab === "stores") {
-        // Fetch stores
-        const response = await fetch(`/api/printful/stores`);
-        const data = await response.json();
+        if (tab === "stores") {
+          // Fetch stores
+          const response = await fetch(`/api/printful/stores`);
+          const data = await response.json();
 
-        if (!response.ok) {
-          throw new Error(data.error || "Failed to fetch stores");
-        }
+          if (!response.ok) {
+            throw new Error(data.error || "Failed to fetch stores");
+          }
 
-        setStores(data.data || []);
-        setTotalPages(Math.ceil((data.count || 0) / limit) || 1);
-      } else if (tab === "store") {
-        // Fetch store products (catalog products)
-        let endpoint = `/api/printful/store-products?limit=${limit}&offset=${offset}`;
+          setStores(data.data || []);
+          setTotalPages(Math.ceil((data.count || 0) / limit) || 1);
+        } else if (tab === "store") {
+          // Fetch store products (catalog products)
+          let endpoint = `/api/printful/store-products?limit=${limit}&offset=${offset}`;
 
-        const response = await fetch(endpoint);
-        const data = await response.json();
+          const response = await fetch(endpoint);
+          const data = await response.json();
 
-        if (!response.ok) {
-          throw new Error(data.error || "Failed to fetch store products");
-        }
+          if (!response.ok) {
+            throw new Error(data.error || "Failed to fetch store products");
+          }
 
-        setProducts(data.data || []);
-        setTotalPages(Math.ceil((data.pagination?.total || data.data?.length || 0) / limit) || 1);
-        setFetchMethod("catalog_products");
-      } else if (tab === "available_products" && storeId) {
-        // Fetch available products for a specific store using the new endpoint
-        const response = await fetch(
-          `/api/printful/store-products-by-store?storeId=${storeId}&type=${storeType}&limit=${limit}&offset=${offset}`,
-        );
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.error || `Failed to fetch available products for store ${storeId}`);
-        }
-
-        setProducts(data.data || []);
-        setTotalPages(Math.ceil((data.count || 0) / limit) || 1);
-        setFetchMethod(data.methodUsed || "unknown");
-      } else if (tab === "sync" && storeId) {
-        // Fetch sync products for specific store
-        const response = await fetch(`/api/printful/sync-products?storeId=${storeId}&limit=${limit}&offset=${offset}`);
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.error || `Failed to fetch sync products for store ${storeId}`);
-        }
-
-        // Handle case where sync products are not available for this store type
-        if (data.hint && data.hint.includes("not support sync products")) {
-          setProducts([]); // Show empty state with message
-          setTotalPages(1);
-          setFetchMethod("no_sync_products");
-        } else {
           setProducts(data.data || []);
           setTotalPages(Math.ceil((data.pagination?.total || data.data?.length || 0) / limit) || 1);
-          setFetchMethod("sync_products");
+          setFetchMethod("catalog_products");
+        } else if (tab === "available_products" && storeId) {
+          // Fetch available products for a specific store using the new endpoint
+          const response = await fetch(
+            `/api/printful/store-products-by-store?storeId=${storeId}&type=${storeType}&limit=${limit}&offset=${offset}`,
+          );
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.error || `Failed to fetch available products for store ${storeId}`);
+          }
+
+          setProducts(data.data || []);
+          setTotalPages(Math.ceil((data.count || 0) / limit) || 1);
+          setFetchMethod(data.methodUsed || "unknown");
+        } else if (tab === "sync" && storeId) {
+          // Fetch sync products for specific store
+          const response = await fetch(
+            `/api/printful/sync-products?storeId=${storeId}&limit=${limit}&offset=${offset}`,
+          );
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.error || `Failed to fetch sync products for store ${storeId}`);
+          }
+
+          // Handle case where sync products are not available for this store type
+          if (data.hint && data.hint.includes("not support sync products")) {
+            setProducts([]); // Show empty state with message
+            setTotalPages(1);
+            setFetchMethod("no_sync_products");
+          } else {
+            setProducts(data.data || []);
+            setTotalPages(Math.ceil((data.pagination?.total || data.data?.length || 0) / limit) || 1);
+            setFetchMethod("sync_products");
+          }
+        } else if (tab === "sync" && !storeId) {
+          // If no store is selected for sync products, show a message
+          setProducts([]);
+          setTotalPages(1);
+          setFetchMethod("no_store_selected");
         }
-      } else if (tab === "sync" && !storeId) {
-        // If no store is selected for sync products, show a message
-        setProducts([]);
-        setTotalPages(1);
-        setFetchMethod("no_store_selected");
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }, [activeTab, limit]);
+    },
+    [activeTab, limit],
+  );
 
   // Fetch stores on initial load
   useEffect(() => {

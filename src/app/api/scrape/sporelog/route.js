@@ -1,8 +1,7 @@
 import * as cheerio from "cheerio";
 import { NextResponse } from "next/server";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 3600;
 
 export async function GET() {
   try {
@@ -12,6 +11,7 @@ export async function GET() {
 
     // Fetch the HTML content
     const response = await fetch(url, {
+      next: { revalidate: 3600 },
       headers: {
         "User-Agent":
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
