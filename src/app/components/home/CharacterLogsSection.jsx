@@ -55,7 +55,9 @@ export default function CharacterLogsSection() {
             src={character.image}
             width={400}
             height={500}
-            unoptimized
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            quality={75}
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
           <div className="absolute bottom-6 left-6 z-10">

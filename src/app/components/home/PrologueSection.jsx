@@ -28,7 +28,9 @@ export function PrologueSection() {
             alt="Prologue Background"
             className="w-full h-full object-cover"
             fill
-            unoptimized
+            sizes="100vw"
+            priority={false}
+            quality={75}
           />
           {/* Dark Overlay */}
           <div className="absolute inset-0 bg-white/10" />
