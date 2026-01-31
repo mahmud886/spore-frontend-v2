@@ -16,11 +16,8 @@ export function Analytics() {
       {/* Google Analytics */}
       {GA_MEASUREMENT_ID && (
         <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-            strategy="afterInteractive"
-          />
-          <Script id="google-analytics" strategy="afterInteractive">
+          <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} strategy="lazyOnload" />
+          <Script id="google-analytics" strategy="lazyOnload">
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
@@ -34,7 +31,7 @@ export function Analytics() {
       {/* Facebook Pixel */}
       {FACEBOOK_PIXEL_ID && (
         <>
-          <Script id="facebook-pixel" strategy="afterInteractive">
+          <Script id="facebook-pixel" strategy="lazyOnload">
             {`
               !function(f,b,e,v,n,t,s)
               {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -58,7 +55,7 @@ export function Analytics() {
 
       {/* Twitter Universal Website Tag */}
       {TWITTER_PIXEL_ID && (
-        <Script id="twitter-pixel" strategy="afterInteractive">
+        <Script id="twitter-pixel" strategy="lazyOnload">
           {`
             !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
             },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,
@@ -73,14 +70,14 @@ export function Analytics() {
       {/* LinkedIn Insight Tag */}
       {LINKEDIN_PIXEL_ID && (
         <>
-          <Script id="linkedin-pixel" strategy="afterInteractive">
+          <Script id="linkedin-pixel" strategy="lazyOnload">
             {`
               _linkedin_partner_id = "${LINKEDIN_PIXEL_ID}";
               window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
               window._linkedin_data_partner_ids.push(_linkedin_partner_id);
             `}
           </Script>
-          <Script id="linkedin-pixel-script" strategy="afterInteractive">
+          <Script id="linkedin-pixel-script" strategy="lazyOnload">
             {`
               (function(l) {
               if (!l){window.lintrk = function(a){window.lintrk.q.push(a);};
@@ -97,7 +94,7 @@ export function Analytics() {
 
       {/* TikTok Pixel */}
       {TIKTOK_PIXEL_ID && (
-        <Script id="tiktok-pixel" strategy="afterInteractive">
+        <Script id="tiktok-pixel" strategy="lazyOnload">
           {`
             !function (w, d, t) {
               w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)));}};
@@ -112,7 +109,7 @@ export function Analytics() {
 
       {/* Pinterest Tag */}
       {PINTEREST_TAG_ID && (
-        <Script id="pinterest-tag" strategy="afterInteractive">
+        <Script id="pinterest-tag" strategy="lazyOnload">
           {`
             !function(e){
               if(!window.pintrk){window.pintrk=function(){
@@ -134,7 +131,7 @@ export function Analytics() {
 
       {/* Microsoft UET Tag */}
       {MICROSOFT_UET_ID && (
-        <Script id="microsoft-uets" strategy="afterInteractive">
+        <Script id="microsoft-uets" strategy="lazyOnload">
           {`
             (function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:'${MICROSOFT_UET_ID}'};
             o.q=w[u],w[u]=new UET(o),w[u].push('pageLoad')

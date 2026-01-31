@@ -2,32 +2,37 @@
 
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import aboutBg from "../../../../public/assets/images/about-background.png";
+import homeBg from "../../../../public/assets/images/background.png";
+import resultBg from "../../../../public/assets/images/result-background.png";
 
 export default function BackgroundSetter() {
   const pathname = usePathname();
 
-  const getSrc = () => {
+  const getImage = () => {
     if (pathname === "/result" || pathname.startsWith("/result")) {
-      return "/assets/images/result-background.png";
+      return resultBg;
     }
     if (pathname === "/about" || pathname.startsWith("/about")) {
-      return "/assets/images/about-background.png";
+      return aboutBg;
     }
-    return "/assets/images/background.png";
+    return homeBg;
   };
-  const src = getSrc();
+  const image = getImage();
+  const isHomepage = pathname === "/";
 
   return (
     <div key={pathname} className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
       <Image
-        key={src}
-        src={src}
+        key={image.src || pathname}
+        src={image}
         alt="Background"
         fill
-        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 100vw"
-        quality={60}
+        sizes="100vw"
+        quality={55}
+        placeholder="blur"
         className="object-cover"
-        priority={pathname === "/"}
+        priority={isHomepage}
       />
       <div className="absolute inset-0 bg-black/60" />
     </div>

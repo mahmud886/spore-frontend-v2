@@ -38,6 +38,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`dark ${gotham.variable} ${astro.variable} ${mokoto.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://lh3.googleusercontent.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
+        <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        <link rel="preconnect" href="https://images.squarespace-cdn.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://images.squarespace-cdn.com" />
+      </head>
       <body className="antialiased text-white selection:bg-primary selection:text-black overflow-x-hidden ">
         <Analytics />
         <BackgroundSetter />
