@@ -1,15 +1,16 @@
 "use client";
 
 import { ArrowRight, Clock, Lock } from "lucide-react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import NotificationPopup from "../popups/NotificationPopup";
-import PollStepModal from "../popups/PollStepModal";
-import YouTubeModal from "../popups/YouTubeModal";
 import { AnimatedCard } from "../shared/AnimatedWrapper";
 import Carousel from "../shared/Carousel";
 import { SectionTitle } from "../shared/SectionTitle";
 import ShimmerCard from "../shared/ShimmerCard";
+const NotificationPopup = dynamic(() => import("../popups/NotificationPopup"), { ssr: false });
+const PollStepModal = dynamic(() => import("../popups/PollStepModal"), { ssr: false });
+const YouTubeModal = dynamic(() => import("../popups/YouTubeModal"), { ssr: false });
 
 export default function EpisodesSection({ episodes: episodesProp = [] }) {
   const [episodes, setEpisodes] = useState([]);
@@ -516,6 +517,8 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
             src={episode.thumbnail}
             width={648}
             height={444}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            quality={70}
           />
           {episode.status === "available" && (
             <span className="absolute top-2 left-2 bg-black text-white text-[8px] font-bold px-2 py-0.5 uppercase flex items-center gap-1.5 rounded">

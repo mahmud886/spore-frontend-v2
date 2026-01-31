@@ -25,7 +25,9 @@ export default function BlogCard({ post }) {
               src={image}
               width={400}
               height={192}
-              unoptimized
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              quality={75}
+              loading="lazy"
             />
           ) : (
             <div className="w-full h-48 bg-gradient-to-br from-primary/20 to-cyan-500/20 flex items-center justify-center">
