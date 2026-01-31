@@ -3,15 +3,22 @@
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Wrapper } from "./shared/Wrapper";
 
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const isClient = typeof window !== "undefined";
-  const currentHash = isClient ? window.location.hash : "";
+  const [currentHash, setCurrentHash] = useState(() =>
+    typeof window !== "undefined" ? window.location.hash || "" : "",
+  );
+
+  useEffect(() => {
+    const onHashChange = () => setCurrentHash(window.location.hash || "");
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
 
   // Helper function to get active class names
   const getActiveClass = (condition) => {
@@ -114,7 +121,7 @@ export default function Navbar() {
                   router.push("/#spore-log");
                 }
               }}
-              className={`${getActiveClass(pathname === "/" && isClient && window.location.hash === "#spore-log")} transition-colors`}
+              className={`${getActiveClass(pathname === "/" && currentHash === "#spore-log")} transition-colors`}
             >
               SPORE LOG
             </Link>
@@ -128,7 +135,7 @@ export default function Navbar() {
                   router.push("/result#shop");
                 }
               }}
-              className={`${getActiveClass(pathname === "/result" && isClient && window.location.hash === "#shop")} transition-colors`}
+              className={`${getActiveClass(pathname === "/result" && currentHash === "#shop")} transition-colors`}
             >
               SHOP
             </Link>
@@ -164,7 +171,7 @@ export default function Navbar() {
                     router.push("/");
                   }
                 }}
-                className={`${getActiveClass(pathname === "/" && (!isClient || window.location.hash === ""))} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                className={`${getActiveClass(pathname === "/" && currentHash === "")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
               >
                 HOME
               </Link>
@@ -178,7 +185,7 @@ export default function Navbar() {
                     router.push("/#spore-log");
                   }
                 }}
-                className={`${getActiveClass(pathname === "/" && isClient && window.location.hash === "#spore-log")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                className={`${getActiveClass(pathname === "/" && currentHash === "#spore-log")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
               >
                 SPORE LOG
               </Link>
@@ -192,7 +199,7 @@ export default function Navbar() {
                     router.push("/result#shop");
                   }
                 }}
-                className={`${getActiveClass(pathname === "/result" && isClient && window.location.hash === "#shop")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                className={`${getActiveClass(pathname === "/result" && currentHash === "#shop")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
               >
                 SHOP
               </Link>

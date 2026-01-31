@@ -97,7 +97,7 @@ export default function HeroSection() {
             { src: "/assets/videos/infection_WIDE_2.webm", type: "video/webm" },
             { src: "/assets/videos/infection_WIDE_2.mp4", type: "video/mp4" },
           ]}
-          poster="/assets/images/background.png"
+          poster="/assets/images/hero-image.png"
           preload="none"
           autoPlay
           loop
