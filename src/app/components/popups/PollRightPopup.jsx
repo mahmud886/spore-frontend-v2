@@ -1,5 +1,6 @@
 "use client";
 
+import { BadgeCheck, Microscope, Play, ShieldCheck, UserCheck, X } from "lucide-react";
 import { useState } from "react";
 
 export default function PollRightPopup({
@@ -42,7 +43,7 @@ export default function PollRightPopup({
           className="absolute top-4 right-4 w-8 h-8 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-white/60 hover:bg-primary hover:border-primary hover:text-black transition-all duration-200 z-20"
           aria-label="Close"
         >
-          <span className="material-symbols-outlined text-lg">close</span>
+          <X className="w-4 h-4" />
         </button>
 
         {/* Header */}
@@ -70,13 +71,23 @@ export default function PollRightPopup({
         {/* Identity badge card */}
         <div className="card-gradient border border-white/5 rounded-xl p-5 mb-8 flex items-center gap-5 shadow-inner">
           <div className="w-16 h-16 bg-black border border-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
-            <span className="material-symbols-outlined text-primary text-4xl">deployed_code</span>
+            <BadgeCheck className="w-10 h-10 text-primary" />
           </div>
           <div className="flex flex-col">
             <span className="text-[10px] font-display text-white/50 tracking-wider">DESIGNATION</span>
             <span className="text-2xl font-display font-bold text-white tracking-tight mb-2">{designation}</span>
             <div className="inline-flex items-center bg-primary px-2 py-0.5 rounded gap-1 w-fit">
-              <span className="material-symbols-outlined text-[14px] text-black font-bold">{factionIcon}</span>
+              {(() => {
+                const Icon =
+                  factionIcon === "microscope"
+                    ? Microscope
+                    : factionIcon === "shield"
+                      ? ShieldCheck
+                      : factionIcon === "user"
+                        ? UserCheck
+                        : BadgeCheck;
+                return <Icon className="w-4 h-4 text-black" />;
+              })()}
               <span className="text-[10px] font-display font-bold text-black uppercase">{faction}</span>
             </div>
           </div>
@@ -100,7 +111,7 @@ export default function PollRightPopup({
               type="submit"
               className="bg-primary hover:bg-[#b8e600] text-black w-14 flex items-center justify-center rounded-lg transition-all active:scale-95 shadow-lg shadow-primary/10"
             >
-              <span className="material-symbols-outlined font-bold">play_arrow</span>
+              <Play className="w-5 h-5" />
             </button>
           </form>
         </div>

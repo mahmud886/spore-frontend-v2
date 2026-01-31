@@ -1,55 +1,6 @@
 @import "tailwindcss";
 @import "./utils/cyberpunkStyles.css";
 
-/* Gotham Font - Body Text */
-@font-face {
-  font-family: "Gotham";
-  src: url("/assets/fonts/gotham/Gotham-Book.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gotham";
-  src: url("/assets/fonts/gotham/Gotham-BookItalic.otf") format("opentype");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gotham";
-  src: url("/assets/fonts/gotham/Gotham-Medium.otf") format("opentype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gotham";
-  src: url("/assets/fonts/gotham/Gotham-MediumItalic.otf") format("opentype");
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gotham";
-  src: url("/assets/fonts/gotham/GOTHAM-BOLD.TTF") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gotham";
-  src: url("/assets/fonts/gotham/GOTHAM-BOLDITALIC.TTF") format("truetype");
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
 /* Astron Font - Headings */
 @font-face {
   font-family: "Astron";
@@ -74,23 +25,6 @@
   font-style: normal;
   font-display: swap;
 }
-@font-face {
-  font-family: "Astro";
-  src: url("/assets/fonts/astro/astro.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Mokoto Font - Sub-headings */
-@font-face {
-  font-family: "Mokoto";
-  src: url("/assets/fonts/mokoto/mokoto.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme {
   --color-primary: #d4ff00;
   --color-background-light: #121212;

@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { PlayCircle } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 import { fadeUp } from "../../utils/animations";
 import { SectionTitle } from "../shared/SectionTitle";
 import { Wrapper } from "../shared/Wrapper";
@@ -9,6 +11,7 @@ import { Wrapper } from "../shared/Wrapper";
 export function PrologueSection() {
   // YouTube video ID - replace with actual video ID
   const youtubeVideoId = "ozEdYAQHsas"; // Placeholder - replace with actual video ID
+  const [showPlayer, setShowPlayer] = useState(false);
 
   return (
     <motion.section
@@ -49,13 +52,28 @@ export function PrologueSection() {
         <div className="absolute inset-0 z-10 flex justify-center items-center px-4 sm:px-8">
           <div className="w-full max-w-4xl">
             <div className="relative aspect-video rounded-lg overflow-hidden shadow-2xl border border-white/20">
-              <iframe
-                className="w-full h-full"
-                src={`https://www.youtube.com/embed/${youtubeVideoId}?rel=0&modestbranding=1`}
-                title="Prologue Video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+              {showPlayer ? (
+                <iframe
+                  className="w-full h-full"
+                  src={`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&rel=0&modestbranding=1`}
+                  title="Prologue Video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : (
+                <button
+                  type="button"
+                  aria-label="Play Prologue Video"
+                  onClick={() => setShowPlayer(true)}
+                  className="group relative w-full h-full flex items-center justify-center bg-black/40"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
+                  <div className="relative flex items-center gap-3 px-6 py-3 rounded-full border border-white/30 bg-black/50 text-white uppercase tracking-wide text-xs md:text-sm font-bold transition-all group-hover:bg-white group-hover:text-black group-hover:border-white">
+                    <PlayCircle className="w-6 h-6 md:w-7 md:h-7" />
+                    Play Prologue
+                  </div>
+                </button>
+              )}
             </div>
           </div>
         </div>

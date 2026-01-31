@@ -1,11 +1,34 @@
-import ExternalStyles from "./ExternalStyles";
+import localFont from "next/font/local";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import { Analytics } from "./components/shared/Analytics";
 import BackgroundSetter from "./components/shared/BackgroundSetter";
 import VerticalLines from "./components/shared/VerticalLines";
 import { Wrapper } from "./components/shared/Wrapper";
-import { Analytics } from "./components/shared/Analytics";
 import "./globals.css";
+
+const gotham = localFont({
+  variable: "--font-body",
+  display: "swap",
+  src: [
+    { path: "../../public/assets/fonts/gotham/Gotham-Book.otf", weight: "400", style: "normal" },
+    { path: "../../public/assets/fonts/gotham/Gotham-BookItalic.otf", weight: "400", style: "italic" },
+    { path: "../../public/assets/fonts/gotham/Gotham-Medium.otf", weight: "500", style: "normal" },
+    { path: "../../public/assets/fonts/gotham/Gotham-MediumItalic.otf", weight: "500", style: "italic" },
+  ],
+});
+
+const astro = localFont({
+  variable: "--font-heading",
+  display: "swap",
+  src: [{ path: "../../public/assets/fonts/astro/astro.ttf", weight: "400", style: "normal" }],
+});
+
+const mokoto = localFont({
+  variable: "--font-subheading",
+  display: "swap",
+  src: [{ path: "../../public/assets/fonts/mokoto/mokoto.ttf", weight: "400", style: "normal" }],
+});
 
 export const metadata = {
   title: "SPORE FALL | Sci-Fi Narrative Series",
@@ -14,10 +37,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={`dark ${gotham.variable} ${astro.variable} ${mokoto.variable}`}>
       <body className="antialiased text-white selection:bg-primary selection:text-black overflow-x-hidden ">
         <Analytics />
-        <ExternalStyles />
         <BackgroundSetter />
         <VerticalLines />
         <div className="text-white selection:bg-primary selection:text-black cyber-hex-grid">
