@@ -1,6 +1,8 @@
 import { getProducts } from "@/lib/services/products";
-import ResultContent from "./ResultContent";
 import { Suspense } from "react";
+import ResultContent from "./ResultContent";
+
+export const revalidate = 3600;
 
 export default async function Result() {
   const products = await getProducts({ limit: 20, offset: 0 });
