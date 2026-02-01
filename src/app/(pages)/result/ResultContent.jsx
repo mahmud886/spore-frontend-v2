@@ -81,7 +81,7 @@ export default function ResultContent({ products: products = [] }) {
     }
 
     const totalVotes = (pollData.options || []).reduce((sum, opt) => sum + (opt.votes || opt.vote_count || 0), 0);
-    const imageUrl = `${window.location.origin}/api/polls/${pollData.id}/image`;
+    const imageUrl = `${window.location.origin}/api/polls/${pollData.id}/image?format=png&size=facebook`;
     const shareUrl = window.location.href.split("?")[0];
 
     const updateMetaTag = (property, content) => {
@@ -112,12 +112,12 @@ export default function ResultContent({ products: products = [] }) {
     updateMetaTag("og:image:height", "630");
     updateMetaTag("og:url", shareUrl);
     updateMetaTag("og:type", "website");
-    updateMetaTag("og:image:type", "image/svg+xml");
+    updateMetaTag("og:image:type", "image/png");
 
     updateNameTag("twitter:card", "summary_large_image");
     updateNameTag("twitter:title", pollTitle);
     updateNameTag("twitter:description", `Poll Results - ${totalVotes} total votes`);
-    updateNameTag("twitter:image", imageUrl);
+    updateNameTag("twitter:image", `${window.location.origin}/api/polls/${pollData.id}/image?format=png&size=twitter`);
   }, [pollData]);
 
   useEffect(() => {
@@ -186,7 +186,7 @@ export default function ResultContent({ products: products = [] }) {
     const utmUrl = getUTMUrl(platform);
     const encodedText = encodeURIComponent(shareText);
     const encodedUrl = encodeURIComponent(utmUrl);
-    const imageUrl = `${window.location.origin}/api/polls/${pollData.id}/image`;
+    const imageUrl = `${window.location.origin}/api/polls/${pollData.id}/image?format=png&size=pinterest`;
     const encodedImage = encodeURIComponent(imageUrl);
     let shareLink = "";
     const platformMap = {
