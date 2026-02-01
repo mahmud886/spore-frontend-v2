@@ -5,8 +5,8 @@
  * DELETE /api/episodes/[id] - Delete an episode
  */
 
-import { createErrorResponse, createResponse, getAuthenticatedUser } from "@/lib/db-helpers";
-import { createClient } from "@/lib/supabase-server";
+import { createErrorResponse, createResponse, getAuthenticatedUser } from "@/app/lib/db-helpers";
+import { createClient } from "@/app/lib/supabase-server";
 
 // GET - Fetch a single episode by ID
 export async function GET(request, { params }) {

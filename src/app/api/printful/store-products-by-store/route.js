@@ -1,4 +1,4 @@
-import { getStoreProducts, getStores, getSyncProducts } from "@/lib/printful";
+import { getStoreProducts, getStores, getSyncProducts } from "@/app/lib/printful";
 import { NextResponse } from "next/server";
 
 /**

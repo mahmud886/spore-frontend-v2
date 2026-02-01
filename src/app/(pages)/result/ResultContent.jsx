@@ -2,8 +2,8 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import ResultPage from "../components/result/ResultPage";
-import { trackEvent } from "../components/shared/Analytics";
+import ResultPage from "../../components/result/ResultPage";
+import { trackEvent } from "../../components/shared/Analytics";
 
 export default function ResultContent({ products: products = [] }) {
   const searchParams = useSearchParams();

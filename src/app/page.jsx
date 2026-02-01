@@ -1,5 +1,5 @@
-import { getBlogs } from "@/lib/services/blogs";
-import { getEpisodes } from "@/lib/services/episodes";
+import { getBlogs } from "@/app/lib/services/blogs";
+import { getEpisodes } from "@/app/lib/services/episodes";
 import HomePage from "./components/home/HomePage";
 
 export const revalidate = 60;

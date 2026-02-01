@@ -132,8 +132,8 @@ export default function Navbar() {
             >
               SHOP
             </Link>
-            <Link href="/about" className={`${getActiveClass(pathname === "/about")} transition-colors`}>
-              ABOUT
+            <Link href="/partnerships" className={`${getActiveClass(pathname === "/partnerships")} transition-colors`}>
+              PARTNERSHIPS
             </Link>
             <Link href="/support-us" className={`${getActiveClass(pathname === "/support-us")} transition-colors`}>
               SUPPORT US
@@ -197,14 +197,15 @@ export default function Navbar() {
                 SHOP
               </Link>
               <Link
-                href="/about"
+                href="/partnerships"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`${getActiveClass(pathname === "/about")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                className={`${getActiveClass(pathname === "/partnerships")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
               >
-                ABOUT
+                PARTNERSHIPS
               </Link>
               <Link
                 href="/support-us"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className={`${getActiveClass(pathname === "/support-us")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
               >
                 SUPPORT US

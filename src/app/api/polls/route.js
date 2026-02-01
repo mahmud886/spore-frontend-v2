@@ -10,8 +10,8 @@ import {
   createResponse,
   getAuthenticatedUser,
   validateRequiredFields,
-} from "@/lib/db-helpers";
-import { createClient } from "@/lib/supabase-server";
+} from "@/app/lib/db-helpers";
+import { createClient } from "@/app/lib/supabase-server";
 
 // GET - Fetch all polls
 export async function GET(request) {
