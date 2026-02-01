@@ -3,8 +3,8 @@
  * POST /api/polls/episode/[episodeId]/vote - Submit a vote for a poll option by episode ID
  */
 
-import { createErrorResponse, createResponse } from "@/lib/db-helpers";
-import { createClient } from "@/lib/supabase-server";
+import { createErrorResponse, createResponse } from "@/app/lib/db-helpers";
+import { createClient } from "@/app/lib/supabase-server";
 
 export async function POST(request, { params }) {
   try {

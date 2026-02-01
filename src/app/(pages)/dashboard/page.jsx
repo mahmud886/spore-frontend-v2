@@ -3,9 +3,9 @@
 import { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { fadeUp, staggerContainer } from "../utils/animations";
-import { AnimatedWrapper } from "../components/shared/AnimatedWrapper";
-import { SectionTitle } from "../components/shared/SectionTitle";
+import { fadeUp, staggerContainer } from "../../utils/animations";
+import { AnimatedWrapper } from "../../components/shared/AnimatedWrapper";
+import { SectionTitle } from "../../components/shared/SectionTitle";
 
 export default function DashboardPage() {
   const [timeframe, setTimeframe] = useState("7");
@@ -137,7 +137,7 @@ export default function DashboardPage() {
               <p className="text-white/50 font-body">Track your poll performance and social engagement</p>
             </div>
             <Link
-              href="/"
+              href="/public"
               className="border border-primary py-3 px-6 text-primary font-bold bg-transparent hover:bg-primary/10 transition-all uppercase rounded-sm"
             >
               ← Back Home

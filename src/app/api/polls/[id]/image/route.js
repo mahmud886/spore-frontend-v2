@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase-server";
+import { createClient } from "@/app/lib/supabase-server";
 import { readFile } from "fs/promises";
 import { NextResponse } from "next/server";
 import { join } from "path";

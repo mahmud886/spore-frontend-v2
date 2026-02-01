@@ -1,4 +1,4 @@
-import { getProducts } from "@/lib/services/products";
+import { getProducts } from "@/app/lib/services/products";
 import { Suspense } from "react";
 import ResultContent from "./ResultContent";
 

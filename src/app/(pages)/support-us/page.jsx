@@ -1,9 +1,9 @@
 "use client";
 
+import { AnimatedWrapper } from "@/app/components/shared/AnimatedWrapper";
+import { SectionTitle } from "@/app/components/shared/SectionTitle";
+import { fadeUp } from "@/app/utils/animations";
 import { motion } from "framer-motion";
-import { AnimatedWrapper } from "../components/shared/AnimatedWrapper";
-import { SectionTitle } from "../components/shared/SectionTitle";
-import { fadeUp } from "../utils/animations";
 
 export default function SupportUsPage() {
   return (

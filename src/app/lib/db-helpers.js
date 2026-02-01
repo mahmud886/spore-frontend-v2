@@ -2,7 +2,7 @@
  * Database helper functions for Supabase operations
  */
 
-import { createClient } from "@/lib/supabase-server";
+import { createClient } from "@/app/lib/supabase-server";
 
 /**
  * Get authenticated user from Supabase session

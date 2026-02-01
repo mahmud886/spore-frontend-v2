@@ -1,4 +1,4 @@
-import { getStoreProductDetail, getStoreProducts, getStoreProductsByExternalIds } from "@/lib/printful";
+import { getStoreProductDetail, getStoreProducts, getStoreProductsByExternalIds } from "@/app/lib/printful";
 import { NextResponse } from "next/server";
 
 /**

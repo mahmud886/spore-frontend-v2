@@ -5,8 +5,8 @@
  * DELETE /api/polls/[id] - Delete a poll
  */
 
-import { calculatePollEndDate, createErrorResponse, createResponse, getAuthenticatedUser } from "@/lib/db-helpers";
-import { createClient } from "@/lib/supabase-server";
+import { calculatePollEndDate, createErrorResponse, createResponse, getAuthenticatedUser } from "@/app/lib/db-helpers";
+import { createClient } from "@/app/lib/supabase-server";
 
 // GET - Fetch a single poll by ID with options
 export async function GET(request, { params }) {

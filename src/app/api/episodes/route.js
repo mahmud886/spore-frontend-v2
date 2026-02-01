@@ -4,8 +4,13 @@
  * POST /api/episodes - Create a new episode
  */
 
-import { createErrorResponse, createResponse, getAuthenticatedUser, validateRequiredFields } from "@/lib/db-helpers";
-import { createClient } from "@/lib/supabase-server";
+import {
+  createErrorResponse,
+  createResponse,
+  getAuthenticatedUser,
+  validateRequiredFields,
+} from "@/app/lib/db-helpers";
+import { createClient } from "@/app/lib/supabase-server";
 
 // GET - Fetch all episodes
 export async function GET(request) {
