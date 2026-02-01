@@ -261,6 +261,11 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
             setHasCheckedFirstVisit(true);
             try {
               localStorage.setItem("sporefall_modal_opened_once", "true");
+              const prevCount = parseInt(localStorage.getItem("sporefall_modal_auto_count") || "0", 10);
+              if (!Number.isNaN(prevCount) && prevCount < 1) {
+                localStorage.setItem("sporefall_modal_auto_count", "1");
+              }
+              localStorage.setItem("sporefall_modal_closed", "false");
             } catch {}
             hasOpened = true;
             return; // Exit after finding first poll
@@ -401,6 +406,88 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
     setPollData(null);
     // Mark modal as closed in localStorage so it doesn't auto-open again
     localStorage.setItem("sporefall_modal_closed", "true");
+    try {
+      const count = parseInt(localStorage.getItem("sporefall_modal_auto_count") || "0", 10);
+      const scheduled = localStorage.getItem("sporefall_modal_second_scheduled") === "true";
+      if (count === 1 && !scheduled) {
+        localStorage.setItem("sporefall_modal_second_scheduled", "true");
+        setTimeout(async () => {
+          // Pre-checks
+          try {
+            const votedStored = localStorage.getItem("sporefall_voted_episodes");
+            if (votedStored) {
+              const parsed = JSON.parse(votedStored);
+              if (Array.isArray(parsed) && parsed.length > 0) {
+                return; // user already voted, do not re-open
+              }
+            }
+          } catch {}
+          // Ensure we only do the second auto open once
+          const currentCount = parseInt(localStorage.getItem("sporefall_modal_auto_count") || "0", 10);
+          if (currentCount !== 1) return;
+          // Find latest available episode
+          const availableEpisodes = episodes
+            .filter((ep) => ep.status === "available")
+            .sort((a, b) => {
+              if (a.episodeNumber && b.episodeNumber) return b.episodeNumber - a.episodeNumber;
+              if (a.releaseDate && b.releaseDate) return new Date(b.releaseDate) - new Date(a.releaseDate);
+              return 0;
+            });
+          if (availableEpisodes.length === 0) return;
+          // Try each available episode until a LIVE poll is found
+          for (const episode of availableEpisodes) {
+            const episodeIdToUse = episode.id || episode.uniqueEpisodeId;
+            if (!episodeIdToUse) continue;
+            try {
+              const res = await fetch(`/api/polls/episode/${encodeURIComponent(episodeIdToUse)}`);
+              if (!res.ok) continue;
+              const data = await res.json();
+              if (data.polls && data.polls.length > 0) {
+                const activePoll = data.polls.find((p) => p.status === "LIVE") || data.polls[0];
+                const nowMs = Date.now();
+                let endsMs = null;
+                if (activePoll.ends_at) {
+                  endsMs = new Date(activePoll.ends_at).getTime();
+                } else if (activePoll.starts_at && activePoll.duration_days) {
+                  endsMs = new Date(activePoll.starts_at).getTime() + activePoll.duration_days * 24 * 60 * 60 * 1000;
+                }
+                const isClosed =
+                  (activePoll.status && String(activePoll.status).toUpperCase() !== "LIVE") ||
+                  (endsMs && nowMs >= endsMs);
+                if (isClosed) {
+                  setNotificationMessage("This episode poll has ended.");
+                  setIsNotificationOpen(true);
+                  setTimeout(() => {
+                    router.push(`/result?episode=${encodeURIComponent(activePoll.episodeId || episodeIdToUse)}`);
+                  }, 5000);
+                  return;
+                }
+                const mappedPollData = {
+                  ...activePoll,
+                  id: activePoll.id,
+                  episode_id: activePoll.episodeId,
+                  episodeId: activePoll.episodeId,
+                  title: activePoll.title || activePoll.question || "Poll",
+                  question: activePoll.question || activePoll.title || "Make your choice",
+                  description: activePoll.description || activePoll.question || "Make your choice",
+                  status: activePoll.status || "LIVE",
+                  options: activePoll.options || [],
+                };
+                setPollData(mappedPollData);
+                setSelectedEpisodeId(episodeIdToUse);
+                setIsPollModalOpen(true);
+                try {
+                  localStorage.setItem("sporefall_modal_opened_once", "true");
+                  localStorage.setItem("sporefall_modal_auto_count", "2");
+                  localStorage.setItem("sporefall_modal_closed", "false");
+                } catch {}
+                break;
+              }
+            } catch {}
+          }
+        }, 90000);
+      }
+    } catch {}
     // Reset hasCheckedFirstVisit so modal can auto-open again on next page load
     setHasCheckedFirstVisit(false);
   };
@@ -456,7 +543,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
       if (ratio < 0.9) return;
 
       if (reopened) return;
-      if (!(openedOnce === false || modalClosed === true)) return;
+      if (openedOnce) return;
 
       // Find latest available episode and open its poll if exists
       const availableEpisodes = episodes
@@ -521,15 +608,13 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
               (activePoll.status && String(activePoll.status).toUpperCase() !== "LIVE") || (endsMs && nowMs >= endsMs);
             if (isClosed) {
               setSelectedEpisodeId(null);
-              setNotificationMessage("This poll has ended. Redirecting to results.");
               setNotificationMessage("This episode poll has ended.");
-              router.push(`/result?episode=${encodeURIComponent(activePoll.episodeId || episodeIdToUse)}`);
+              setIsNotificationOpen(true);
               setTimeout(() => {
                 router.push(`/result?episode=${encodeURIComponent(activePoll.episodeId || episodeIdToUse)}`);
               }, 5000);
               return;
             }
-            setPollData(mappedPollData);
             setPollData(mappedPollData);
             setSelectedEpisodeId(episodeIdToUse);
             setIsPollModalOpen(true);
