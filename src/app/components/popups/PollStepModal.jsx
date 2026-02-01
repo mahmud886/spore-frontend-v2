@@ -1,8 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import NotificationPopup from "./NotificationPopup";
 import PollLeftPopup from "./PollLeftPopup";
 import PollMiddlePopup from "./PollMiddlePopup";
 
@@ -17,6 +18,8 @@ export default function PollStepModal({
   const router = useRouter();
   const [step, setStep] = useState(1); // 1: left, 2: middle, 3: right
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
   const [formData, setFormData] = useState({
     codename: "SPECTRE_01",
     faction: "Evolve",
@@ -57,12 +60,21 @@ export default function PollStepModal({
 
     // Validate required data
     if (!episodeIdToUse) {
-      alert("Episode ID is missing. Cannot submit vote.");
+      setNotificationMessage("Episode ID is missing. Cannot submit vote.");
+      setIsNotificationOpen(true);
       return;
     }
 
     if (!optionId) {
-      alert("Option ID is missing. Cannot submit vote.");
+      setNotificationMessage("Poll option is missing. Cannot submit vote.");
+      setIsNotificationOpen(true);
+      return;
+    }
+
+    // Check if poll is not live based on status
+    if (pollData?.status && pollData.status.toUpperCase() !== "LIVE") {
+      setNotificationMessage("Poll is not live. Voting is closed.");
+      setIsNotificationOpen(true);
       return;
     }
 
@@ -82,7 +94,8 @@ export default function PollStepModal({
       const data = await response.json();
 
       if (!response.ok) {
-        alert(`Failed to submit vote: ${data.error || data.message || "Unknown error"}`);
+        setNotificationMessage(`Failed to submit vote: ${data.error || data.message || "Unknown error"}`);
+        setIsNotificationOpen(true);
         setIsSubmitting(false);
         return; // Don't redirect if vote failed
       }
@@ -116,7 +129,8 @@ export default function PollStepModal({
         router.push(resultUrl);
       }, 100);
     } catch (error) {
-      alert(`Error submitting vote: ${error.message}`);
+      setNotificationMessage(`Error submitting vote: ${error.message}`);
+      setIsNotificationOpen(true);
       setIsSubmitting(false);
     }
   };
@@ -136,6 +150,34 @@ export default function PollStepModal({
       onClose();
     }
   };
+
+  useEffect(() => {
+    if (!isOpen || !pollData) return;
+    const nowMs = Date.now();
+    let endsMs = null;
+    if (pollData.ends_at) {
+      endsMs = new Date(pollData.ends_at).getTime();
+    } else if (pollData.starts_at && pollData.duration_days) {
+      endsMs = new Date(pollData.starts_at).getTime() + pollData.duration_days * 24 * 60 * 60 * 1000;
+    }
+    const notLive = pollData.status && String(pollData.status).toUpperCase() !== "LIVE";
+    const isEnded = notLive || (endsMs && nowMs >= endsMs);
+    if (isEnded) {
+      if (onClose) onClose();
+      setTimeout(() => {
+        setNotificationMessage("This episode poll has ended.");
+        setIsNotificationOpen(true);
+        const eid = pollData.episodeId || episodeId;
+        setTimeout(() => {
+          if (eid) {
+            router.push(`/result?episode=${encodeURIComponent(eid)}`);
+          } else {
+            router.push("/result");
+          }
+        }, 5000);
+      }, 0);
+    }
+  }, [isOpen, pollData, episodeId, onClose, router]);
 
   const isClient = typeof window !== "undefined";
   if (!isClient || !isOpen) return null;
@@ -208,7 +250,8 @@ export default function PollStepModal({
                     if (firstOption && firstOption.id) {
                       handleMiddleNext(firstOptionName, firstOption.id);
                     } else {
-                      alert("Poll option not available. Please try again.");
+                      setNotificationMessage("Poll option not available. Please try again.");
+                      setIsNotificationOpen(true);
                     }
                   }}
                   onContainClick={() => {
@@ -218,7 +261,8 @@ export default function PollStepModal({
                     if (secondOption && secondOption.id) {
                       handleMiddleNext(secondOptionName, secondOption.id);
                     } else {
-                      alert("Poll option not available. Please try again.");
+                      setNotificationMessage("Poll option not available. Please try again.");
+                      setIsNotificationOpen(true);
                     }
                   }}
                   onClose={handleClose}
@@ -248,5 +292,16 @@ export default function PollStepModal({
     </div>
   );
 
-  return createPortal(modalContent, document.body);
+  return createPortal(
+    <>
+      {modalContent}
+      <NotificationPopup
+        isOpen={isNotificationOpen}
+        onClose={() => setIsNotificationOpen(false)}
+        message={notificationMessage}
+        title="Notice"
+      />
+    </>,
+    document.body,
+  );
 }

@@ -92,6 +92,15 @@ export default function CountdownSection({ targetDate, title, pollData, highligh
           {title}
         </motion.h1>
       )}
+      {pollData?.duration_days && (
+        <div className="text-center mb-4">
+          <span className="text-xs uppercase tracking-widest text-white/50">
+            Duration:&nbsp;
+            <span className="text-primary font-bold">{pollData.duration_days} Days</span>
+          </span>
+          {/* <div className="mt-2 text-[10px] text-white/40">3 Days • 7 Days • 14 Days</div> */}
+        </div>
+      )}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
