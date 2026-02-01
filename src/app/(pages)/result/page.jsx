@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import ResultContent from "./ResultContent";
 
 export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ searchParams }) {
   const base = getBaseUrl();
@@ -54,10 +55,10 @@ export async function generateMetadata({ searchParams }) {
   };
   const sizeParam = platformSizeMap[platform] || "facebook";
   const ogImage = pollIdForImage
-    ? `${base}/api/polls/${encodeURIComponent(pollIdForImage)}/image?format=png&size=${sizeParam}`
+    ? `${base}/api/og/poll/${encodeURIComponent(pollIdForImage)}?size=${sizeParam}`
     : `${base}/assets/images/og-default.png`;
   const twitterImage = pollIdForImage
-    ? `${base}/api/polls/${encodeURIComponent(pollIdForImage)}/image?format=png&size=${sizeParam === "twitter" ? "twitter" : "facebook"}`
+    ? `${base}/api/og/poll/${encodeURIComponent(pollIdForImage)}?size=${sizeParam === "twitter" ? "twitter" : "facebook"}`
     : ogImage;
   const url = `${base}/result${episodeId || pollParam ? "?" : ""}${
     episodeId ? `episode=${encodeURIComponent(episodeId)}` : ""
@@ -70,7 +71,7 @@ export async function generateMetadata({ searchParams }) {
       description,
       url,
       siteName: "SPOREFALL",
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title, type: "image/png" }],
       type: "website",
     },
     twitter: {
