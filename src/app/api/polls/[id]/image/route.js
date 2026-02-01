@@ -15,6 +15,7 @@ export async function GET(request, { params }) {
     const { id } = resolvedParams;
     const { searchParams } = new URL(request.url);
     const size = searchParams.get("size") || "facebook";
+    const format = (searchParams.get("format") || "png").toLowerCase();
 
     if (!id) {
       return NextResponse.json({ error: "Poll ID is required" }, { status: 400 });
@@ -258,10 +259,19 @@ export async function GET(request, { params }) {
       </svg>
     `;
 
+    if (format === "png") {
+      const pngBuffer = await sharp(Buffer.from(svg)).png({ quality: 90 }).toBuffer();
+      return new Response(pngBuffer, {
+        headers: {
+          "Content-Type": "image/png",
+          "Cache-Control": "public, max-age=300",
+        },
+      });
+    }
     return new Response(svg, {
       headers: {
         "Content-Type": "image/svg+xml",
-        "Cache-Control": "public, max-age=60",
+        "Cache-Control": "public, max-age=300",
       },
     });
   } catch (error) {
@@ -282,7 +292,7 @@ export async function GET(request, { params }) {
       {
         headers: {
           "Content-Type": "image/svg+xml",
-          "Cache-Control": "public, max-age=60",
+          "Cache-Control": "public, max-age=300",
         },
       },
     );

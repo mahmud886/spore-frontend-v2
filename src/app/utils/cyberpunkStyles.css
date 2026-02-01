@@ -135,20 +135,62 @@
 /* Energy Fill Animation */
 @keyframes energyFill {
   0% {
-    width: 0%;
     box-shadow: 0 0 0px rgba(212, 255, 0, 0);
   }
   50% {
-    box-shadow: 0 0 10px rgba(212, 255, 0, 0.5);
+    box-shadow: 0 0 8px rgba(212, 255, 0, 0.35);
   }
   100% {
-    width: 100%;
-    box-shadow: 0 0 20px rgba(212, 255, 0, 0.3);
+    box-shadow: 0 0 16px rgba(212, 255, 0, 0.25);
   }
 }
 
 .cyber-energy-fill {
-  animation: energyFill 1.5s ease-out forwards;
+  position: relative;
+  overflow: hidden;
+  animation: energyFill 2s ease-out forwards;
+  /* stripeFlow 10s linear infinite; */
+  /* will-change: background-position, box-shadow; */
+}
+
+@keyframes stripeFlow {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 24px 24px;
+  }
+}
+
+.cyber-energy-fill::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+  mix-blend-mode: overlay;
+  animation: sheenSweep 3.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes sheenSweep {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.45;
+  }
+  60% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
 }
 
 /* Text Glitch */
@@ -776,6 +818,7 @@
   .cyber-border-sweep,
   .cyber-hologram,
   .cyber-energy-fill,
+  .cyber-energy-fill::after,
   .cyber-text-glitch:hover,
   .cyber-float,
   .cyber-glow-blink,

@@ -6,7 +6,6 @@ import { Wrapper } from "../shared/Wrapper";
 import HeroSection from "./HeroSection";
 import { PrologueSection } from "./PrologueSection";
 import { Synopsis } from "./Synopsis";
-const PollStepModal = dynamic(() => import("../popups/PollStepModal"));
 const SporeBlogSection = dynamic(() => import("../shared/SporeBlogSection"));
 const CharacterLogsSection = dynamic(() => import("./CharacterLogsSection"));
 const EpisodesSection = dynamic(() => import("./EpisodesSection"));
@@ -56,47 +55,6 @@ const homePageLogs = [
 ];
 
 export default function HomePage({ episodes = [], blogPosts = [] }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Check if user has voted - used to prevent modal from opening
-  const checkIfUserVoted = () => {
-    try {
-      const storedVoted = localStorage.getItem("sporefall_voted_episodes");
-      if (storedVoted) {
-        const parsedVoted = JSON.parse(storedVoted);
-        if (Array.isArray(parsedVoted) && parsedVoted.length > 0) {
-          return true; // User has voted
-        }
-      }
-    } catch (err) {
-      // If parse fails, assume user hasn't voted (first visit)
-    }
-    return false; // User hasn't voted
-  };
-
-  useEffect(() => {
-    if (checkIfUserVoted()) return;
-    const modalClosed = localStorage.getItem("sporefall_modal_closed");
-    if (modalClosed === "true") return;
-    const episodesSection = document.getElementById("shop");
-    if (!episodesSection) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsModalOpen(true);
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.3, rootMargin: "-80px 0px 0px 0px" },
-    );
-    observer.observe(episodesSection);
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
   // Handle hash navigation on page load
   useEffect(() => {
     const hash = window.location.hash.substring(1);
@@ -144,13 +102,6 @@ export default function HomePage({ episodes = [], blogPosts = [] }) {
             />
           </div>
         </div>
-        <PollStepModal
-          isOpen={isModalOpen}
-          onClose={() => {
-            setIsModalOpen(false);
-          }}
-          autoOpenDelay={0}
-        />
       </Wrapper>
     </>
   );
