@@ -205,7 +205,10 @@ export default function ResultContent({ products: products = [] }) {
     };
     shareLink = platformMap[platform.toUpperCase()] || "";
     if (shareLink) {
-      window.open(shareLink, "_blank", "width=600,height=400");
+      const newWin = window.open(shareLink, "_blank", "noopener,noreferrer,width=600,height=400");
+      if (newWin) {
+        newWin.opener = null;
+      }
     } else if (platform.toUpperCase() === "TIKTOK" || platform.toUpperCase() === "IG_STORY") {
       try {
         await navigator.clipboard.writeText(`${shareText}\n\n${utmUrl}`);

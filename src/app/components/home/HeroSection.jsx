@@ -1,24 +1,7 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { scaleIn } from "../../utils/animations";
+import Image from "next/image";
 import LazyBackgroundVideo from "../shared/LazyBackgroundVideo";
 
 export default function HeroSection() {
-  const handleSeasonClick = () => {
-    const element = document.getElementById("shop");
-    if (element) {
-      const offset = 80; // Account for sticky navbar height
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
-  };
-
   return (
     // <section className="min-h-screen flex flex-col md:flex-row items-center px-8  py-20 relative overflow-hidden">
     //   <div className="fixed inset-0 grid-overlay pointer-events-none opacity-40"></div>
@@ -91,79 +74,54 @@ export default function HeroSection() {
     // </section>
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
-        <LazyBackgroundVideo
-          className="w-full h-full object-cover"
-          sources={[
-            { src: "/assets/videos/infection_WIDE_2.webm", type: "video/webm" },
-            { src: "/assets/videos/infection_WIDE_2.mp4", type: "video/mp4" },
-          ]}
-          poster="/assets/images/hero-image.webp"
-          preload="none"
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
+        <div className="block md:hidden relative w-full h-full">
+          <Image
+            src="/assets/images/hero-image.webp"
+            alt="Sporefall hero"
+            fill
+            sizes="100vw"
+            priority
+            quality={60}
+            className="object-cover"
+          />
+        </div>
+        <div className="hidden md:block w-full h-full">
+          <LazyBackgroundVideo
+            className="w-full h-full object-cover"
+            sources={[
+              { src: "/assets/videos/infection_WIDE_2.webm", type: "video/webm" },
+              { src: "/assets/videos/infection_WIDE_2.mp4", type: "video/mp4" },
+            ]}
+            poster="/assets/images/hero-image.webp"
+            preload="none"
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/20 to-black" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 py-20 text-center cyber-holographic cyber-data-stream">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.2,
-                delayChildren: 0.3,
-              },
-            },
-          }}
-          className="mx-auto space-y-4 md:space-y-8"
-        >
-          {/* Title */}
-          <motion.h1
-            variants={{
-              hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
-              visible: {
-                opacity: 1,
-                y: 0,
-                filter: "blur(0px)",
-                transition: {
-                  duration: 0.8,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                },
-              },
-            }}
-            className="mb-12 md:mb-[160px] text-[42px] md:text-[80px] lg:text-[80px] font-heading font-bold tracking-wider text-white uppercase cyber-glow-blink"
-          >
+        <div className="mx-auto space-y-4 md:space-y-8">
+          <h1 className="mb-12 md:mb-[160px] text-[42px] md:text-[80px] lg:text-[80px] font-heading font-bold tracking-wider text-white uppercase cyber-glow-blink">
             Spore Fall
-          </motion.h1>
-
-          {/* Subtitle */}
+          </h1>
           <p className="text-[18px] md:text-[42px] lg:text-[42px] font-subheading text-gray-300 max-w-3xl mx-auto leading-tight">
             Humanity’s final Journey to <br /> the Brink Of Evolution
           </p>
-
-          {/* CTA Button */}
-          <motion.div variants={scaleIn} className="pt-4">
-            <motion.button
-              onClick={handleSeasonClick}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 0 30px rgba(194, 255, 2, 0.5)",
-              }}
-              whileTap={{ scale: 0.98 }}
+          <div className="pt-4">
+            <a
+              href="#shop"
               style={{ borderTopRightRadius: "8px", borderBottomLeftRadius: "8px" }}
-              className="bg-[#C2FF02] font-subheading tracking-widest hover:bg-[#a8db02] text-black text-[24px] md:text-[32px] lg:text-[48px] leading-[28px] font-semibold py-5 px-10 md:py-8 md:px-20 shadow-lg hover:shadow-xl transition-all duration-300  mx-auto cyber-glow-pulse cyber-neon-trail rounded-tr-8 rounded-bl-8"
+              className="inline-block bg-[#C2FF02] font-subheading tracking-widest hover:bg-[#a8db02] text-black text-[24px] md:text-[32px] lg:text-[48px] leading-[28px] font-semibold py-5 px-10 md:py-8 md:px-20 shadow-lg hover:shadow-xl transition-all duration-300  mx-auto cyber-glow-pulse cyber-neon-trail rounded-tr-8 rounded-bl-8"
             >
               Season 1
-            </motion.button>
-          </motion.div>
-        </motion.div>
+            </a>
+          </div>
+        </div>
       </div>
 
       {/* Scroll Indicator */}

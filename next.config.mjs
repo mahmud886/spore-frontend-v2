@@ -2,6 +2,8 @@
 const nextConfig = {
   /* config options here */
   reactCompiler: true,
+  compress: true,
+  productionBrowserSourceMaps: false,
   async headers() {
     return [
       {
@@ -9,6 +11,15 @@ const nextConfig = {
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },
     ];
+  },
+  experimental: {
+    optimizePackageImports: [
+      "lucide-react",
+      "framer-motion",
+      "embla-carousel",
+      "embla-carousel-react",
+      "embla-carousel-autoplay",
+    ],
   },
   images: {
     formats: ["image/avif", "image/webp"],
@@ -29,6 +40,16 @@ const nextConfig = {
         protocol: "https",
         hostname: "images.squarespace-cdn.com",
         pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        pathname: "/vi/**",
+      },
+      {
+        protocol: "https",
+        hostname: "img.youtube.com",
+        pathname: "/vi/**",
       },
     ],
   },

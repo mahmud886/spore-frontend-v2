@@ -12,6 +12,7 @@ export function PrologueSection() {
   // YouTube video ID - replace with actual video ID
   const youtubeVideoId = "ozEdYAQHsas"; // Placeholder - replace with actual video ID
   const [showPlayer, setShowPlayer] = useState(false);
+  const [thumbSrc, setThumbSrc] = useState(`https://img.youtube.com/vi/${youtubeVideoId}/maxresdefault.jpg`);
 
   return (
     <motion.section
@@ -65,8 +66,23 @@ export function PrologueSection() {
                   type="button"
                   aria-label="Play Prologue Video"
                   onClick={() => setShowPlayer(true)}
-                  className="group relative w-full h-full flex items-center justify-center bg-black/40"
+                  className="group relative w-full h-full flex items-center justify-center"
                 >
+                  <Image
+                    src={thumbSrc}
+                    alt="Prologue Video Thumbnail"
+                    fill
+                    sizes="100vw"
+                    priority={false}
+                    quality={60}
+                    onError={() => {
+                      if (thumbSrc.includes("maxresdefault")) {
+                        setThumbSrc(`https://i.ytimg.com/vi/${youtubeVideoId}/hqdefault.jpg`);
+                      } else {
+                        setThumbSrc("/assets/images/synopsis.webp");
+                      }
+                    }}
+                  />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
                   <div className="relative flex items-center gap-3 px-6 py-3 rounded-full border border-white/30 bg-black/50 text-white uppercase tracking-wide text-xs md:text-sm font-bold transition-all group-hover:bg-white group-hover:text-black group-hover:border-white">
                     <PlayCircle className="w-6 h-6 md:w-7 md:h-7" />

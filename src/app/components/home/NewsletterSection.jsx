@@ -155,7 +155,7 @@ export default function NewsletterSection() {
             <div className="relative z-10 space-y-6 sm:space-y-8">
               <div className="space-y-2 sm:space-y-3 text-center">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-subheading font-bold text-primary uppercase tracking-widest cyber-text-glitch">
-                  Stay Updated
+                  STAY VIGILANT
                 </h2>
                 <p className="text-primary text-sm font-subheading sm:text-base md:text-lg px-2 uppercase tracking-widest">
                   Get exclusive updates, behind-the-scenes content, and secret drops

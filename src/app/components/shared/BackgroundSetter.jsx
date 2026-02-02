@@ -10,6 +10,10 @@ export default function BackgroundSetter() {
   const image = resultBg;
   const isHomepage = pathname === "/";
 
+  // if (isHomepage) {
+  //   return null;
+  // }
+
   return (
     <div key={pathname} className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
       <Image
@@ -18,10 +22,10 @@ export default function BackgroundSetter() {
         alt="Background"
         fill
         sizes="100vw"
-        quality={55}
+        quality={50}
         placeholder="blur"
         className="object-cover"
-        priority={isHomepage}
+        priority={false}
       />
       <div className="absolute inset-0 bg-black/60" />
     </div>

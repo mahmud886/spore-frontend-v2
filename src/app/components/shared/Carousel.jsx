@@ -17,7 +17,26 @@ export default function Carousel({
   title = null,
   titleComponent = null,
   slidesToScroll = 1,
+  lazyInit = false,
 }) {
+  const [isInView, setIsInView] = useState(!lazyInit);
+  const [rootEl, setRootEl] = useState(null);
+
+  useEffect(() => {
+    if (!lazyInit || !rootEl) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsInView(true);
+          obs.disconnect();
+        }
+      },
+      { rootMargin: "100px" },
+    );
+    obs.observe(rootEl);
+    return () => obs.disconnect();
+  }, [lazyInit, rootEl]);
+
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [computedSlidesToScroll, setComputedSlidesToScroll] = useState(
     typeof slidesToScroll === "number" ? slidesToScroll : slidesToScroll?.desktop || 1,
@@ -105,14 +124,50 @@ export default function Carousel({
   const mobileWidthPct = `${100 / mobileCols}%`;
   const tabletWidthPct = `${100 / tabletCols}%`;
   const desktopWidthPct = `${100 / desktopCols}%`;
+  const [slideWidthPct, setSlideWidthPct] = useState(mobileWidthPct);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setSlideWidthPct(desktopWidthPct);
+      } else if (window.innerWidth >= 768) {
+        setSlideWidthPct(tabletWidthPct);
+      } else {
+        setSlideWidthPct(mobileWidthPct);
+      }
+      if (emblaApi) {
+        emblaApi.reInit(emblaOptions);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [mobileWidthPct, tabletWidthPct, desktopWidthPct, emblaApi, emblaOptions]);
+  const slideClass = `embla-slide px-2`;
 
   const effectiveItems = items.length <= desktopCols ? [...items, ...items] : items;
 
   const totalSlides = items.length;
   const currentPage = Math.min(selectedIndex + 1, totalSlides);
 
+  if (!isInView) {
+    const mobileCols = itemsPerView.mobile || 1;
+    const tabletCols = itemsPerView.tablet || 2;
+    const desktopCols = itemsPerView.desktop || 4;
+    const gridCols = `grid grid-cols-${mobileCols} md:grid-cols-${tabletCols} lg:grid-cols-${desktopCols} gap-4`;
+    return (
+      <div className={className} ref={setRootEl}>
+        {(title || titleComponent) && <div className="mb-12">{titleComponent || (title && <div>{title}</div>)}</div>}
+        <div className={gridCols}>
+          {items.map((item, i) => (
+            <div key={`static-${i}`}>{renderItem(item, i)}</div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className={className}>
+    <div className={className} ref={setRootEl}>
       {(title || titleComponent || showNavigation) && (
         <div className="flex items-center justify-between mb-12">
           {titleComponent || (title && <div>{title}</div>)}
@@ -146,27 +201,12 @@ export default function Carousel({
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {effectiveItems.map((item, i) => (
-            <div key={`slide-${i}`} className="embla-slide px-2">
+            <div key={`slide-${i}`} className={slideClass} style={{ flex: `0 0 ${slideWidthPct}` }}>
               {renderItem(item, i % items.length)}
             </div>
           ))}
         </div>
       </div>
-      <style jsx>{`
-        .embla-slide {
-          flex: 0 0 ${mobileWidthPct};
-        }
-        @media (min-width: 768px) {
-          .embla-slide {
-            flex: 0 0 ${tabletWidthPct};
-          }
-        }
-        @media (min-width: 1024px) {
-          .embla-slide {
-            flex: 0 0 ${desktopWidthPct};
-          }
-        }
-      `}</style>
     </div>
   );
 }

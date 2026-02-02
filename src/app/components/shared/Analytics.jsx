@@ -59,7 +59,7 @@ export function Analytics() {
           {`
             !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
             },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,
-            u.src='//static.ads-twitter.com/uwt.js',
+            u.src='https://static.ads-twitter.com/uwt.js',
             a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}
             (window,document,'script');
             twq('config', { pid: '${TWITTER_PIXEL_ID}' });
@@ -136,7 +136,7 @@ export function Analytics() {
             (function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:'${MICROSOFT_UET_ID}'};
             o.q=w[u],w[u]=new UET(o),w[u].push('pageLoad')
             },n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)
-            })(window,document,"script","//bat.bing.com/bat.js","uetq");
+            })(window,document,"script","https://bat.bing.com/bat.js","uetq");
           `}
         </Script>
       )}
