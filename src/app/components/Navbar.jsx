@@ -3,15 +3,24 @@
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Wrapper } from "./shared/Wrapper";
 
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSporeLogTooltipOpen, setIsSporeLogTooltipOpen] = useState(false);
   const isClient = typeof window !== "undefined";
-  const currentHash = isClient ? window.location.hash : "";
+  const [currentHash, setCurrentHash] = useState(isClient ? window.location.hash : "");
+
+  useEffect(() => {
+    if (!isClient) return;
+    const updateHash = () => setCurrentHash(window.location.hash || "");
+    updateHash();
+    window.addEventListener("hashchange", updateHash);
+    return () => window.removeEventListener("hashchange", updateHash);
+  }, [isClient]);
 
   // Helper function to get active class names
   const getActiveClass = (condition) => {
@@ -38,6 +47,7 @@ export default function Navbar() {
               top: offsetPosition,
               behavior: "smooth",
             });
+            window.location.hash = "#shop";
             return true;
           }
           return false;
@@ -46,12 +56,16 @@ export default function Navbar() {
         // Try to scroll immediately
         if (!scrollToElement()) {
           setTimeout(() => {
-            scrollToElement();
+            const didScroll = scrollToElement();
+            if (!didScroll) {
+              window.location.hash = "#shop";
+            }
           }, 100);
         }
       } else {
         // Navigate to result page with shop hash
-        window.location.href = "/result#shop";
+        router.push("/result#shop");
+        setCurrentHash("#shop");
       }
       return;
     }
@@ -68,6 +82,9 @@ export default function Navbar() {
           top: offsetPosition,
           behavior: "smooth",
         });
+        if (sectionId) {
+          window.location.hash = `#${sectionId}`;
+        }
         return true;
       }
       return false;
@@ -77,7 +94,10 @@ export default function Navbar() {
     if (!scrollToElement()) {
       // If element not found, try after a short delay (for dynamic content)
       setTimeout(() => {
-        scrollToElement();
+        const didScroll = scrollToElement();
+        if (!didScroll && sectionId) {
+          window.location.hash = `#${sectionId}`;
+        }
       }, 100);
     }
   };
@@ -100,24 +120,38 @@ export default function Navbar() {
                   router.push("/");
                 }
               }}
-              className={`${getActiveClass(pathname === "/" && (!currentHash || currentHash === ""))} transition-colors`}
+              className={`${getActiveClass(pathname === "/")} transition-colors`}
             >
               HOME
             </Link>
-            <Link
-              href="/"
-              onClick={(e) => {
-                e.preventDefault();
-                if (pathname === "/") {
-                  handleScrollToSection(e, "spore-log");
-                } else {
-                  router.push("/#spore-log");
-                }
-              }}
-              className={`${getActiveClass(pathname === "/" && isClient && window.location.hash === "#spore-log")} transition-colors`}
+            <div
+              className="relative"
+              onMouseEnter={() => setIsSporeLogTooltipOpen(true)}
+              onMouseLeave={() => setIsSporeLogTooltipOpen(false)}
             >
-              SPORE LOG
-            </Link>
+              <Link
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (pathname === "/") {
+                    handleScrollToSection(e, "spore-log");
+                  } else {
+                    router.push("/#spore-log");
+                  }
+                }}
+                className={`${getActiveClass(pathname === "/" && currentHash === "#spore-log")} transition-colors`}
+              >
+                SPORE LOG
+              </Link>
+              {isSporeLogTooltipOpen && (
+                <div className="absolute left-0 mt-2 w-[380px] border border-white/10 rounded-lg bg-black/90 backdrop-blur-md shadow-2xl p-3 z-50">
+                  <p className="text-[11px] text-white/70">
+                    Spore Log — it should bring us to a library like this, but hosted on custom site:
+                  </p>
+                  <p className="text-[11px] text-primary break-all">https://edenstone.group/sporelog</p>
+                </div>
+              )}
+            </div>
             <Link
               href="/result"
               onClick={(e) => {
@@ -128,7 +162,7 @@ export default function Navbar() {
                   router.push("/result#shop");
                 }
               }}
-              className={`${getActiveClass(pathname === "/result" && isClient && window.location.hash === "#shop")} transition-colors`}
+              className={`${getActiveClass(pathname === "/result")} transition-colors`}
             >
               SHOP
             </Link>
@@ -164,7 +198,7 @@ export default function Navbar() {
                     router.push("/");
                   }
                 }}
-                className={`${getActiveClass(pathname === "/" && (!isClient || window.location.hash === ""))} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                className={`${getActiveClass(pathname === "/")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
               >
                 HOME
               </Link>
@@ -172,13 +206,14 @@ export default function Navbar() {
                 href="/"
                 onClick={(e) => {
                   e.preventDefault();
+                  setIsMobileMenuOpen(false);
                   if (pathname === "/") {
                     handleScrollToSection(e, "spore-log");
                   } else {
                     router.push("/#spore-log");
                   }
                 }}
-                className={`${getActiveClass(pathname === "/" && isClient && window.location.hash === "#spore-log")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                className={`${getActiveClass(pathname === "/" && currentHash === "#spore-log")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
               >
                 SPORE LOG
               </Link>
@@ -192,7 +227,7 @@ export default function Navbar() {
                     router.push("/result#shop");
                   }
                 }}
-                className={`${getActiveClass(pathname === "/result" && isClient && window.location.hash === "#shop")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                className={`${getActiveClass(pathname === "/result")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
               >
                 SHOP
               </Link>

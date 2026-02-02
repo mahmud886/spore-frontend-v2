@@ -6,6 +6,7 @@ import HeroHeader from "./HeroHeader";
 import MobilizeNetworkCard from "./MobilizeNetworkCard";
 import PollResultSection from "./PollResultSection";
 import ProductsSection from "./ProductsSection";
+import { useEffect } from "react";
 
 export default function ResultPage({
   heroHeaderProps,
@@ -31,6 +32,23 @@ export default function ResultPage({
   onShare,
   copied,
 }) {
+  useEffect(() => {
+    const hash = window.location.hash.substring(1);
+    if (hash) {
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          const offset = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - offset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
+    }
+  }, []);
   return (
     <>
       <Wrapper>
