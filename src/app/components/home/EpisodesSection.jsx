@@ -93,9 +93,6 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
   // Opens when episodes are successfully loaded OR after 5 seconds timeout
   // Skips if modal was closed or user already voted
   useEffect(() => {
-    if (!isInView) {
-      return;
-    }
     if (hasCheckedFirstVisit) {
       return;
     }
@@ -123,7 +120,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
     }
 
     // STEP 2: Check if modal was closed
-    const modalClosed = localStorage.getItem("sporefall_modal_closed");
+    const modalClosed = typeof window !== "undefined" ? sessionStorage.getItem("sporefall_modal_closed") : null;
     if (modalClosed === "true") {
       setHasCheckedFirstVisit(true);
       return;
@@ -283,12 +280,12 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
             setIsPollModalOpen(true);
             setHasCheckedFirstVisit(true);
             try {
-              localStorage.setItem("sporefall_modal_opened_once", "true");
-              const prevCount = parseInt(localStorage.getItem("sporefall_modal_auto_count") || "0", 10);
+              sessionStorage.setItem("sporefall_modal_opened_once", "true");
+              const prevCount = parseInt(sessionStorage.getItem("sporefall_modal_auto_count") || "0", 10);
               if (!Number.isNaN(prevCount) && prevCount < 1) {
-                localStorage.setItem("sporefall_modal_auto_count", "1");
+                sessionStorage.setItem("sporefall_modal_auto_count", "1");
               }
-              localStorage.setItem("sporefall_modal_closed", "false");
+              sessionStorage.setItem("sporefall_modal_closed", "false");
             } catch {}
             hasOpened = true;
             return; // Exit after finding first poll
@@ -304,12 +301,13 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
 
     // Set 5-second timeout as fallback
     timeoutId = setTimeout(() => {
+      console.log("EpisodesSection 30s fallback fired");
       if (!hasCheckedFirstVisit && !hasOpened) {
         setEpisodesLoaded(true); // Force episodes as loaded after timeout
         if (episodes.length > 0) {
           openLatestEpisodePoll();
         } else {
-          setHasCheckedFirstVisit(true);
+          console.log("EpisodesSection 30s fallback: no episodes yet, will wait for data");
         }
       }
     }, 30000);
@@ -428,12 +426,15 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
     setSelectedEpisodeId(null);
     setPollData(null);
     // Mark modal as closed in localStorage so it doesn't auto-open again
-    localStorage.setItem("sporefall_modal_closed", "true");
     try {
-      const count = parseInt(localStorage.getItem("sporefall_modal_auto_count") || "0", 10);
-      const scheduled = localStorage.getItem("sporefall_modal_second_scheduled") === "true";
+      sessionStorage.setItem("sporefall_modal_closed", "true");
+    } catch {}
+    try {
+      const count = parseInt(sessionStorage.getItem("sporefall_modal_auto_count") || "0", 10);
+      const scheduled = sessionStorage.getItem("sporefall_modal_second_scheduled") === "true";
       if (count === 1 && !scheduled) {
-        localStorage.setItem("sporefall_modal_second_scheduled", "true");
+        sessionStorage.setItem("sporefall_modal_second_scheduled", "true");
+        console.log("EpisodesSection scheduling 90s re-open");
         setTimeout(async () => {
           // Pre-checks
           try {
@@ -446,7 +447,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
             }
           } catch {}
           // Ensure we only do the second auto open once
-          const currentCount = parseInt(localStorage.getItem("sporefall_modal_auto_count") || "0", 10);
+          const currentCount = parseInt(sessionStorage.getItem("sporefall_modal_auto_count") || "0", 10);
           if (currentCount !== 1) return;
           // Find latest available episode
           const availableEpisodes = episodes
@@ -500,9 +501,9 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
                 setSelectedEpisodeId(episodeIdToUse);
                 setIsPollModalOpen(true);
                 try {
-                  localStorage.setItem("sporefall_modal_opened_once", "true");
-                  localStorage.setItem("sporefall_modal_auto_count", "2");
-                  localStorage.setItem("sporefall_modal_closed", "false");
+                  sessionStorage.setItem("sporefall_modal_opened_once", "true");
+                  sessionStorage.setItem("sporefall_modal_auto_count", "2");
+                  sessionStorage.setItem("sporefall_modal_closed", "false");
                 } catch {}
                 break;
               }
@@ -556,9 +557,9 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
     const onScroll = async () => {
       if (triggered || isPollModalOpen) return;
       if (checkIfUserVoted()) return;
-      const modalClosed = localStorage.getItem("sporefall_modal_closed") === "true";
-      const openedOnce = localStorage.getItem("sporefall_modal_opened_once") === "true";
-      const reopened = localStorage.getItem("sporefall_modal_reopened_by_scroll") === "true";
+      const modalClosed = sessionStorage.getItem("sporefall_modal_closed") === "true";
+      const openedOnce = sessionStorage.getItem("sporefall_modal_opened_once") === "true";
+      const reopened = sessionStorage.getItem("sporefall_modal_reopened_by_scroll") === "true";
 
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const scrollHeight = document.documentElement.scrollHeight;
@@ -643,9 +644,9 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
             setSelectedEpisodeId(episodeIdToUse);
             setIsPollModalOpen(true);
             try {
-              localStorage.setItem("sporefall_modal_opened_once", "true");
-              localStorage.setItem("sporefall_modal_closed", "false");
-              localStorage.setItem("sporefall_modal_reopened_by_scroll", "true");
+              sessionStorage.setItem("sporefall_modal_opened_once", "true");
+              sessionStorage.setItem("sporefall_modal_closed", "false");
+              sessionStorage.setItem("sporefall_modal_reopened_by_scroll", "true");
             } catch {}
             triggered = true;
             break;
