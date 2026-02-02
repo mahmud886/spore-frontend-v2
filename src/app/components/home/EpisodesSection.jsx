@@ -12,6 +12,7 @@ import ShimmerCard from "../shared/ShimmerCard";
 const NotificationPopup = dynamic(() => import("../popups/NotificationPopup"), { ssr: false });
 const PollStepModal = dynamic(() => import("../popups/PollStepModal"), { ssr: false });
 const YouTubeModal = dynamic(() => import("../popups/YouTubeModal"), { ssr: false });
+const PollAdModal = dynamic(() => import("../popups/PollAdModal"), { ssr: false });
 
 export default function EpisodesSection({ episodes: episodesProp = [] }) {
   const router = useRouter();
@@ -21,8 +22,10 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isPollModalOpen, setIsPollModalOpen] = useState(false);
+  const [isPollAdOpen, setIsPollAdOpen] = useState(true);
   const [selectedEpisodeId, setSelectedEpisodeId] = useState(null);
   const [pollData, setPollData] = useState(null);
+  const [pollAdData, setPollAdData] = useState(null);
   const [pollLoading, setPollLoading] = useState(false);
   const [hasCheckedFirstVisit, setHasCheckedFirstVisit] = useState(false);
   const [episodesLoaded, setEpisodesLoaded] = useState(false);
@@ -54,6 +57,34 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
     setLoading(false);
     setError(null);
   }, [episodesProp]);
+
+  // Fetch poll data for latest available episode for inline ad panel
+  useEffect(() => {
+    const fetchPollAdData = async () => {
+      if (episodes.length === 0) return;
+      const availableEpisodes = episodes
+        .filter((ep) => ep.status === "available")
+        .sort((a, b) => {
+          if (a.episodeNumber && b.episodeNumber) return b.episodeNumber - a.episodeNumber;
+          if (a.releaseDate && b.releaseDate) return new Date(b.releaseDate) - new Date(a.releaseDate);
+          return 0;
+        });
+      if (availableEpisodes.length === 0) return;
+      const latestEpisode = availableEpisodes[0];
+      const episodeIdToUse = latestEpisode.id || latestEpisode.uniqueEpisodeId;
+      if (!episodeIdToUse) return;
+      try {
+        const res = await fetch(`/api/polls/episode/${encodeURIComponent(episodeIdToUse)}`);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.polls && data.polls.length > 0) {
+          const activePoll = data.polls.find((p) => p.status === "LIVE") || data.polls[0];
+          setPollAdData(activePoll);
+        }
+      } catch {}
+    };
+    fetchPollAdData();
+  }, [episodes]);
 
   // Load voted episodes from localStorage on mount
   useEffect(() => {
@@ -537,6 +568,10 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
   const handleCloseNotification = () => {
     setIsNotificationOpen(false);
     setNotificationMessage("");
+  };
+  const handleCloseAdModal = () => {
+    setIsPollAdOpen(false);
+    sessionStorage.setItem("sporefall_ad_closed", "true");
   };
 
   useEffect(() => {
@@ -1041,6 +1076,27 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
           }
         }}
       />
+      {pollAdData && (
+        <PollAdModal
+          isOpen={isPollAdOpen}
+          onClose={handleCloseAdModal}
+          onOpen={() => setIsPollAdOpen(true)}
+          episodeId={pollAdData?.episodeId || pollAdData?.episode_id}
+          pollData={pollAdData}
+          onVoteSuccess={(episodeId) => {
+            if (episodeId) {
+              const episodeIdStr = String(episodeId);
+              const votedEpisodesStr = votedEpisodes.map((id) => String(id));
+              if (!votedEpisodesStr.includes(episodeIdStr)) {
+                const updated = [...votedEpisodes, episodeId];
+                setVotedEpisodes(updated);
+                localStorage.setItem("sporefall_voted_episodes", JSON.stringify(updated));
+              }
+            }
+          }}
+          inline={false}
+        />
+      )}
       {/* YouTube Modal - Opens when Watch Now button is clicked for episodes with videoUrl */}
       <YouTubeModal
         isOpen={isYouTubeModalOpen}
