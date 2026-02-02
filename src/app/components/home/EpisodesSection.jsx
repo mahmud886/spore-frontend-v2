@@ -4,7 +4,7 @@ import { ArrowRight, Clock, Lock } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatedCard } from "../shared/AnimatedWrapper";
 import Carousel from "../shared/Carousel";
 import { SectionTitle } from "../shared/SectionTitle";
@@ -15,6 +15,8 @@ const YouTubeModal = dynamic(() => import("../popups/YouTubeModal"), { ssr: fals
 
 export default function EpisodesSection({ episodes: episodesProp = [] }) {
   const router = useRouter();
+  const rootRef = useRef(null);
+  const [isInView, setIsInView] = useState(false);
   const [episodes, setEpisodes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -31,6 +33,22 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
   const [notificationMessage, setNotificationMessage] = useState("");
 
   useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsInView(true);
+          obs.disconnect();
+        }
+      },
+      { rootMargin: "100px" },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
     setEpisodes(Array.isArray(episodesProp) ? episodesProp : []);
     setEpisodesLoaded(true);
     setLoading(false);
@@ -39,6 +57,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
 
   // Load voted episodes from localStorage on mount
   useEffect(() => {
+    if (!isInView) return;
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem("sporefall_voted_episodes");
       if (stored) {
@@ -52,10 +71,11 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
         setVotedEpisodes([]);
       }
     }
-  }, []);
+  }, [isInView]);
 
   // Also reload voted episodes when modal closes (in case it was updated elsewhere)
   useEffect(() => {
+    if (!isInView) return;
     if (!isPollModalOpen && typeof window !== "undefined") {
       const stored = localStorage.getItem("sporefall_voted_episodes");
       if (stored) {
@@ -67,12 +87,15 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
         }
       }
     }
-  }, [isPollModalOpen]);
+  }, [isPollModalOpen, isInView]);
 
   // Auto-open poll modal for latest episode on page load
   // Opens when episodes are successfully loaded OR after 5 seconds timeout
   // Skips if modal was closed or user already voted
   useEffect(() => {
+    if (!isInView) {
+      return;
+    }
     if (hasCheckedFirstVisit) {
       return;
     }
@@ -297,7 +320,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
         clearTimeout(timeoutId);
       }
     };
-  }, [episodes, loading, hasCheckedFirstVisit, episodesLoaded, votedEpisodes, router]);
+  }, [episodes, loading, hasCheckedFirstVisit, episodesLoaded, votedEpisodes, router, isInView]);
 
   // Fetch poll data when episode is selected
   useEffect(() => {
@@ -517,6 +540,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
 
   useEffect(() => {
     let triggered = false;
+    if (!isInView) return;
     const checkIfUserVoted = () => {
       try {
         const storedVoted = localStorage.getItem("sporefall_voted_episodes");
@@ -635,7 +659,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
     return () => {
       window.removeEventListener("scroll", onScroll);
     };
-  }, [episodes, isPollModalOpen, router]);
+  }, [episodes, isPollModalOpen, router, isInView]);
 
   // Update the poll fetch error handling to use notification popup
   useEffect(() => {
@@ -984,13 +1008,14 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
 
   return (
     <>
-      <section className="py-24 px-8 cyber-hex-grid">
+      <section className="py-24 px-8 cyber-hex-grid" ref={rootRef}>
         <Carousel
           items={episodes}
           renderItem={renderEpisodeCard}
           itemsPerView={{ mobile: 1, tablet: 2, desktop: 4 }}
           gridClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch"
           titleComponent={<SectionTitle>Episodes</SectionTitle>}
+          lazyInit
         />
       </section>
       {/* Poll Modal - Opens when available episode is clicked */}

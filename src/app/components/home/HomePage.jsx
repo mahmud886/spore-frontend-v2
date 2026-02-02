@@ -1,6 +1,4 @@
-"use client";
-
-import { useEffect, useState } from "react";
+// Server component (no client directives)
 import dynamic from "next/dynamic";
 import { Wrapper } from "../shared/Wrapper";
 import HeroSection from "./HeroSection";
@@ -55,44 +53,33 @@ const homePageLogs = [
 ];
 
 export default function HomePage({ episodes = [], blogPosts = [] }) {
-  // Handle hash navigation on page load
-  useEffect(() => {
-    const hash = window.location.hash.substring(1);
-    if (hash) {
-      setTimeout(() => {
-        const element = document.getElementById(hash);
-        if (element) {
-          const offset = 80;
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - offset;
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          });
-        }
-      }, 100);
-    }
-  }, []);
-
   return (
     <>
       <div id="home">
         <HeroSection />
       </div>
-      <Synopsis />
-      <PrologueSection />
+      <div style={{ contentVisibility: "auto", containIntrinsicSize: "800px" }}>
+        <Synopsis />
+      </div>
+      <div style={{ contentVisibility: "auto", containIntrinsicSize: "800px" }}>
+        <PrologueSection />
+      </div>
       <Wrapper>
         <div className="relative z-10 -mx-4 sm:-mx-6 lg:-mx-8">
           {/* <AboutSection /> */}
 
-          <div id="shop">
+          <div id="shop" style={{ contentVisibility: "auto", containIntrinsicSize: "1200px" }}>
             <EpisodesSection episodes={episodes} />
           </div>
-          <div className="px-10 ">
+          <div className="px-10 " style={{ contentVisibility: "auto", containIntrinsicSize: "600px" }}>
             <NewsletterSection />
           </div>
           <CharacterLogsSection />
-          <div id="spore-log" className="pb-4 px-8 ">
+          <div
+            id="spore-log"
+            className="pb-4 px-8 "
+            style={{ contentVisibility: "auto", containIntrinsicSize: "1000px" }}
+          >
             <SporeBlogSection
               title="Spore Logs"
               className=""
