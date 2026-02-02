@@ -1,6 +1,7 @@
 "use client";
 
-import { Dna, Shield, X } from "lucide-react";
+import { X } from "lucide-react";
+import Image from "next/image";
 
 export default function PollMiddlePopup({
   phase = "Phase 02: Alignment",
@@ -58,7 +59,7 @@ export default function PollMiddlePopup({
             className="faction-card group relative flex flex-col items-center text-center p-8 rounded-xl border border-white/5 bg-gradient-to-b from-zinc-900/20 to-primary/20 hover:from-zinc-900/30 hover:to-primary/40 hover:border-primary/30 transition-all duration-500 outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
-              <Dna className="w-8 h-8 text-primary" />
+              <Image src="/assets/images/evolve.png" alt="Evolve" width={40} height={40} />
             </div>
             <h2 className="text-2xl font-display font-bold text-primary mb-4 tracking-wider uppercase">
               {firstOptionName}
@@ -76,7 +77,7 @@ export default function PollMiddlePopup({
             className="faction-card group relative flex flex-col items-center text-center p-8 rounded-xl border border-white/5 bg-gradient-to-b from-zinc-900/20 to-cyan-950/20 hover:from-zinc-900/30 hover:to-cyan-900/40 hover:border-cyan-500/30 transition-all duration-500 outline-none focus:ring-2 focus:ring-cyan-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <div className="w-16 h-16 rounded-full bg-cyan-500/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
-              <Shield className="w-8 h-8 text-cyan-400" />
+              <Image src="/assets/images/resist.png" alt="Resist" width={40} height={40} />
             </div>
             <h2 className="text-2xl font-display font-bold text-cyan-400 mb-4 tracking-wider uppercase">
               {secondOptionName}
