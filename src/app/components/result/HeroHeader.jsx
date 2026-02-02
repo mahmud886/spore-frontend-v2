@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { fadeUp } from "../../utils/animations";
 
 export default function HeroHeader({
   status = "● STATUS: ACTIVE CONFLICT // SECTOR 7",
@@ -21,7 +20,7 @@ export default function HeroHeader({
             transition={{ duration: 0.6 }}
             className="inline-block border border-red-500/50 px-3 py-1 mb-6 cyber-glow-pulse"
           >
-            <span className="text-[10px] text-red-500 font-bold tracking-[0.2em]">{status}</span>
+            <span className="text-[8px] md:text-[10px] text-red-500 font-bold tracking-[0.2em]">{status}</span>
           </motion.div>
         )}
         <motion.h1

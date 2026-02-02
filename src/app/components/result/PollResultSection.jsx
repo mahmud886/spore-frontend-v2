@@ -92,7 +92,7 @@ export default function PollResultSection({
           {faction1.name}
         </motion.h3>
         <motion.p
-          className="text-[10px] text-white/60 uppercase tracking-widest"
+          className="text-center max-w-[50%] text-[8px] text-white/60 md:text-[10px] uppercase tracking-widest"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -142,7 +142,7 @@ export default function PollResultSection({
       {/* Bottom Labels */}
       <div className="flex justify-between items-center mt-4">
         <motion.p
-          className="text-[10px] text-white/60 uppercase tracking-widest"
+          className="text-center max-w-[50%] text-[8px] text-white/60 md:text-[10px] uppercase tracking-widest"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
@@ -150,7 +150,7 @@ export default function PollResultSection({
           {faction1.subLabel}
         </motion.p>
         <motion.p
-          className="text-[10px] text-white/60 uppercase tracking-widest"
+          className="text-center max-w-[50%] text-[8px] text-white/60 md:text-[10px] uppercase tracking-widest"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
