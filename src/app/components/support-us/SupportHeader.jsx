@@ -19,7 +19,7 @@ export const SupportHeader = () => {
           A NOTE FROM THE CREATOR:
         </h1>
         <div className="space-y-4 text-gray-300 leading-relaxed font-light text-[12px] md:text-base font-body">
-          <p className="text-center text-[13px]">
+          <p className="text-center text-[16px]">
             Season 1 was our first step into the world of Spore Fall. The success is yours—thank you to every viewer,
             supporter, and friend who brought it to life. To our amazing community: Your support and belief made this
             universe real. Now, the real work begins.
@@ -29,7 +29,7 @@ export const SupportHeader = () => {
             &quot;Your contribution directly funds Seasons 2 & 3 — the final chapters of Spore Fall, unlocking our path
             to a feature film.&quot;
           </h2>
-          <p className="text-center text-[13px]">
+          <p className="text-center text-[16px]">
             Our immediate mission: complete Seasons 2 and 3—the final chapters of our micro-drama trilogy. And after? We
             want to put a movie on the big screens. This is our collective leap from micro-drama to macro-legacy.
           </p>
