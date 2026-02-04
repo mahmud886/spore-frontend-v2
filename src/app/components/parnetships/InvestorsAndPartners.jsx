@@ -5,7 +5,7 @@ export const InvestorsAndPartners = () => {
   return (
     <section className="py-12 md:py-24 px-6">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row-reverse items-center gap-12">
-        <div className="lg:w-1/2 relative">
+        <div className="w-full lg:w-1/2 relative">
           <div className="absolute"></div>
           <Image
             width={523}

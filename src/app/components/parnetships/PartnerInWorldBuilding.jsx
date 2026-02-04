@@ -10,7 +10,7 @@ export const PartnerInWorldBuilding = () => {
             width={600}
             height={276}
             alt="World Building Header"
-            className="w-full h-64 object-cover grayscale hover:grayscale-0 transition-all duration-700"
+            className="w-full h-auto min-h-[256px] object-cover grayscale hover:grayscale-0 transition-all duration-700"
             src="/assets/images/partnerships/partner-in-word-build.webp"
           />
           <div className="p-10">
