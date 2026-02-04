@@ -176,7 +176,7 @@ export const SupportUsTier = () => {
     <Wrapper>
       <div className="space-y-16 lg:space-y-48">
         {tiers.map((tier) => (
-          <div key={tier.id} className="grid lg:grid-cols-3 gap-8 lg:gap-16 items-start">
+          <div key={tier.id} id={tier.id} className="grid lg:grid-cols-3 gap-8 lg:gap-16 items-start">
             <div className="lg:col-span-2">
               <h2 className={tier.headingClass}>{tier.heading}</h2>
               {tier.badges && (
@@ -274,6 +274,7 @@ export const SupportUsTier = () => {
                         <div className="flex items-center gap-2">
                           <span className="font-subheading text-2xl font-black text-white">$</span>
                           <input
+                            id="donate-custom-amount"
                             type="number"
                             min="1"
                             placeholder="ANY"
@@ -307,7 +308,7 @@ export const SupportUsTier = () => {
                     <button
                       onClick={() => handleCheckout(tier)}
                       disabled={loading}
-                      className="cursor-pointer bg-primary text-black text-[10px] font-bold px-5 py-2 rounded-sm uppercase hover:brightness-110 transition-all tracking-widest shadow-[0_0_15px_rgba(194,255,2,0.3)] hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="cursor-pointer bg-primary text-black text-[11px] font-bold px-5 py-2 rounded-sm uppercase hover:brightness-110 transition-all tracking-widest shadow-[0_0_15px_rgba(194,255,2,0.3)] hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {loading ? "..." : "Pay Now"}
                     </button>

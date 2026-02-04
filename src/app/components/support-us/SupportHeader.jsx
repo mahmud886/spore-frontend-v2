@@ -1,6 +1,29 @@
+"use client";
+
 import Image from "next/image";
 
 export const SupportHeader = () => {
+  const handleScrollToDonate = () => {
+    const element = document.getElementById("support-universe");
+    if (element) {
+      const offset = 100; // Account for sticky navbar
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+
+      setTimeout(() => {
+        const input = document.getElementById("donate-custom-amount");
+        if (input) {
+          input.focus({ preventScroll: true });
+        }
+      }, 500);
+    }
+  };
+
   return (
     <>
       <section className="max-w-4xl mx-auto text-center mb-14 px-5">
@@ -36,7 +59,7 @@ export const SupportHeader = () => {
         </div>
       </section>
       <section className="text-center mb-40 px-5">
-        <h2 className="font-subheading text-lg md:text-[36px] font-bold mb-20 tracking-widest text-white uppercase leading-normal ">
+        <h2 className="font-subheading text-lg md:text-[36px] font-bold mb-20 tracking-widest text-yellow-300 uppercase leading-normal ">
           &quot;YOUR CONTRIBUTION...&quot;
           <br className="hidden md:block" /> & <br className="hidden md:block" />
           &quot;THE SPORE FALL UNIVERSE NEEDS A HEARTBEAT...&quot;
@@ -57,7 +80,10 @@ export const SupportHeader = () => {
             </p>
           </div>
           <div className="pt-8">
-            <button className="bg-primary text-black font-subheading font-black text-xl px-16 py-4 rounded-sm hover:scale-105 transition-transform duration-300 uppercase tracking-widest shadow-[0_0_30px_rgba(204,255,0,0.3)]">
+            <button
+              onClick={handleScrollToDonate}
+              className="cursor-pointer bg-primary text-black font-subheading font-black text-xl px-16 py-4 rounded-sm hover:scale-105 transition-transform duration-300 uppercase tracking-widest shadow-[0_0_30px_rgba(204,255,0,0.3)]"
+            >
               Donate Any Amount
             </button>
           </div>
