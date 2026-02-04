@@ -20,15 +20,15 @@ export const PartnerInWorldBuilding = () => {
             </p>
             <ul className="space-y-4 mb-10">
               <li className="flex items-center gap-3 text-sm text-gray-200">
-                <CheckCircle className="w-5 h-5 text-primary" />
+                <CheckCircle className="w-5 h-5 text-primary shrink-0" />
                 Diversified revenue streams
               </li>
               <li className="flex items-center gap-3 text-sm text-gray-200">
-                <CheckCircle className="w-5 h-5 text-primary" />
+                <CheckCircle className="w-5 h-5 text-primary shrink-0" />
                 Scalable platforms and markets
               </li>
               <li className="flex items-center gap-3 text-sm text-gray-200">
-                <CheckCircle className="w-5 h-5 text-primary" />
+                <CheckCircle className="w-5 h-5 text-primary shrink-0" />
                 Learn how our proprietary model de-risks and scales narrative IP
               </li>
             </ul>
