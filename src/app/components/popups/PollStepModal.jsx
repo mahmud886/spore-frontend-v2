@@ -144,7 +144,9 @@ export default function PollStepModal({
 
   const handleClose = () => {
     setStep(1);
-    // Mark modal as closed in localStorage
+    try {
+      sessionStorage.setItem("sporefall_modal_closed", "true");
+    } catch {}
     localStorage.setItem("sporefall_modal_closed", "true");
     if (onClose) {
       onClose();
@@ -183,8 +185,8 @@ export default function PollStepModal({
   if (!isClient || !isOpen) return null;
 
   const modalContent = (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-      <div className="relative w-full h-full flex items-center justify-center">
+    <div className="fixed inset-0 z-[100] flex items-stretch justify-end p-0 bg-black/80 backdrop-blur-sm">
+      <div className="relative w-full h-full flex items-stretch justify-end">
         {/* Step 1: Left Popup */}
         {effectiveStep === 1 && (
           <div className="flex items-center justify-center w-full h-full relative z-10">
@@ -222,8 +224,9 @@ export default function PollStepModal({
               secondOption?.description || "Preserve Order. Burn the old world. Rebuild from ashes.";
 
             return (
-              <div className="flex items-center justify-center w-full h-full relative z-10">
+              <div className="flex items-stretch justify-end w-full h-full relative z-10">
                 <PollMiddlePopup
+                  panelRight
                   phase={pollDataToUse?.title || "Phase 02: Alignment"}
                   title={
                     pollDataToUse?.question ||

@@ -8,6 +8,7 @@ const SporeBlogSection = dynamic(() => import("../shared/SporeBlogSection"));
 const CharacterLogsSection = dynamic(() => import("./CharacterLogsSection"));
 const EpisodesSection = dynamic(() => import("./EpisodesSection"));
 const NewsletterSection = dynamic(() => import("./NewsletterSection"));
+import PollSection from "./PollSection";
 
 const homePageLogs = [
   {
@@ -75,6 +76,7 @@ export default function HomePage({ episodes = [], blogPosts = [] }) {
             <NewsletterSection />
           </div>
           <CharacterLogsSection />
+          <PollSection />
           <div
             id="spore-log"
             className="pb-4 px-8 "
