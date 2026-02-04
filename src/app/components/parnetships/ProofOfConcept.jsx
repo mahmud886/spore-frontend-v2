@@ -14,7 +14,7 @@ export const ProofOfConcept = () => {
             className="relative rounded-lg w-full h-full object-cover border border-white/20"
             src="/assets/images/partnerships/proof-of-concept.webp"
           />
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center font-subheading font-display text-[40px] text-primary font-black tracking-widest glow-text">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center font-subheading font-display text-[40px] text-primary font-black tracking-widest glow-text w-full px-4">
             SPORE FALL
           </div>
         </div>
