@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { COMMON_EMAIL_PROVIDERS } from "../../lib/email-providers";
 import { fadeUp } from "../../utils/animations";
 import NotificationPopup from "../popups/NotificationPopup";
 import { AnimatedWrapper } from "../shared/AnimatedWrapper";
@@ -35,6 +36,11 @@ export default function NewsletterSection() {
     } else if (name === "email") {
       if (!value.trim()) return "Email is required";
       if (!STRICT_EMAIL_REGEX.test(value.trim())) return "Please provide a valid email address";
+
+      const domain = value.trim().split("@")[1].toLowerCase();
+      if (!COMMON_EMAIL_PROVIDERS.includes(domain)) {
+        return "Please use a common email provider (e.g., Gmail, Outlook, Yahoo)";
+      }
     }
     return "";
   };
@@ -50,6 +56,11 @@ export default function NewsletterSection() {
     } else {
       if (!STRICT_EMAIL_REGEX.test(formData.email.trim())) {
         newErrors.email = "Please provide a valid email address";
+      } else {
+        const domain = formData.email.trim().split("@")[1].toLowerCase();
+        if (!COMMON_EMAIL_PROVIDERS.includes(domain)) {
+          newErrors.email = "Please use a common email provider (e.g., Gmail, Outlook, Yahoo)";
+        }
       }
     }
 

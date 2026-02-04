@@ -72,7 +72,7 @@ export default function ClientPollSectionFullWidth({ poll }) {
             <span className="inline-block font-subheading text-[10px] md:text-xs tracking-[0.3em] text-white/50 mb-6 uppercase border border-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
               {phase}
             </span>
-            <h1 className="text-4xl md:text-6xl font-subheading font-bold tracking-wider mb-4 uppercase bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60">
+            <h1 className="max-w-[80%] mx-auto text-4xl md:text-6xl font-subheading font-bold tracking-wider mb-4 uppercase bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60">
               {title}
             </h1>
             <p className="font-subheading text-sm md:text-base text-white/40 tracking-widest uppercase">{subtitle}</p>
