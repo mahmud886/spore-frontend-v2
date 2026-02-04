@@ -1,4 +1,3 @@
-import Image from "next/image";
 import LazyBackgroundVideo from "../shared/LazyBackgroundVideo";
 
 export default function HeroSection() {
@@ -74,18 +73,7 @@ export default function HeroSection() {
     // </section>
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
-        <div className="block md:hidden relative w-full h-full">
-          <Image
-            src="/assets/images/hero-image.webp"
-            alt="Sporefall hero"
-            fill
-            sizes="100vw"
-            priority
-            quality={60}
-            className="object-cover"
-          />
-        </div>
-        <div className="hidden md:block w-full h-full">
+        <div className="w-full h-full">
           <LazyBackgroundVideo
             className="w-full h-full object-cover"
             sources={[
