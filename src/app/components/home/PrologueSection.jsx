@@ -41,7 +41,7 @@ export function PrologueSection() {
         </div>
 
         {/* Section Title Overlay */}
-        <div className="absolute top-0 left-0 right-0 z-20 pt-14">
+        <div className="absolute top-0 left-0 right-0 z-20 pt-14 px-4 md:px-0">
           <Wrapper>
             <div className="flex items-center justify-between">
               <SectionTitle>Prologue</SectionTitle>

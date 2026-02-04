@@ -1,4 +1,4 @@
-import { CheckCircleIcon } from "lucide-react";
+import { CheckCircleIcon, Star } from "lucide-react";
 import Image from "next/image";
 import { Wrapper } from "../shared/Wrapper";
 
@@ -8,18 +8,17 @@ export const SupportUsTier = () => {
       id: "archivist",
       heading: "TIER 1: THE ARCHIVIST",
       headingClass: "font-subheading text-4xl font-normal text-primary mb-6 uppercase tracking-wider",
-      description:
-        "Become a Founding Community Member. Receive secret intelligence drips from within the Spore Fall universe.",
+      description: "The ultimate insider access for supporters who want to go deeper into the Spore Fall universe.",
       bullets: [
-        { bold: "classNameified Intel Drops:", text: "Exclusive character back-stories and secret world logs." },
-        { bold: "Dossier Access:", text: "Detailed key character bios." },
-        { bold: "Mission Briefings:", text: "Direct updates on all future content and product launches." },
-        { bold: "Your Role:", text: "The insider. You keep the records." },
+        { bold: "Classified Intel Drops:", text: "Exclusive character backstories and secret world logs." },
+        { bold: "Dossier Access:", text: "Detailed bios of key characters and factions." },
+        { bold: "Mission Briefings:", text: "Direct updates on Seasons 2 & 3 and future launches." },
+        { text: "You preserve the knowledge, track the truth, and keep the records of a fallen city alive." },
       ],
       card: {
         label: "THE ARCHIVIST",
         price: "$39",
-        iconClass: "text-primary text-xl",
+        iconClass: "text-primary w-5 h-5 shrink-0",
         qrSrc: "/assets/images/support-us/QR.png",
       },
     },
@@ -27,27 +26,32 @@ export const SupportUsTier = () => {
       id: "emblem",
       heading: "TIER 2: THE EMBLEM",
       headingClass: "font-subheading text-4xl font-black text-primary mb-6 uppercase tracking-wider",
-      description: "Wear your allegiance. Everything in Tier 1, plus official founding member gear.",
+      description: "For fans who believe in the story and want to wear their allegiance.",
+      badges: [
+        {
+          icon: Star,
+          text: "MOST POPULAR",
+          subtext: "Chosen by most Founding Members",
+        },
+      ],
       bullets: [
-        { headline: "INCLUDES ALL TIER 1 REWARDS." },
         {
           bold: "Founder’s Kit:",
-          text: "An exclusive apparel item & collectible pin set. (Singapore Addresses Only)",
+          text: "Exclusive apparel item + collectible pin set. (Singapore addresses only)",
         },
         {
           bold: "Field Tote:",
-          text: "A sturdy, tactical tote bag for your mission essentials. (Singapore Addresses Only)",
+          text: "Durable tactical tote for everyday missions. (Singapore addresses only)",
         },
-        { text: "Personal invitation to launch party and live screening of season 2", strongOnly: true },
+        { bold: "Personal Invitation:", text: "Launch party + live screening of Season 2." },
         {
-          bold: "Your Role:",
-          text: "The visible vanguard. You represent the Circle in the outside world.",
+          text: "You carry the symbol. You signal belief. You bring the universe beyond the screen.",
         },
       ],
       card: {
         label: "THE EMBLEM",
         price: "$69",
-        iconClass: "text-primary text-3xl",
+        iconClass: "text-primary w-8 h-8 shrink-0",
         qrSrc: "/assets/images/support-us/QR.png",
       },
     },
@@ -55,26 +59,39 @@ export const SupportUsTier = () => {
       id: "patron",
       heading: "TIER 3: THE PATRON",
       headingClass: "font-subheading text-4xl font-black text-primary mb-6 uppercase tracking-wider",
-      description: "Shape the legacy. Ultimate access + your name forever part of Spore Fall.",
+      description: "This tier is for supporters who want their name permanently woven into Spore Fall history.",
+      note: "Patron perks close once Season 2 enters final edit.",
       bullets: [
-        { headline: "INCLUDES ALL TIER 1 & TIER 2 REWARDS." },
         {
           bold: "The Creator’s Cut:",
-          text: "Unlock bonus hidden scenes in Season 2 & 3 that reveal crucial, unseen moments.",
+          text: "Bonus hidden scenes from Seasons 2 & 3 revealing unseen moments.",
         },
         {
-          bold: "Immortalized in the Credits:",
-          text: "Your name permanently featured in the credits of Seasons 2 & 3.",
+          bold: "Immortalised in the Credits:",
+          text: "Your name permanently featured in Seasons 2 & 3.",
         },
         {
-          bold: "Your Role:",
-          text: "The honored patron. Your support directly unlocks deeper stories and secures your place in our history.",
+          text: "Your support unlocks deeper stories and ensures this universe endures beyond its origins.",
         },
       ],
       card: {
         label: "THE PATRON",
         price: "$129",
-        iconClass: "text-primary text-xl",
+        iconClass: "text-primary w-5 h-5 shrink-0",
+        qrSrc: "/assets/images/support-us/QR.png",
+      },
+    },
+    {
+      id: "support-universe",
+      heading: "SUPPORT THE UNIVERSE",
+      headingClass: "font-subheading text-4xl font-normal text-primary mb-6 uppercase tracking-wider",
+      description:
+        "For those who simply want to support the story—no tiers, no rewards required. No rewards. No labels. Just belief in the story. Every contribution helps fund production, support artists, and bring Spore Fall closer to the big screen.",
+      bullets: [{ text: "Name listed on the official supporters page" }, { text: "Early-access community email" }],
+      card: {
+        label: "DONATE",
+        price: "ANY",
+        iconClass: "text-primary w-5 h-5 shrink-0",
         qrSrc: "/assets/images/support-us/QR.png",
       },
     },
@@ -87,11 +104,32 @@ export const SupportUsTier = () => {
           <div key={tier.id} className="grid lg:grid-cols-3 gap-16 items-start">
             <div className="lg:col-span-2">
               <h2 className={tier.headingClass}>{tier.heading}</h2>
-              <p className="text-gray-400 mb-10 max-w-md text-sm leading-relaxed">{tier.description}</p>
+              {tier.badges && (
+                <div className="flex flex-col gap-2 mb-6">
+                  {tier.badges.map((badge, idx) => (
+                    <div key={idx} className="flex flex-col">
+                      <div className="flex items-center gap-2 text-primary">
+                        <badge.icon className="w-5 h-5 fill-current" />
+                        <span className="font-bold font-subheading tracking-widest uppercase text-sm">
+                          {badge.text}
+                        </span>
+                      </div>
+                      <span className="text-gray-400 text-xs pl-7">{badge.subtext}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <p className="text-gray-400 mb-6 max-w-md text-sm leading-relaxed">{tier.description}</p>
+              {tier.note && (
+                <p className="text-primary/80 mb-10 text-xs italic tracking-wide max-w-md border-l-2 border-primary/30 pl-3 py-1">
+                  {tier.note}
+                </p>
+              )}
+              {!tier.note && <div className="mb-10"></div>}
               <ul className="space-y-5">
                 {tier.bullets.map((b, idx) => (
                   <li key={idx} className="flex items-start gap-4">
-                    <CheckCircleIcon className="text-primary text-xl" />
+                    <CheckCircleIcon className="text-primary w-5 h-5 shrink-0" />
                     {b.headline ? (
                       <span className="text-white font-bold uppercase text-[10px] tracking-[0.2em]">{b.headline}</span>
                     ) : b.strongOnly ? (
@@ -107,6 +145,26 @@ export const SupportUsTier = () => {
             </div>
             <div className="space-y-4">
               <div className="tier-card-inner p-8 rounded-lg relative bg-black/50 border border-primary/20">
+                {tier.badges && (
+                  <div className="mb-6">
+                    {tier.badges.map((badge, idx) => (
+                      <div key={idx} className="flex flex-col">
+                        <div className="flex items-center gap-2 text-primary">
+                          <badge.icon className="w-4 h-4 fill-current" />
+                          <span className="font-bold font-subheading tracking-widest uppercase text-xs">
+                            {badge.text}
+                          </span>
+                        </div>
+                        <span className="text-gray-400 text-[10px] pl-6">{badge.subtext}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {tier.note && (
+                  <p className="text-primary/80 mb-6 text-[10px] italic tracking-wide border-l-2 border-primary/30 pl-3 py-1">
+                    {tier.note}
+                  </p>
+                )}
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-5">
                     <CheckCircleIcon className={tier.card.iconClass} />
@@ -117,26 +175,29 @@ export const SupportUsTier = () => {
                       <div className="font-subheading text-5xl font-black text-white">{tier.card.price}</div>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-[9px] uppercase font-bold text-gray-500 mb-2 tracking-widest">
-                      stripe | <span className="text-primary">PAYNOW</span>
+                  <div className="flex flex-col items-end gap-3">
+                    <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded border border-white/10 backdrop-blur-sm">
+                      <Image
+                        src="/assets/images/support-us/stripe-logo.svg"
+                        alt="Stripe"
+                        width={60}
+                        height={25}
+                        className="h-4 w-auto "
+                      />
                     </div>
-                    <Image
-                      width={50}
-                      height={50}
-                      alt="Payment QR"
-                      className="w-20 h-20 bg-white p-1 rounded-sm ml-auto"
-                      src={tier.card.qrSrc}
-                    />
+                    <button className="cursor-pointer bg-primary text-black text-[10px] font-bold px-5 py-2 rounded-sm uppercase hover:brightness-110 transition-all tracking-widest shadow-[0_0_15px_rgba(194,255,2,0.3)] hover:scale-105 active:scale-95">
+                      Donate
+                    </button>
                   </div>
                 </div>
               </div>
-              <button className="w-full bg-primary text-black font-subheading font-black py-5 rounded-sm hover:opacity-90 transition-all uppercase tracking-[0.2em] text-lg">
-                BACK THE CAMPAIGN.
+              <button className="w-full bg-primary text-black font-subheading font-black py-5 rounded-sm hover:brightness-110 hover:scale-[1.01] active:scale-[0.99] transition-all uppercase tracking-[0.2em] text-lg shadow-[0_0_20px_rgba(194,255,2,0.2)] group relative overflow-hidden">
+                <span className="relative z-10">BACK THE CAMPAIGN.</span>
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
               </button>
-              <p className="text-center font-subheading text-[10px] tracking-[0.4em] text-gray-400 uppercase mt-4">
-                Power Our Universe
-              </p>
+              <div className="w-fit mx-auto px-4 py-1.5 bg-white/5 border border-white/10 rounded-full mt-4 backdrop-blur-sm hover:bg-white/10 transition-colors cursor-default font-subheading text-[10px] tracking-[0.2em] text-gray-300 uppercase">
+                Unlock the Archives
+              </div>
             </div>
           </div>
         ))}

@@ -3,7 +3,7 @@ import Image from "next/image";
 export const SupportHeader = () => {
   return (
     <>
-      <section className="max-w-4xl mx-auto text-center mb-32">
+      <section className="max-w-4xl mx-auto text-center mb-32 px-5">
         <div className="mb-10 flex justify-center mt-16">
           <div className="relative w-28 h-28 rounded-full p-[2px] ">
             <Image
@@ -32,8 +32,8 @@ export const SupportHeader = () => {
           </p>
         </div>
       </section>
-      <section className="text-center mb-40">
-        <h2 className="font-subheading text-lg md:text-[36px] font-bold mb-20 tracking-normal text-white uppercase leading-normal">
+      <section className="text-center mb-40 px-5">
+        <h2 className="font-subheading text-lg md:text-[36px] font-bold mb-20 tracking-normal text-yellow-300 uppercase leading-normal">
           &quot;THE SPORE FALL UNIVERSE NEEDS A HEARTBEAT, <br className="hidden md:block" />
           WILL YOU BE OUR DRIVING PULSE?&quot;
         </h2>
@@ -53,8 +53,8 @@ export const SupportHeader = () => {
             </p>
           </div>
           <div className="pt-8">
-            <button className="bg-primary text-black font-heading font-black text-xl px-16 py-4 rounded-sm hover:scale-105 transition-transform duration-300 uppercase tracking-widest shadow-[0_0_30px_rgba(204,255,0,0.3)]">
-              JOIN US
+            <button className="bg-primary text-black font-subheading font-black text-xl px-16 py-4 rounded-sm hover:scale-105 transition-transform duration-300 uppercase tracking-widest shadow-[0_0_30px_rgba(204,255,0,0.3)]">
+              Donate Any Amount
             </button>
           </div>
         </div>

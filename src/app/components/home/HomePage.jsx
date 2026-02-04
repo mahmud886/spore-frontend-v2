@@ -2,13 +2,13 @@
 import dynamic from "next/dynamic";
 import { Wrapper } from "../shared/Wrapper";
 import HeroSection from "./HeroSection";
+import PollSection from "./PollSection";
 import { PrologueSection } from "./PrologueSection";
 import { Synopsis } from "./Synopsis";
 const SporeBlogSection = dynamic(() => import("../shared/SporeBlogSection"));
 const CharacterLogsSection = dynamic(() => import("./CharacterLogsSection"));
 const EpisodesSection = dynamic(() => import("./EpisodesSection"));
 const NewsletterSection = dynamic(() => import("./NewsletterSection"));
-import PollSection from "./PollSection";
 
 const homePageLogs = [
   {
@@ -76,7 +76,9 @@ export default function HomePage({ episodes = [], blogPosts = [] }) {
             <NewsletterSection />
           </div>
           <CharacterLogsSection />
-          <PollSection />
+          <div className="px-8" style={{ contentVisibility: "auto", containIntrinsicSize: "600px" }}>
+            <PollSection />
+          </div>
           <div
             id="spore-log"
             className="pb-4 px-8 "
