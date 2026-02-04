@@ -20,7 +20,7 @@ export const SupportUsTier = () => {
 
   const handleCheckout = async (tier) => {
     const formData = forms[tier.id] || {};
-    const { name, email, note, customAmount } = formData;
+    const { name, email, note, customAmount, mailingAddress } = formData;
 
     try {
       if (!name || !email) {
@@ -54,6 +54,7 @@ export const SupportUsTier = () => {
           tierId: tier.id,
           name,
           email,
+          mailingAddress,
           note,
         }),
       });
@@ -253,6 +254,13 @@ export const SupportUsTier = () => {
                     placeholder="YOUR EMAIL"
                     value={forms[tier.id]?.email || ""}
                     onChange={(e) => handleInputChange(tier.id, "email", e.target.value)}
+                    className="w-full bg-transparent border-b border-primary/30 text-white py-2 px-1 focus:border-primary focus:outline-none placeholder-gray-600 text-[10px] font-bold tracking-widest uppercase"
+                  />
+                  <input
+                    type="text"
+                    placeholder="ENTER YOUR MAILING ADDRESS"
+                    value={forms[tier.id]?.mailingAddress || ""}
+                    onChange={(e) => handleInputChange(tier.id, "mailingAddress", e.target.value)}
                     className="w-full bg-transparent border-b border-primary/30 text-white py-2 px-1 focus:border-primary focus:outline-none placeholder-gray-600 text-[10px] font-bold tracking-widest uppercase"
                   />
                   <input

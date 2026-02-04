@@ -9,7 +9,7 @@ export async function POST(req) {
   }
 
   try {
-    const { amount, tierName, tierId, name, email, note } = await req.json();
+    const { amount, tierName, tierId, name, email, note, mailingAddress } = await req.json();
 
     if (!amount || !tierName) {
       return NextResponse.json({ error: "Amount and Tier Name are required" }, { status: 400 });
@@ -52,6 +52,7 @@ export async function POST(req) {
         tierName,
         supporterName: name,
         supporterNote: note,
+        mailingAddress,
       },
     });
 
