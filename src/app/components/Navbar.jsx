@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -185,69 +186,79 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-white/10 pt-4">
-            <div className="flex flex-col space-y-4">
-              <Link
-                href="/"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (pathname === "/") {
-                    handleScrollToSection(e, "home");
-                  } else {
-                    router.push("/");
-                  }
-                }}
-                className={`${getActiveClass(pathname === "/")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
-              >
-                HOME
-              </Link>
-              <Link
-                href="/"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsMobileMenuOpen(false);
-                  if (pathname === "/") {
-                    handleScrollToSection(e, "spore-log");
-                  } else {
-                    router.push("/#spore-log");
-                  }
-                }}
-                className={`${getActiveClass(pathname === "/" && currentHash === "#spore-log")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
-              >
-                SPORE LOG
-              </Link>
-              <Link
-                href="/result"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (pathname === "/result") {
-                    handleScrollToSection(e, "shop");
-                  } else {
-                    router.push("/result#shop");
-                  }
-                }}
-                className={`${getActiveClass(pathname === "/result")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
-              >
-                SHOP
-              </Link>
-              <Link
-                href="/partnerships"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`${getActiveClass(pathname === "/partnerships")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
-              >
-                PARTNERSHIPS
-              </Link>
-              <Link
-                href="/support-us"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`${getActiveClass(pathname === "/support-us")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
-              >
-                SUPPORT US
-              </Link>
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="md:hidden mt-4 pb-4 border-y border-primary pt-4 overflow-hidden"
+            >
+              <div className="flex flex-col space-y-4">
+                <Link
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsMobileMenuOpen(false);
+                    if (pathname === "/") {
+                      handleScrollToSection(e, "home");
+                    } else {
+                      router.push("/");
+                    }
+                  }}
+                  className={`${getActiveClass(pathname === "/")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                >
+                  HOME
+                </Link>
+                <Link
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsMobileMenuOpen(false);
+                    if (pathname === "/") {
+                      handleScrollToSection(e, "spore-log");
+                    } else {
+                      router.push("/#spore-log");
+                    }
+                  }}
+                  className={`${getActiveClass(pathname === "/" && currentHash === "#spore-log")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                >
+                  SPORE LOG
+                </Link>
+                <Link
+                  href="/result"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsMobileMenuOpen(false);
+                    if (pathname === "/result") {
+                      handleScrollToSection(e, "shop");
+                    } else {
+                      router.push("/result#shop");
+                    }
+                  }}
+                  className={`${getActiveClass(pathname === "/result")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                >
+                  SHOP
+                </Link>
+                <Link
+                  href="/partnerships"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`${getActiveClass(pathname === "/partnerships")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                >
+                  PARTNERSHIPS
+                </Link>
+                <Link
+                  href="/support-us"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`${getActiveClass(pathname === "/support-us")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                >
+                  SUPPORT US
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Wrapper>
     </nav>
   );

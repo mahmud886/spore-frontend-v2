@@ -3,15 +3,15 @@ import Image from "next/image";
 
 export const ProofOfConcept = () => {
   return (
-    <section className="py-24 px-6">
+    <section className="py-12 md:py-24 px-6">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
-        <div className="relative">
+        <div className="relative w-full lg:w-auto">
           <div className="absolute"></div>
           <Image
             width={636}
             height={462}
             alt="Spore Fall Visual"
-            className="relative rounded-lg w-full h-auto object-cover border border-white/20"
+            className="relative rounded-lg w-full h-full object-cover border border-white/20"
             src="/assets/images/partnerships/proof-of-concept.webp"
           />
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center font-subheading font-display text-[40px] text-primary font-black tracking-widest glow-text">
@@ -30,7 +30,7 @@ export const ProofOfConcept = () => {
             ACTION.
           </p>
           <a
-            className="inline-flex items-center gap-4 px-8 py-4 bg-primary text-black font-subheading font-bold tracking-widest text-sm rounded-sm hover:bg-white transition-all group"
+            className="inline-flex items-center gap-4 px-8 py-4 bg-primary text-black font-subheading font-bold tracking-widest text-sm rounded-sm hover:bg-primary/90 transition-all group"
             href="#"
           >
             EXPLORE THE WORLD OF SPORE FALL

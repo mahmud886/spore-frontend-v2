@@ -3,9 +3,9 @@ import Image from "next/image";
 const PartnershipsHeader = () => {
   return (
     <>
-      <section className="pt-40 pb-20 relative overflow-hidden hero-gradient">
+      <section className="pt-24 pb-12 md:pt-40 md:pb-20 relative overflow-hidden hero-gradient">
         <div className="max-w-5xl mx-auto text-center px-6">
-          <h1 className="font-display  text-[42px] md:text-[80px] lg:text-[80px] font-heading font-bold tracking-wider text-primary  glow-text">
+          <h1 className="font-display  text-[30px] md:text-[80px] lg:text-[80px] font-heading font-bold tracking-wider text-primary  glow-text">
             SPORE FALL
             <br />
             CHRONICLES
@@ -30,13 +30,13 @@ const PartnershipsHeader = () => {
           </div>
           <div className="mt-10 font-subheading flex flex-col sm:flex-row items-center justify-center gap-6">
             <a
-              className="leading-wider  px-8 py-4 bg-primary text-black font-display font-bold tracking-widest text-[28px] rounded-sm hover:bg-white transition-colors duration-300"
+              className="leading-wider  px-8 py-4 bg-primary text-black font-display font-bold tracking-widest text-[20px] md:text-[28px] rounded-sm hover:bg-primary/90 transition-colors duration-300"
               href="#"
             >
               EXPLORE SPORE FALL
             </a>
             <a
-              className="leading-wider  px-8 py-4 border-2 border-primary text-primary font-display font-bold tracking-widest text-[28px] rounded-sm hover:bg-primary hover:text-black transition-all duration-300"
+              className="leading-wider  px-8 py-4 border-2 border-primary text-primary font-display font-bold tracking-widest text-[20px] md:text-[27px] rounded-sm hover:bg-primary hover:text-black transition-all duration-300"
               href="#"
             >
               EXPLORE PROJECTS

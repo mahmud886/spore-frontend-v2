@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export const PartnerInWorldBuilding = () => {
   return (
-    <section className="py-24 px-6">
+    <section className="py-12 md:py-24 px-6">
       <div className="max-w-2xl mx-auto">
         <div className="bg-black/50 border border-primary/30 rounded-2xl overflow-hidden">
           <Image
@@ -34,7 +34,7 @@ export const PartnerInWorldBuilding = () => {
               </li>
             </ul>
             <a
-              className="inline-flex items-center gap-4 px-8 py-4 bg-primary text-black font-subheading font-bold tracking-widest text-sm rounded-sm hover:bg-white transition-all group"
+              className="inline-flex items-center gap-4 px-8 py-4 bg-primary text-black font-subheading font-bold tracking-widest text-[10px] md:text-sm rounded-sm hover:bg-white transition-all group"
               href="#"
             >
               SCHEDULE FOR A BRIEF
