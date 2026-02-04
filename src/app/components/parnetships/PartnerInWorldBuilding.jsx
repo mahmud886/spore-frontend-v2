@@ -14,10 +14,9 @@ export const PartnerInWorldBuilding = () => {
             src="/assets/images/partnerships/partner-in-word-build.webp"
           />
           <div className="p-10">
-            <h3 className="font-subheading text-2xl text-primary mb-6">Partner in World Building</h3>
+            <h3 className="font-subheading text-2xl text-primary mb-6">Partner Us to Build and Scale New Worlds</h3>
             <p className="text-gray-300 mb-8 font-light">
-              Diversified revenue streams Scalable platforms and markets Learn how our proprietary model de-risks and
-              scales narrative IP
+              Explore investment opportunities in our IP pipeline and studio engine:
             </p>
             <ul className="space-y-4 mb-10">
               <li className="flex items-center gap-3 text-sm text-gray-200">
@@ -26,11 +25,11 @@ export const PartnerInWorldBuilding = () => {
               </li>
               <li className="flex items-center gap-3 text-sm text-gray-200">
                 <CheckCircle className="w-5 h-5 text-primary" />
-                Scalable infrastructure
+                Scalable platforms and markets
               </li>
               <li className="flex items-center gap-3 text-sm text-gray-200">
                 <CheckCircle className="w-5 h-5 text-primary" />
-                Global market presence
+                Learn how our proprietary model de-risks and scales narrative IP
               </li>
             </ul>
             <a

@@ -3,39 +3,42 @@ import Image from "next/image";
 export const SupportHeader = () => {
   return (
     <>
-      <section className="max-w-4xl mx-auto text-center mb-32 px-5">
+      <section className="max-w-4xl mx-auto text-center mb-14 px-5">
         <div className="mb-10 flex justify-center mt-16">
           <div className="relative w-[300px] h-[300px] rounded-full p-[2px] ">
             <Image
               width={141}
               height={141}
               alt="Creator Profile"
-              className="w-[300px] h-[300px] rounded-full border-[3px] border-black object-cover shadow-2xl"
-              src="/assets/images/support-us/support-us-logo.png"
+              className="w-[300px] h-[300px] rounded-full object-cover"
+              src="/assets/images/support-us/support-image.webp"
             />
           </div>
         </div>
         <h1 className="font-heading text-2xl md:text-3xl font-normal text-primary mb-10 tracking-tight neon-text uppercase">
           A NOTE FROM THE CREATOR:
         </h1>
-        <div className="space-y-6 text-gray-300 leading-relaxed font-light text-sm md:text-base font-body">
-          <p>
+        <div className="space-y-4 text-gray-300 leading-relaxed font-light text-[12px] md:text-base font-body">
+          <p className="text-center text-[13px]">
             Season 1 was our first step into the world of Spore Fall. The success is yours—thank you to every viewer,
             supporter, and friend who brought it to life. To our amazing community: Your support and belief made this
-            universe real.
+            universe real. Now, the real work begins.
           </p>
-          <p>
-            Now, the real work begins. Our immediate mission is to complete Seasons 2 and 3—the final chapters of our
-            micro-drama trilogy. And after? We want to put a movie on the big screens. We are crowdfunding the next
-            Seasons to expand the universe and construct the launchpad for a full-length feature film. This is our
-            collective leap from micro-drama to macro-legacy.
+          <br />
+          <h2 className="font-subheading text-lg md:text-[24px] font-bold mb-14 tracking-normal text-yellow-300 uppercase leading-normal">
+            &quot;Your contribution directly funds Seasons 2 & 3 — the final chapters of Spore Fall, unlocking our path
+            to a feature film.&quot;
+          </h2>
+          <p className="text-center text-[13px]">
+            Our immediate mission: complete Seasons 2 and 3—the final chapters of our micro-drama trilogy. And after? We
+            want to put a movie on the big screens. This is our collective leap from micro-drama to macro-legacy.
           </p>
         </div>
       </section>
       <section className="text-center mb-40 px-5">
-        <h2 className="font-subheading text-lg md:text-[36px] font-bold mb-20 tracking-normal text-yellow-300 uppercase leading-normal">
-          &quot;THE SPORE FALL UNIVERSE NEEDS A HEARTBEAT, <br className="hidden md:block" />
-          WILL YOU BE OUR DRIVING PULSE?&quot;
+        <h2 className="font-subheading text-lg md:text-[36px] font-bold mb-20 tracking-normal text-white uppercase leading-normal">
+          &quot;YOUR CONTRIBUTION...&quot; & <br className="hidden md:block" />
+          &quot;THE SPORE FALL UNIVERSE NEEDS A HEARTBEAT...&quot;
         </h2>
         <div className="mt-24 space-y-12">
           <h3 className="font-heading text-4xl md:text-[48px] font-black text-primary tracking-normal uppercase leading-normal neon-text">
