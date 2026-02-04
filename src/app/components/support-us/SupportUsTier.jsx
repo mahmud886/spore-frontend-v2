@@ -289,7 +289,7 @@ export const SupportUsTier = () => {
                       </div>
                       {tier.id === "support-universe" ? (
                         <div className="flex items-center gap-2">
-                          <span className="font-subheading text-2xl font-black text-white">$</span>
+                          <span className="font-subheading text-xl md:text-2xl font-black text-white">$</span>
                           <input
                             id="donate-custom-amount"
                             type="number"
@@ -297,11 +297,13 @@ export const SupportUsTier = () => {
                             placeholder="ANY"
                             value={forms[tier.id]?.customAmount || ""}
                             onChange={(e) => handleInputChange(tier.id, "customAmount", e.target.value)}
-                            className="bg-transparent border-b-2 border-primary/50 text-white font-subheading text-3xl font-black w-32 focus:outline-none focus:border-primary placeholder-gray-600"
+                            className="bg-transparent border-b-2 border-primary/50 text-white font-subheading text-2xl md:text-3xl font-black w-24 md:w-32 focus:outline-none focus:border-primary placeholder-gray-600"
                           />
                         </div>
                       ) : (
-                        <div className="font-subheading text-5xl font-black text-white">{tier.card.price}</div>
+                        <div className="font-subheading text-3xl md:text-5xl font-black text-white">
+                          {tier.card.price}
+                        </div>
                       )}
                     </div>
                   </div>
