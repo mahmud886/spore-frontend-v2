@@ -1,6 +1,6 @@
 export function Synopsis() {
   return (
-    <section className="relative pt-[450px] pb-20 overflow-hidden cyber-scanline">
+    <section className="relative pt-[200px] md:pt-[450px] pb-20 overflow-hidden cyber-scanline">
       {/* Background Video */}
       <div className="absolute inset-0">
         <video
@@ -17,7 +17,7 @@ export function Synopsis() {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
-          <p className="text-2xl md:text-3xl font-subheading text-gray-300 leading-relaxed text-center">
+          <p className="text-xl md:text-3xl font-subheading text-white leading-relaxed text-center">
             In the fractured city of Lionara where a deadly Spore pathogen outbreak is brutally suppressed by an
             iron-fisted regime, a disillusioned soldier and a rogue medic must bridge their ideological divide when her
             infected brother develops predictive abilities that could accelerate humanity&#39;s evolution or end it.

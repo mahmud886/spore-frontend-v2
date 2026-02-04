@@ -24,7 +24,7 @@ export function PrologueSection() {
       className="cyber-scanline"
     >
       {/* Video Section with Background */}
-      <div className="relative rounded-lg overflow-hidden h-[800px]">
+      <div className="relative rounded-lg overflow-hidden h-[500px] md:h-[800px]">
         {/* Background Image */}
         <div className="absolute inset-0 h-[800px]">
           <Image
@@ -75,6 +75,7 @@ export function PrologueSection() {
                     sizes="100vw"
                     priority={false}
                     quality={60}
+                    className="object-cover w-full h-full"
                     onError={() => {
                       if (thumbSrc.includes("maxresdefault")) {
                         setThumbSrc(`https://i.ytimg.com/vi/${youtubeVideoId}/hqdefault.jpg`);
