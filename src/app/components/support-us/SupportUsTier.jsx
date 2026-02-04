@@ -97,6 +97,7 @@ export const SupportUsTier = () => {
         iconClass: "text-primary w-5 h-5 shrink-0",
         qrSrc: "/assets/images/support-us/QR.png",
       },
+      footerText: "Unlock the Archives",
     },
     {
       id: "emblem",
@@ -130,6 +131,7 @@ export const SupportUsTier = () => {
         iconClass: "text-primary w-8 h-8 shrink-0",
         qrSrc: "/assets/images/support-us/QR.png",
       },
+      footerText: "Join the Inner Circle",
     },
     {
       id: "patron",
@@ -156,13 +158,19 @@ export const SupportUsTier = () => {
         iconClass: "text-primary w-5 h-5 shrink-0",
         qrSrc: "/assets/images/support-us/QR.png",
       },
+      footerText: "Immortalize My Name",
     },
     {
       id: "support-universe",
-      heading: "SUPPORT THE UNIVERSE",
+      heading: "SUPPORT THE UNIVERSE — DONATE ANY AMOUNT",
       headingClass: "font-subheading text-4xl font-normal text-primary mb-6 uppercase tracking-wider",
-      description:
-        "For those who simply want to support the story—no tiers, no rewards required. No rewards. No labels. Just belief in the story. Every contribution helps fund production, support artists, and bring Spore Fall closer to the big screen.",
+      description: (
+        <>
+          For those who simply want to support the story—no tiers, no rewards required. <br /> <br />
+          <strong className="text-white font-bold">No rewards. No labels. Just belief in the story.</strong> <br />{" "}
+          Every contribution helps fund production, support artists, and bring Spore Fall closer to the big screen.
+        </>
+      ),
       bullets: [{ text: "Name listed on the official supporters page" }, { text: "Early-access community email" }],
       card: {
         label: "DONATE",
@@ -170,6 +178,7 @@ export const SupportUsTier = () => {
         iconClass: "text-primary w-5 h-5 shrink-0",
         qrSrc: "/assets/images/support-us/QR.png",
       },
+      footerText: "Power Our Universe",
     },
   ];
 
@@ -332,7 +341,7 @@ export const SupportUsTier = () => {
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
               </button>
               <div className="w-fit mx-auto px-4 py-1.5 bg-white/5 border border-white/10 rounded-full mt-4 backdrop-blur-sm hover:bg-white/10 transition-colors cursor-default font-subheading text-[10px] tracking-[0.2em] text-gray-300 uppercase">
-                Unlock the Archives
+                {tier.footerText}
               </div>
             </div>
           </div>
