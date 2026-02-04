@@ -1,8 +1,83 @@
+"use client";
 import { CheckCircleIcon, Star } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 import { Wrapper } from "../shared/Wrapper";
 
 export const SupportUsTier = () => {
+  const [loading, setLoading] = useState(false);
+  const [forms, setForms] = useState({});
+
+  const handleInputChange = (tierId, field, value) => {
+    setForms((prev) => ({
+      ...prev,
+      [tierId]: {
+        ...prev[tierId],
+        [field]: value,
+      },
+    }));
+  };
+
+  const handleCheckout = async (tier) => {
+    const formData = forms[tier.id] || {};
+    const { name, email, note, customAmount } = formData;
+
+    try {
+      if (!name || !email) {
+        alert("Please enter your name and email.");
+        return;
+      }
+
+      setLoading(true);
+      let amount;
+      let tierName = tier.card.label;
+
+      if (tier.id === "support-universe") {
+        if (!customAmount || isNaN(customAmount) || Number(customAmount) <= 0) {
+          alert("Please enter a valid donation amount");
+          setLoading(false);
+          return;
+        }
+        amount = Number(customAmount);
+      } else {
+        amount = Number(tier.card.price.replace("$", ""));
+      }
+
+      const response = await fetch("/api/stripe/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount,
+          tierName,
+          tierId: tier.id,
+          name,
+          email,
+          note,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to create checkout session");
+      }
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error("No checkout URL returned");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      // Redirect to error page with message
+      window.location.href = `/payment/payment-error?message=${encodeURIComponent(error.message)}`;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const tiers = [
     {
       id: "archivist",
@@ -99,9 +174,9 @@ export const SupportUsTier = () => {
 
   return (
     <Wrapper>
-      <div className="space-y-48">
+      <div className="space-y-16 lg:space-y-48">
         {tiers.map((tier) => (
-          <div key={tier.id} className="grid lg:grid-cols-3 gap-16 items-start">
+          <div key={tier.id} className="grid lg:grid-cols-3 gap-8 lg:gap-16 items-start">
             <div className="lg:col-span-2">
               <h2 className={tier.headingClass}>{tier.heading}</h2>
               {tier.badges && (
@@ -165,6 +240,29 @@ export const SupportUsTier = () => {
                     {tier.note}
                   </p>
                 )}
+                <div className="space-y-3 mb-6">
+                  <input
+                    type="text"
+                    placeholder="YOUR NAME"
+                    value={forms[tier.id]?.name || ""}
+                    onChange={(e) => handleInputChange(tier.id, "name", e.target.value)}
+                    className="w-full bg-transparent border-b border-primary/30 text-white py-2 px-1 focus:border-primary focus:outline-none placeholder-gray-600 text-[10px] font-bold tracking-widest uppercase"
+                  />
+                  <input
+                    type="email"
+                    placeholder="YOUR EMAIL"
+                    value={forms[tier.id]?.email || ""}
+                    onChange={(e) => handleInputChange(tier.id, "email", e.target.value)}
+                    className="w-full bg-transparent border-b border-primary/30 text-white py-2 px-1 focus:border-primary focus:outline-none placeholder-gray-600 text-[10px] font-bold tracking-widest uppercase"
+                  />
+                  <input
+                    type="text"
+                    placeholder="ADD A NOTE (OPTIONAL)"
+                    value={forms[tier.id]?.note || ""}
+                    onChange={(e) => handleInputChange(tier.id, "note", e.target.value)}
+                    className="w-full bg-transparent border-b border-primary/30 text-white py-2 px-1 focus:border-primary focus:outline-none placeholder-gray-600 text-[10px] font-bold tracking-widest uppercase"
+                  />
+                </div>
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-5">
                     <CheckCircleIcon className={tier.card.iconClass} />
@@ -172,27 +270,56 @@ export const SupportUsTier = () => {
                       <div className="font-subheading text-[10px] tracking-[0.3em] text-primary uppercase font-bold mb-1">
                         {tier.card.label}
                       </div>
-                      <div className="font-subheading text-5xl font-black text-white">{tier.card.price}</div>
+                      {tier.id === "support-universe" ? (
+                        <div className="flex items-center gap-2">
+                          <span className="font-subheading text-2xl font-black text-white">$</span>
+                          <input
+                            type="number"
+                            min="1"
+                            placeholder="ANY"
+                            value={forms[tier.id]?.customAmount || ""}
+                            onChange={(e) => handleInputChange(tier.id, "customAmount", e.target.value)}
+                            className="bg-transparent border-b-2 border-primary/50 text-white font-subheading text-3xl font-black w-32 focus:outline-none focus:border-primary placeholder-gray-600"
+                          />
+                        </div>
+                      ) : (
+                        <div className="font-subheading text-5xl font-black text-white">{tier.card.price}</div>
+                      )}
                     </div>
                   </div>
                   <div className="flex flex-col items-end gap-3">
-                    <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded border border-white/10 backdrop-blur-sm">
+                    <div
+                      onClick={() => !loading && handleCheckout(tier)}
+                      className={`flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded border border-white/10 backdrop-blur-sm transition-all ${
+                        loading
+                          ? "opacity-50 cursor-not-allowed"
+                          : "cursor-pointer hover:bg-white/10 hover:scale-105 active:scale-95"
+                      }`}
+                    >
                       <Image
                         src="/assets/images/support-us/stripe-logo.svg"
                         alt="Stripe"
                         width={60}
                         height={25}
-                        className="h-4 w-auto "
+                        className="h-8 w-auto "
                       />
                     </div>
-                    <button className="cursor-pointer bg-primary text-black text-[10px] font-bold px-5 py-2 rounded-sm uppercase hover:brightness-110 transition-all tracking-widest shadow-[0_0_15px_rgba(194,255,2,0.3)] hover:scale-105 active:scale-95">
-                      Donate
+                    <button
+                      onClick={() => handleCheckout(tier)}
+                      disabled={loading}
+                      className="cursor-pointer bg-primary text-black text-[10px] font-bold px-5 py-2 rounded-sm uppercase hover:brightness-110 transition-all tracking-widest shadow-[0_0_15px_rgba(194,255,2,0.3)] hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {loading ? "..." : "Pay Now"}
                     </button>
                   </div>
                 </div>
               </div>
-              <button className="w-full bg-primary text-black font-subheading font-black py-5 rounded-sm hover:brightness-110 hover:scale-[1.01] active:scale-[0.99] transition-all uppercase tracking-[0.2em] text-lg shadow-[0_0_20px_rgba(194,255,2,0.2)] group relative overflow-hidden">
-                <span className="relative z-10">BACK THE CAMPAIGN.</span>
+              <button
+                onClick={() => handleCheckout(tier)}
+                disabled={loading}
+                className="w-full bg-primary text-black font-subheading font-black py-5 rounded-sm hover:brightness-110 hover:scale-[1.01] active:scale-[0.99] transition-all uppercase tracking-[0.2em] text-lg shadow-[0_0_20px_rgba(194,255,2,0.2)] group relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <span className="relative z-10">{loading ? "PROCESSING..." : "BACK THE CAMPAIGN."}</span>
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
               </button>
               <div className="w-fit mx-auto px-4 py-1.5 bg-white/5 border border-white/10 rounded-full mt-4 backdrop-blur-sm hover:bg-white/10 transition-colors cursor-default font-subheading text-[10px] tracking-[0.2em] text-gray-300 uppercase">

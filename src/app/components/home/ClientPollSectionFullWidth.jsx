@@ -79,7 +79,7 @@ export default function ClientPollSectionFullWidth({ poll }) {
           </div>
 
           {/* Voting Cards */}
-          <div className="grid grid-cols-2 gap-2 md:gap-8 md:gap-12 w-full max-w-5xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-8 md:gap-12 w-full max-w-5xl">
             {/* Evolve Option */}
             <button
               onClick={() => firstOption?.id && submitVote(firstOption.id)}

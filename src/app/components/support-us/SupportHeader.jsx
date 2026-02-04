@@ -5,12 +5,12 @@ export const SupportHeader = () => {
     <>
       <section className="max-w-4xl mx-auto text-center mb-32 px-5">
         <div className="mb-10 flex justify-center mt-16">
-          <div className="relative w-28 h-28 rounded-full p-[2px] ">
+          <div className="relative w-[300px] h-[300px] rounded-full p-[2px] ">
             <Image
               width={141}
               height={141}
               alt="Creator Profile"
-              className="w-full h-full rounded-full border-[3px] border-black object-cover shadow-2xl"
+              className="w-[300px] h-[300px] rounded-full border-[3px] border-black object-cover shadow-2xl"
               src="/assets/images/support-us/support-us-logo.png"
             />
           </div>

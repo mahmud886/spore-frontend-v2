@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import NewsletterSection from "../home/NewsletterSection";
 import SporeBlogSection from "../shared/SporeBlogSection";
 import { Wrapper } from "../shared/Wrapper";
@@ -6,7 +7,6 @@ import HeroHeader from "./HeroHeader";
 import MobilizeNetworkCard from "./MobilizeNetworkCard";
 import PollResultSection from "./PollResultSection";
 import ProductsSection from "./ProductsSection";
-import { useEffect } from "react";
 
 export default function ResultPage({
   heroHeaderProps,
