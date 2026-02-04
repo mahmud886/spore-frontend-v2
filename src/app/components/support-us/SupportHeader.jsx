@@ -25,7 +25,7 @@ export const SupportHeader = () => {
             universe real. Now, the real work begins.
           </p>
           <br />
-          <h2 className="font-subheading text-lg md:text-[24px] font-bold mb-14 tracking-normal text-yellow-300 uppercase leading-normal">
+          <h2 className="font-subheading text-lg md:text-[24px] font-bold mb-10 tracking-widest text-yellow-300 uppercase leading-normal">
             &quot;Your contribution directly funds Seasons 2 & 3 — the final chapters of Spore Fall, unlocking our path
             to a feature film.&quot;
           </h2>
@@ -36,8 +36,9 @@ export const SupportHeader = () => {
         </div>
       </section>
       <section className="text-center mb-40 px-5">
-        <h2 className="font-subheading text-lg md:text-[36px] font-bold mb-20 tracking-normal text-white uppercase leading-normal">
-          &quot;YOUR CONTRIBUTION...&quot; & <br className="hidden md:block" />
+        <h2 className="font-subheading text-lg md:text-[36px] font-bold mb-20 tracking-widest text-white uppercase leading-normal ">
+          &quot;YOUR CONTRIBUTION...&quot;
+          <br className="hidden md:block" /> & <br className="hidden md:block" />
           &quot;THE SPORE FALL UNIVERSE NEEDS A HEARTBEAT...&quot;
         </h2>
         <div className="mt-24 space-y-12">
