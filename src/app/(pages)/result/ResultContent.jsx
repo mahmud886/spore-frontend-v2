@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ResultPage from "../../components/result/ResultPage";
 import { trackEvent } from "../../components/shared/Analytics";
+import ResultLoader from "../../components/shared/skeletons/ResultLoader";
 
 export default function ResultContent({ products: products = [] }) {
   const searchParams = useSearchParams();
@@ -273,6 +274,10 @@ export default function ResultContent({ products: products = [] }) {
       title: "POLL CLOSES IN",
     };
   };
+
+  if (loading) {
+    return <ResultLoader />;
+  }
 
   return (
     <ResultPage

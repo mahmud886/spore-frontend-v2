@@ -6,6 +6,8 @@ import { fadeUp } from "../../utils/animations";
 import NotificationPopup from "../popups/NotificationPopup";
 import { AnimatedWrapper } from "../shared/AnimatedWrapper";
 
+const STRICT_EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 export default function NewsletterSection() {
   const [formData, setFormData] = useState({
     name: "",
@@ -32,8 +34,7 @@ export default function NewsletterSection() {
       if (!value.trim()) return "Name is required";
     } else if (name === "email") {
       if (!value.trim()) return "Email is required";
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(value.trim())) return "Please provide a valid email address";
+      if (!STRICT_EMAIL_REGEX.test(value.trim())) return "Please provide a valid email address";
     }
     return "";
   };
@@ -47,8 +48,7 @@ export default function NewsletterSection() {
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(formData.email.trim())) {
+      if (!STRICT_EMAIL_REGEX.test(formData.email.trim())) {
         newErrors.email = "Please provide a valid email address";
       }
     }
