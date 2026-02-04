@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Wrapper } from "./shared/Wrapper";
 
 export default function Navbar() {
@@ -12,8 +12,9 @@ export default function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSporeLogTooltipOpen, setIsSporeLogTooltipOpen] = useState(false);
+  const tooltipTimeoutRef = useRef(null);
   const isClient = typeof window !== "undefined";
-  const [currentHash, setCurrentHash] = useState(isClient ? window.location.hash : "");
+  const [currentHash, setCurrentHash] = useState("");
 
   useEffect(() => {
     if (!isClient) return;
@@ -127,8 +128,15 @@ export default function Navbar() {
             </Link>
             <div
               className="relative"
-              onMouseEnter={() => setIsSporeLogTooltipOpen(true)}
-              onMouseLeave={() => setIsSporeLogTooltipOpen(false)}
+              onMouseEnter={() => {
+                if (tooltipTimeoutRef.current) clearTimeout(tooltipTimeoutRef.current);
+                setIsSporeLogTooltipOpen(true);
+              }}
+              onMouseLeave={() => {
+                tooltipTimeoutRef.current = setTimeout(() => {
+                  setIsSporeLogTooltipOpen(false);
+                }, 300);
+              }}
             >
               <Link
                 href="/"
@@ -145,11 +153,18 @@ export default function Navbar() {
                 SPORE LOG
               </Link>
               {isSporeLogTooltipOpen && (
-                <div className="absolute left-0 mt-2 w-[380px] border border-white/10 rounded-lg bg-black/90 backdrop-blur-md shadow-2xl p-3 z-50">
-                  <p className="text-[11px] text-white/70">
-                    Spore Log — it should bring us to a library like this, but hosted on custom site:
+                <div className="absolute left-0 mt-2 w-max border border-white/10 rounded-lg bg-black/90 backdrop-blur-md shadow-2xl p-3 z-50">
+                  <p className="text-[11px] text-primary break-all">
+                    visit:{" "}
+                    <a
+                      href="https://edenstone.group/sporelog"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-white transition-colors"
+                    >
+                      https://edenstone.group/sporelog
+                    </a>
                   </p>
-                  <p className="text-[11px] text-primary break-all">https://edenstone.group/sporelog</p>
                 </div>
               )}
             </div>
