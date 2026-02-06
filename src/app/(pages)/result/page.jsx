@@ -1,4 +1,5 @@
 import { getBaseUrl } from "@/app/lib/services/base";
+import { getEpisodes } from "@/app/lib/services/episodes";
 import { getProducts } from "@/app/lib/services/products";
 import { createClient } from "@/app/lib/supabase-server";
 import { Suspense } from "react";
@@ -84,10 +85,13 @@ export async function generateMetadata({ searchParams }) {
 }
 
 export default async function Result() {
-  const products = await getProducts({ limit: 20, offset: 0 });
+  const [products, episodes] = await Promise.all([
+    getProducts({ limit: 20, offset: 0 }),
+    getEpisodes({ limit: 10, offset: 0 }),
+  ]);
   return (
     <Suspense>
-      <ResultContent products={products} />
+      <ResultContent products={products} episodes={episodes} />
     </Suspense>
   );
 }

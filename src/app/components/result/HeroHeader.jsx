@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 export default function HeroHeader({
-  status = "● STATUS: ACTIVE CONFLICT // SECTOR 7",
+  status = "● STATUS: ACTIVE CONFLICT // THE STACKS IN SECTOR 7, ZONE 10",
   heading = "THE CITY IS\nDIVIDED",
   showStatus = true,
 }) {

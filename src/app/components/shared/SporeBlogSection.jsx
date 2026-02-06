@@ -51,7 +51,7 @@ const defaultBlogPosts = [
 
 export default function SporeBlogSection({
   posts: propPosts,
-  title = "Spore Logs",
+  title = "VAULT 7",
   className = "mb-24",
   sectionClassName = "",
   fetchFromAPI = true,

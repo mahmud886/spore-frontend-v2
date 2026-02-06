@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const PartnershipsHeader = () => {
   return (
@@ -10,18 +11,19 @@ const PartnershipsHeader = () => {
             <br />
             CHRONICLES
           </h1>
+          <br />
+          <h2 className="text-lg md:text-[24px] font-subheading font-light leading-relaxed mb-4">by</h2>
           <div className="flex flex-col items-center">
             <Image
               alt="Edenstone Logo"
-              className="w-[174px] h-[174px] opacity-80"
-              width={174}
-              height={174}
-              src="/assets/images/partnerships/edenstone.webp"
+              className="w-[300px] h-[182px] opacity-80"
+              width={256}
+              height={155}
+              src="/assets/images/partnerships/edenstone.png"
             />
-            <p className="text-lg md:text-[24px] max-w-2xl font-body mx-auto font-light leading-relaxed mb-4">
-              is a multi-platform narrative universe and
-              <br />
-              the flagship intellectual property of <span className="text-primary font-semibold">Edenstone Group.</span>
+            <p className="mt-5 text-lg md:text-[24px] max-w-2xl font-body mx-auto font-light leading-relaxed mb-4">
+              is a multi-platform narrative universe and the flagship intellectual property of{" "}
+              <span className="text-primary font-semibold">Edenstone Group.</span>
             </p>
             <p className="text-sm text-gray-400 font-body max-w-xl mx-auto">
               Forged through years of brand storytelling for global giants, Edenstone now focus exclusively on building
@@ -29,18 +31,18 @@ const PartnershipsHeader = () => {
             </p>
           </div>
           <div className="mt-10 font-subheading flex flex-col sm:flex-row items-center justify-center gap-6">
-            <a
+            <Link
               className="leading-wider  px-8 py-4 bg-primary text-black font-display font-bold tracking-widest text-[20px] md:text-[28px] rounded-sm hover:bg-primary/90 transition-colors duration-300"
-              href="#"
+              href="/"
             >
               EXPLORE SPORE FALL
-            </a>
-            <a
+            </Link>
+            {/* <a
               className="leading-wider  px-8 py-4 border-2 border-primary text-primary font-display font-bold tracking-widest text-[20px] md:text-[27px] rounded-sm hover:bg-primary hover:text-black transition-all duration-300"
               href="#"
             >
               EXPLORE PROJECTS
-            </a>
+            </a> */}
           </div>
         </div>
       </section>

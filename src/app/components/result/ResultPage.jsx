@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import EpisodesSection from "../home/EpisodesSection";
 import NewsletterSection from "../home/NewsletterSection";
 import SporeBlogSection from "../shared/SporeBlogSection";
 import { Wrapper } from "../shared/Wrapper";
@@ -14,12 +15,12 @@ export default function ResultPage({
   pollResultProps = {
     faction1: {
       name: "EVOLVE",
-      subLabel: "BASTION PARTY",
+      subLabel: "TRANSCEND HUMANITY. UNLOCK YOUR LATENT CODE. BE SOMETHING MORE.",
       percentage: 50,
     },
     faction2: {
       name: "RESIST",
-      subLabel: "THE NEW ALLIANCE",
+      subLabel: "PRESERVE ORDER. BURN THE OLD WORLD. REBUILD FROM ASHES.",
       percentage: 50,
     },
     centerLabel: "THE CITY STANDS DIVIDED",
@@ -27,11 +28,13 @@ export default function ResultPage({
   identityArtifactProps,
   userProfileProps,
   productsProps,
+  episodesProps,
   blogProps,
   pollData,
   onShare,
   copied,
 }) {
+  const { episodes = [] } = episodesProps || {};
   useEffect(() => {
     const hash = window.location.hash.substring(1);
     if (hash) {
@@ -64,7 +67,6 @@ export default function ResultPage({
           platforms={[
             "FACEBOOK",
             "WHATSAPP",
-            "DISCORD",
             "TELEGRAM",
             "LINKEDIN",
             "X_SHARE",
@@ -78,6 +80,9 @@ export default function ResultPage({
         />
         {/* <IdentityArtifactSection {...identityArtifactProps} /> */}
         {/* <UserProfileSection {...userProfileProps} /> */}
+
+        <EpisodesSection episodes={episodes} />
+
         <NewsletterSection />
         <div id="shop" className="pt-24">
           <ProductsSection {...productsProps} />

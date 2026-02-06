@@ -84,13 +84,7 @@ export default function HomePage({ episodes = [], blogPosts = [] }) {
             className="pb-4 px-8 "
             style={{ contentVisibility: "auto", containIntrinsicSize: "1000px" }}
           >
-            <SporeBlogSection
-              title="Spore Logs"
-              className=""
-              sectionClassName=""
-              fetchFromAPI={false}
-              posts={blogPosts}
-            />
+            <SporeBlogSection title="VAULT 7" className="" sectionClassName="" fetchFromAPI={false} posts={blogPosts} />
           </div>
         </div>
       </Wrapper>

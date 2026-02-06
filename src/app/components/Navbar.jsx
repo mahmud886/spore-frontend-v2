@@ -150,7 +150,7 @@ export default function Navbar() {
                 }}
                 className={`${getActiveClass(pathname === "/" && currentHash === "#spore-log")} transition-colors`}
               >
-                SPORE LOG
+                VAULT 7
               </Link>
               {isSporeLogTooltipOpen && (
                 <div className="absolute left-0 mt-2 w-max border border-white/10 rounded-lg bg-black/90 backdrop-blur-md shadow-2xl p-3 z-50">
@@ -239,7 +239,7 @@ export default function Navbar() {
                   }}
                   className={`${getActiveClass(pathname === "/" && currentHash === "#spore-log")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
                 >
-                  SPORE LOG
+                  VAULT 7
                 </Link>
                 <Link
                   href="/result"

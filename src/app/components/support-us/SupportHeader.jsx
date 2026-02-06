@@ -49,25 +49,23 @@ export const SupportHeader = () => {
           </p>
           <br />
           <h2 className="font-subheading text-lg md:text-[24px] font-bold mb-10 tracking-widest text-yellow-300 uppercase leading-normal">
-            &quot;Your contribution directly funds Seasons 2 & 3 — the final chapters of Spore Fall, unlocking our path
-            to a feature film.&quot;
+            &quot;Your contribution directly funds seasons 2 & 3, unlocking our path to a feature length theatrical
+            release in movie theatres.&quot;
           </h2>
-          <p className="text-center text-[16px]">
+          <p className="text-center text-[16px] max-w-[80%] mx-auto">
             Our immediate mission: complete Seasons 2 and 3—the final chapters of our micro-drama trilogy. And after? We
             want to put a movie on the big screens. This is our collective leap from micro-drama to macro-legacy.
           </p>
         </div>
       </section>
-      <section className="text-center mb-40 px-5">
-        <h2 className="font-subheading text-lg md:text-[36px] font-bold mb-20 tracking-widest text-yellow-300 uppercase leading-normal ">
-          &quot;YOUR CONTRIBUTION...&quot;
-          <br className="hidden md:block" /> & <br className="hidden md:block" />
-          &quot;THE SPORE FALL UNIVERSE NEEDS A HEARTBEAT...&quot;
+      <section className="text-center mb-30 px-5">
+        <h2 className="font-subheading text-lg md:text-[36px] font-bold mb-14 tracking-widest text-yellow-300 uppercase leading-normal ">
+          &quot;The Spore Fall Universe needs a heartbeat, <br />
+          will you be our driving pulse?&quot;
         </h2>
-        <div className="mt-24 space-y-12">
-          <h3 className="font-heading text-4xl md:text-[48px] font-black text-primary tracking-normal uppercase leading-normal neon-text">
-            THE CITY HAS FALLEN BUT <br />
-            THE STORY MUST CONTINUE
+        <div className="space-y-12">
+          <h3 className="font-heading text-2xl md:text-3xl font-normal text-primary mb-10 tracking-tight neon-text uppercase">
+            The City Has Fallen...
           </h3>
           <div className="max-w-2xl mx-auto">
             <h4 className="font-subheading text-[48px] mb-6 text-white tracking-normal font-normal uppercase">

@@ -62,12 +62,12 @@ function getDynamicCenterLabel(faction1Percentage, faction2Percentage) {
 export default function PollResultSection({
   faction1 = {
     name: "EVOLVE",
-    subLabel: "BASTION PARTY",
+    subLabel: "TRANSCEND HUMANITY. UNLOCK YOUR LATENT CODE. BE SOMETHING MORE.",
     percentage: 50,
   },
   faction2 = {
     name: "RESIST",
-    subLabel: "THE NEW ALLIANCE",
+    subLabel: "PRESERVE ORDER. BURN THE OLD WORLD. REBUILD FROM ASHES.",
     percentage: 50,
   },
   centerLabel, // Will be dynamically generated if not provided
@@ -84,7 +84,7 @@ export default function PollResultSection({
       {/* Top Labels */}
       <div className="flex justify-between items-center mb-4">
         <motion.h3
-          className="text-primary text-sm font-bold tracking-widest uppercase"
+          className="text-white text-sm font-bold tracking-widest uppercase"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
@@ -100,7 +100,7 @@ export default function PollResultSection({
           {dynamicCenterLabel}
         </motion.p>
         <motion.h3
-          className="text-accent-blue text-sm font-bold tracking-widest uppercase"
+          className="text-primary text-sm font-bold tracking-widest uppercase"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
@@ -114,7 +114,7 @@ export default function PollResultSection({
         <motion.div
           className="flex items-center justify-center cyber-energy-fill"
           style={{
-            background: "repeating-linear-gradient(45deg, #C2FF02, #C2FF02 10px, #a8db02 10px, #a8db02 20px)",
+            background: "repeating-linear-gradient(45deg, #9ca3af, #9ca3af 10px, #ffffff 10px, #ffffff 20px)",
             borderTopLeftRadius: "9999px",
             borderBottomLeftRadius: "9999px",
           }}
@@ -127,7 +127,7 @@ export default function PollResultSection({
         <motion.div
           className="flex items-center justify-center cyber-energy-fill"
           style={{
-            background: "repeating-linear-gradient(45deg, #9ca3af, #9ca3af 10px, #ffffff 10px, #ffffff 20px)",
+            background: "repeating-linear-gradient(45deg, #C2FF02, #C2FF02 10px, #a8db02 10px, #a8db02 20px)",
             borderTopRightRadius: "9999px",
             borderBottomRightRadius: "9999px",
           }}

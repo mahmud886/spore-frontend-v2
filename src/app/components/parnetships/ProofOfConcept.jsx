@@ -22,7 +22,7 @@ export const ProofOfConcept = () => {
           <div className="inline-block border border-primary px-3 py-1 text-[10px] font-subheading tracking-[0.2em] text-primary mb-6">
             PROOF OF CONCEPT
           </div>
-          <h2 className="font-subheading text-4xl md:text-5xl text-white mb-6 leading-tight tracking-tight">
+          <h2 className="font-subheading text-4xl md:text-5xl text-white mb-6 leading-tight tracking-widest">
             OUR FLAGSHIP IP
           </h2>
           <p className="text-gray-400 text-lg mb-10 font-light max-w-lg">
@@ -36,6 +36,27 @@ export const ProofOfConcept = () => {
             EXPLORE THE WORLD OF SPORE FALL
             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
           </a>
+        </div>
+      </div>
+      <div className="max-w-7xl mx-auto mt-16 pt-16 text-center border-white/10">
+        <h2 className="font-subheading text-4xl md:text-5xl text-white mb-8 leading-tight tracking-widest uppercase">
+          A TECH-POWERED FUTURE
+        </h2>
+        <div className="space-y-6 text-gray-400 text-lg font-light leading-relaxed">
+          <p>
+            Throughout history, legacy IPs have defined their mediums: Star Wars for film, Harry Potter for literature,
+            capturing imaginations through a single screen or page.
+          </p>
+          <p>
+            The future of storytelling is immersive, interactive, and expansive. Audiences today crave worlds they can
+            step into.
+          </p>
+          <p className="text-primary">
+            Edenstone is built to meet a new age of immersive, tech-augmented storytelling.
+          </p>
+          <p className="text-primary font-subheading text-sm tracking-widest">
+            WE ARE CREATED IN SINGAPORE; FOR THE WORLD.
+          </p>
         </div>
       </div>
     </section>

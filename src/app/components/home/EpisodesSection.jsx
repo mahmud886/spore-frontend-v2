@@ -3,7 +3,7 @@
 import { ArrowRight, Clock, Lock } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatedCard } from "../shared/AnimatedWrapper";
 import Carousel from "../shared/Carousel";
@@ -31,6 +31,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
   const [selectedEpisodeForVideo, setSelectedEpisodeForVideo] = useState(null);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
+  const pathname = usePathname();
 
   useEffect(() => {
     const el = rootRef.current;
@@ -971,9 +972,11 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
     </AnimatedCard>
   );
 
+  const isResultPage = pathname === "/result";
+
   if (loading) {
     return (
-      <section className="py-24 px-8 cyber-hex-grid">
+      <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "py-24 px-8"} cyber-hex-grid`}>
         <div className="mb-8">
           <SectionTitle>Episodes</SectionTitle>
         </div>
@@ -988,7 +991,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
 
   if (error) {
     return (
-      <section className="py-24 px-8 cyber-hex-grid">
+      <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "py-24 px-8"} cyber-hex-grid`}>
         <div className="text-center py-20">
           <p className="text-red-500 mb-2">Error loading episodes</p>
           <p className="text-white/60 text-sm">{error}</p>
@@ -999,7 +1002,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
 
   if (episodes.length === 0) {
     return (
-      <section className="py-24 px-8 cyber-hex-grid">
+      <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "py-24 px-8"} cyber-hex-grid`}>
         <div className="text-center py-20">
           <p className="text-white/60 text-sm">No episodes available at the moment.</p>
         </div>
@@ -1009,7 +1012,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
 
   return (
     <>
-      <section className="py-24 px-8 cyber-hex-grid" ref={rootRef}>
+      <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "py-24 px-8"} cyber-hex-grid`} ref={rootRef}>
         <Carousel
           items={episodes}
           renderItem={renderEpisodeCard}

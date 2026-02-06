@@ -14,7 +14,7 @@ export const PartnerInWorldBuilding = () => {
             src="/assets/images/partnerships/partner-in-word-build.webp"
           />
           <div className="p-10">
-            <h3 className="font-subheading text-2xl text-primary mb-6">Partner Us to Build and Scale New Worlds</h3>
+            <h3 className="font-subheading text-2xl text-primary mb-6">Partner With Us to Build & Scale New Worlds</h3>
             <p className="text-gray-300 mb-8 font-light">
               Explore investment opportunities in our IP pipeline and studio engine:
             </p>

@@ -16,7 +16,7 @@ export const InvestorsAndPartners = () => {
           />
         </div>
         <div className="lg:w-1/2">
-          <h2 className="font-subheading text-4xl md:text-5xl text-white mb-6 leading-tight tracking-tight">
+          <h2 className="font-subheading text-4xl md:text-5xl text-white mb-6 leading-tight tracking-widest">
             INVESTORS &amp; PARTNERS
           </h2>
           <p className="text-gray-400 text-lg mb-10 font-body font-light max-w-lg">

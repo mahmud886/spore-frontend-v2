@@ -10,8 +10,12 @@ export default function ClientPollSectionFullWidth({ poll }) {
 
   if (!poll) return null;
 
-  const firstOption = poll.options?.[0];
-  const secondOption = poll.options?.[1];
+  const evolveOption = poll.options?.find((opt) => (opt?.name || opt?.text || "").toUpperCase() === "EVOLVE");
+  const resistOption = poll.options?.find((opt) => (opt?.name || opt?.text || "").toUpperCase() === "RESIST");
+
+  const firstOption = evolveOption || poll.options?.[0];
+  const secondOption = resistOption || poll.options?.[1];
+
   const firstOptionName = firstOption?.name || firstOption?.text || "EVOLVE";
   const secondOptionName = secondOption?.name || secondOption?.text || "RESIST";
   const firstOptionDescription =
@@ -20,12 +24,16 @@ export default function ClientPollSectionFullWidth({ poll }) {
     secondOption?.description || "Preserve Order. Burn the old world. Rebuild from ashes.";
   const phase = poll.title || "Phase 02: Alignment";
   const title = poll.question || poll.description || "Shape The Next Chapter of the Story";
-  const subtitle = poll.options?.length
-    ? poll.options
-        .map((opt) => opt?.name || opt?.text || "")
-        .filter(Boolean)
-        .join(" vs ")
-    : "RESIST vs EVOLVE";
+
+  const subtitle =
+    evolveOption && resistOption
+      ? "EVOLVE vs RESIST"
+      : poll.options?.length
+        ? poll.options
+            .map((opt) => opt?.name || opt?.text || "")
+            .filter(Boolean)
+            .join(" vs ")
+        : "EVOLVE vs RESIST";
 
   const submitVote = async (optionId) => {
     if (isSubmitting) return;

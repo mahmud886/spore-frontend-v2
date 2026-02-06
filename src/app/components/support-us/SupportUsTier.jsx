@@ -113,6 +113,9 @@ export const SupportUsTier = () => {
       ],
       bullets: [
         {
+          bold: "Includes all benefits in Tier 1",
+        },
+        {
           bold: "Founder’s Kit:",
           text: "Exclusive apparel item + collectible pin set. (Singapore addresses only)",
         },
@@ -140,6 +143,9 @@ export const SupportUsTier = () => {
       description: "This tier is for supporters who want their name permanently woven into Spore Fall history.",
       note: "Patron perks close once Season 2 enters final edit.",
       bullets: [
+        {
+          bold: "Includes all benefits in Tier 1 & 2",
+        },
         {
           bold: "The Creator’s Cut:",
           text: "Bonus hidden scenes from Seasons 2 & 3 revealing unseen moments.",
@@ -280,7 +286,7 @@ export const SupportUsTier = () => {
                     className="w-full bg-transparent border-b border-primary/30 text-white py-2 px-1 focus:border-primary focus:outline-none placeholder-gray-600 text-[10px] font-bold tracking-widest uppercase"
                   />
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center gap-4">
                   <div className="flex items-center gap-5">
                     <CheckCircleIcon className={tier.card.iconClass} />
                     <div>
@@ -321,16 +327,19 @@ export const SupportUsTier = () => {
                         alt="Stripe"
                         width={60}
                         height={25}
-                        className="h-8 w-auto "
+                        className="h-10 w-auto "
                       />
                     </div>
-                    <button
+                    <p className="font-subheading text-[11px] tracking-wider text-primary uppercase font-bold">
+                      Powered by Stripe
+                    </p>
+                    {/* <button
                       onClick={() => handleCheckout(tier)}
                       disabled={loading}
                       className="cursor-pointer bg-primary text-black text-[11px] font-bold px-5 py-2 rounded-sm uppercase hover:brightness-110 transition-all tracking-widest shadow-[0_0_15px_rgba(194,255,2,0.3)] hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {loading ? "..." : "Pay Now"}
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
