@@ -3,6 +3,7 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import { Analytics } from "./components/shared/Analytics";
 import BackgroundSetter from "./components/shared/BackgroundSetter";
+import ScrollToTop from "./components/shared/ScrollToTop";
 import VerticalLines from "./components/shared/VerticalLines";
 import { Wrapper } from "./components/shared/Wrapper";
 import "./globals.css";
@@ -47,6 +48,7 @@ export default function RootLayout({ children }) {
         <link rel="dns-prefetch" href="https://images.squarespace-cdn.com" />
       </head>
       <body className="antialiased text-white selection:bg-primary selection:text-black overflow-x-hidden ">
+        <ScrollToTop />
         <Analytics />
         <BackgroundSetter />
         <VerticalLines />
