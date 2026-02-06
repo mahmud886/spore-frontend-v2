@@ -311,7 +311,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
           console.log("EpisodesSection 30s fallback: no episodes yet, will wait for data");
         }
       }
-    }, 30000);
+    }, 170000);
 
     // Cleanup
     return () => {
@@ -510,7 +510,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
               }
             } catch {}
           }
-        }, 90000);
+        }, 200000);
       }
     } catch {}
     // Reset hasCheckedFirstVisit so modal can auto-open again on next page load

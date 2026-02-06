@@ -4,15 +4,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Wrapper } from "./shared/Wrapper";
 
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSporeLogTooltipOpen, setIsSporeLogTooltipOpen] = useState(false);
-  const tooltipTimeoutRef = useRef(null);
   const isClient = typeof window !== "undefined";
   const [currentHash, setCurrentHash] = useState("");
 
@@ -126,48 +124,14 @@ export default function Navbar() {
             >
               HOME
             </Link>
-            <div
-              className="relative"
-              onMouseEnter={() => {
-                if (tooltipTimeoutRef.current) clearTimeout(tooltipTimeoutRef.current);
-                setIsSporeLogTooltipOpen(true);
-              }}
-              onMouseLeave={() => {
-                tooltipTimeoutRef.current = setTimeout(() => {
-                  setIsSporeLogTooltipOpen(false);
-                }, 300);
-              }}
+            <Link
+              href="https://edenstone.group/sporelog"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${getActiveClass(pathname === "/" && currentHash === "#spore-log")} transition-colors`}
             >
-              <Link
-                href="/"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (pathname === "/") {
-                    handleScrollToSection(e, "spore-log");
-                  } else {
-                    router.push("/#spore-log");
-                  }
-                }}
-                className={`${getActiveClass(pathname === "/" && currentHash === "#spore-log")} transition-colors`}
-              >
-                VAULT 7
-              </Link>
-              {isSporeLogTooltipOpen && (
-                <div className="absolute left-0 mt-2 w-max border border-white/10 rounded-lg bg-black/90 backdrop-blur-md shadow-2xl p-3 z-50">
-                  <p className="text-[11px] text-primary break-all">
-                    visit:{" "}
-                    <a
-                      href="https://edenstone.group/sporelog"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-white transition-colors"
-                    >
-                      https://edenstone.group/sporelog
-                    </a>
-                  </p>
-                </div>
-              )}
-            </div>
+              VAULT 7
+            </Link>
             <Link
               href="/result"
               onClick={(e) => {
@@ -227,16 +191,10 @@ export default function Navbar() {
                   HOME
                 </Link>
                 <Link
-                  href="/"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setIsMobileMenuOpen(false);
-                    if (pathname === "/") {
-                      handleScrollToSection(e, "spore-log");
-                    } else {
-                      router.push("/#spore-log");
-                    }
-                  }}
+                  href="https://edenstone.group/sporelog"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className={`${getActiveClass(pathname === "/" && currentHash === "#spore-log")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
                 >
                   VAULT 7
