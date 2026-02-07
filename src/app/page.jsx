@@ -8,7 +8,8 @@ export const revalidate = 60;
 export async function generateMetadata() {
   const base = getBaseUrl();
   const title = "SPORE FALL | Sci-Fi Narrative Series";
-  const description = "The city of Lionara is quarantined. A spore is rewriting human fate. Join the resistance or embrace the evolution.";
+  const description =
+    "The city of Lionara is quarantined. A spore is rewriting human fate. Join the resistance or embrace the evolution.";
   const ogImage = `${base}/api/og?title=${encodeURIComponent("SPORE FALL")}&subtitle=${encodeURIComponent("THE CITY OF LIONARA IS QUARANTINED. A SPORE IS REWRITING HUMAN FATE.")}`;
 
   return {

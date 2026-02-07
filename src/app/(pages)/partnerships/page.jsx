@@ -11,7 +11,8 @@ import { fadeUp } from "../../utils/animations";
 export async function generateMetadata() {
   const base = getBaseUrl();
   const title = "PARTNERSHIPS | SPORE FALL";
-  const description = "Collaborate with us in building the next generation of sci-fi narrative experiences. Investors, partners, and world-builders welcome.";
+  const description =
+    "Collaborate with us in building the next generation of sci-fi narrative experiences. Investors, partners, and world-builders welcome.";
   const ogImage = `${base}/api/og?title=${encodeURIComponent("PARTNERSHIPS")}&subtitle=${encodeURIComponent("COLLABORATE WITH US IN BUILDING THE NEXT GENERATION OF SCI-FI NARRATIVE EXPERIENCES.")}`;
 
   return {

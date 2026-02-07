@@ -9,7 +9,8 @@ import { fadeUp } from "../../utils/animations";
 export async function generateMetadata() {
   const base = getBaseUrl();
   const title = "SUPPORT THE UNIVERSE | SPORE FALL";
-  const description = "Join the Inner Circle. Support the production of Spore Fall and help us bring the universe beyond the screen.";
+  const description =
+    "Join the Inner Circle. Support the production of Spore Fall and help us bring the universe beyond the screen.";
   const ogImage = `${base}/api/og?title=${encodeURIComponent("SUPPORT THE UNIVERSE")}&subtitle=${encodeURIComponent("JOIN THE INNER CIRCLE. HELP US BRING THE UNIVERSE BEYOND THE SCREEN.")}`;
 
   return {
