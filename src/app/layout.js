@@ -32,8 +32,36 @@ const mokoto = localFont({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://sporefall.com"),
   title: "SPORE FALL | Sci-Fi Narrative Series",
   description: "The city of Lionara is quarantined. A spore is rewriting human fate.",
+  openGraph: {
+    title: "SPORE FALL | Sci-Fi Narrative Series",
+    description: "The city of Lionara is quarantined. A spore is rewriting human fate.",
+    url: "/",
+    siteName: "SPORE FALL",
+    images: [
+      {
+        url: "/api/og",
+        width: 1200,
+        height: 630,
+        alt: "SPORE FALL - Sci-Fi Narrative Series",
+        type: "image/jpeg",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SPORE FALL | Sci-Fi Narrative Series",
+    description: "The city of Lionara is quarantined. A spore is rewriting human fate.",
+    images: ["/api/og"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }) {

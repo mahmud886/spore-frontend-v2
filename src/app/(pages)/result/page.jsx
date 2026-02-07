@@ -35,10 +35,14 @@ export async function generateMetadata({ searchParams }) {
       poll = { ...p, options: p.poll_options || [] };
     }
   }
-  const title = poll ? poll.question || poll.title || "Poll Results" : "Poll Results";
+  const title = poll
+    ? `${(poll.question || poll.title || "Poll Results").toUpperCase()} | SPORE FALL`
+    : "POLL RESULTS | SPORE FALL";
   const totalVotes =
     poll && Array.isArray(poll.options) ? poll.options.reduce((sum, o) => sum + (o.vote_count || o.votes || 0), 0) : 0;
-  const description = `Poll Results - ${totalVotes} total votes`;
+  const description = poll
+    ? `View the latest results for: ${poll.question || poll.title}. Join ${totalVotes} others in shaping the story.`
+    : `Poll Results - ${totalVotes} total votes. See how the community is voting in the Spore Fall universe.`;
   const pollIdForImage = poll ? poll.id : pollParam || "";
   const platform = (searchParams?.utm_source || "").toLowerCase();
   const platformSizeMap = {
@@ -56,14 +60,13 @@ export async function generateMetadata({ searchParams }) {
   };
   const sizeParam = platformSizeMap[platform] || "facebook";
   const ogImage = pollIdForImage
-    ? `${base}/api/og/poll/${encodeURIComponent(pollIdForImage)}?size=${sizeParam}`
-    : `${base}/assets/images/og-default.png`;
-  const twitterImage = pollIdForImage
-    ? `${base}/api/og/poll/${encodeURIComponent(pollIdForImage)}?size=${sizeParam === "twitter" ? "twitter" : "facebook"}`
-    : ogImage;
+    ? `${base}/api/polls/${encodeURIComponent(pollIdForImage)}/image?size=${sizeParam}&format=jpg`
+    : `${base}/api/og`;
+
   const url = `${base}/result${episodeId || pollParam ? "?" : ""}${
     episodeId ? `episode=${encodeURIComponent(episodeId)}` : ""
   }${episodeId && pollParam ? "&" : ""}${pollParam ? `poll=${encodeURIComponent(pollParam)}` : ""}`;
+
   return {
     title,
     description,
@@ -71,15 +74,16 @@ export async function generateMetadata({ searchParams }) {
       title,
       description,
       url,
-      siteName: "SPOREFALL",
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title, type: "image/png" }],
-      type: "website",
+      siteName: "SPORE FALL",
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title, type: "image/jpeg" }],
+      locale: "en_US",
+      type: "article",
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [twitterImage],
+      images: [ogImage],
     },
   };
 }

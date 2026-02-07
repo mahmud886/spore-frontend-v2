@@ -15,7 +15,7 @@ export async function GET(request, { params }) {
     const { id } = resolvedParams;
     const { searchParams } = new URL(request.url);
     const size = searchParams.get("size") || "facebook";
-    const format = (searchParams.get("format") || "png").toLowerCase();
+    const format = (searchParams.get("format") || "jpg").toLowerCase();
 
     if (!id) {
       return NextResponse.json({ error: "Poll ID is required" }, { status: 400 });
@@ -75,7 +75,6 @@ export async function GET(request, { params }) {
 
     // Calculate positions
     const questionY = verticalMargin + 60;
-    const logoY = verticalMargin + contentHeight * 0.25 + 40; // Logo at 25% of content area
     const firstOptionY = verticalMargin + contentHeight * 0.45; // Options at 45% of content area
     const barHeight = 70;
     const columnSpacing = 40; // Space between columns
@@ -155,7 +154,7 @@ export async function GET(request, { params }) {
     let backgroundImageDataUri = "";
     try {
       const publicPath = join(process.cwd(), "public");
-      const imagePath = join(publicPath, "og-image-bg.png");
+      const imagePath = join(publicPath, "og-image-bg.jpg");
 
       // Read the image file
       const imageBuffer = await readFile(imagePath);
@@ -163,18 +162,16 @@ export async function GET(request, { params }) {
       // Resize and heavily compress the image using sharp
       const resizedImageBuffer = await sharp(imageBuffer)
         .resize(Math.floor(width / 3), Math.floor(height / 3), { fit: "cover", withoutEnlargement: true }) // Further reduce size
-        .png({
-          quality: 15, // Even lower quality to reduce file size
-          compressionLevel: 9, // Maximum compression
-          palette: true, // Use palette mode for smaller file size
-          effort: 10, // Maximum compression effort
+        .jpeg({
+          quality: 60, // Use JPEG for better compression
+          mozjpeg: true,
         })
         .toBuffer();
 
       // Convert to base64
       const base64Image = resizedImageBuffer.toString("base64");
 
-      backgroundImageDataUri = `data:image/png;base64,${base64Image}`;
+      backgroundImageDataUri = `data:image/jpeg;base64,${base64Image}`;
     } catch (error) {
       console.error("Background image not found or could not be processed:", error.message);
       // Fallback to a solid background if image is not available
@@ -238,11 +235,6 @@ export async function GET(request, { params }) {
           ${displayQuestion}
         </text>
 
-        <!-- Logo in middle (center aligned) -->
-        <text x="${width / 2}" y="${logoY}" font-size="72" text-anchor="middle" font-family="Mokoto, Arial, sans-serif" fill="#C2FF02">
-          📊
-        </text>
-
         <!-- Option bars (center aligned) -->
         <g font-family="Mokoto, Arial, sans-serif">
           ${optionBars.join("")}
@@ -260,7 +252,7 @@ export async function GET(request, { params }) {
     `;
 
     if (format === "png") {
-      const pngBuffer = await sharp(Buffer.from(svg)).png({ quality: 90 }).toBuffer();
+      const pngBuffer = await sharp(Buffer.from(svg)).png({ quality: 90, compressionLevel: 9 }).toBuffer();
       return new Response(pngBuffer, {
         headers: {
           "Content-Type": "image/png",
@@ -268,9 +260,12 @@ export async function GET(request, { params }) {
         },
       });
     }
-    return new Response(svg, {
+
+    // Default to JPEG for weight optimization
+    const jpegBuffer = await sharp(Buffer.from(svg)).jpeg({ quality: 80, mozjpeg: true }).toBuffer();
+    return new Response(jpegBuffer, {
       headers: {
-        "Content-Type": "image/svg+xml",
+        "Content-Type": "image/jpeg",
         "Cache-Control": "public, max-age=300",
       },
     });

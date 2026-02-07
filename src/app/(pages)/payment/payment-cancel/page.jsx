@@ -1,6 +1,12 @@
 import { Wrapper } from "@/app/components/shared/Wrapper";
 import Link from "next/link";
 
+export const metadata = {
+  title: "PAYMENT CANCELLED | SPORE FALL",
+  description: "The payment process was cancelled. No charges were made.",
+  robots: { index: false, follow: true },
+};
+
 export default function PaymentCancelPage() {
   return (
     <div className="min-h-screen flex items-center justify-center pt-24 pb-12">

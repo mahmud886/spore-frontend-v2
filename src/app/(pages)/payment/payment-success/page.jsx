@@ -1,6 +1,12 @@
 import { Wrapper } from "@/app/components/shared/Wrapper";
 import Link from "next/link";
 
+export const metadata = {
+  title: "PAYMENT SUCCESSFUL | SPORE FALL",
+  description: "Your contribution has been successfully logged in the network. Thank you for fueling the resistance.",
+  robots: { index: false, follow: true },
+};
+
 export default function PaymentSuccessPage() {
   return (
     <div className="min-h-screen flex items-center justify-center pt-24 pb-12">
