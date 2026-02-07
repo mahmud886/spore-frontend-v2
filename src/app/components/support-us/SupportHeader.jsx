@@ -64,11 +64,11 @@ export const SupportHeader = () => {
           will you be our driving pulse?&quot;
         </h2>
         <div className="space-y-12">
-          <h3 className="font-heading text-2xl md:text-3xl font-normal text-primary mb-10 tracking-tight neon-text uppercase">
+          <h3 className="font-heading text-sm md:text-3xl font-normal text-primary mb-10 tracking-tight neon-text uppercase">
             The City Has Fallen...
           </h3>
           <div className="max-w-2xl mx-auto">
-            <h4 className="font-subheading text-[48px] mb-6 text-white tracking-normal font-normal uppercase">
+            <h4 className="font-subheading text-sm text-[30px] mb-6 text-white tracking-normal font-normal uppercase">
               THE MISSION:
             </h4>
             <p className="text-gray-400 text-sm md:text-lg leading-relaxed font-light font-body">
