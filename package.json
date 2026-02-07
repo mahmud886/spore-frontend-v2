@@ -14,7 +14,6 @@
     "@stripe/stripe-js": "^8.7.0",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.91.1",
-    "@vercel/og": "^0.8.6",
     "cheerio": "^1.2.0",
     "embla-carousel": "^8.6.0",
     "embla-carousel-autoplay": "^8.6.0",

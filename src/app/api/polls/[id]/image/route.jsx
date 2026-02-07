@@ -1,6 +1,6 @@
 import { createClient } from "@/app/lib/supabase-server";
-import { ImageResponse } from "@vercel/og";
 import { readFile } from "fs/promises";
+import { ImageResponse } from "next/og";
 import { NextResponse } from "next/server";
 import { join } from "path";
 import sharp from "sharp";

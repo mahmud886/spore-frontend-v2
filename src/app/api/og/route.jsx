@@ -1,5 +1,5 @@
-import { ImageResponse } from "@vercel/og";
 import { readFile } from "fs/promises";
+import { ImageResponse } from "next/og";
 import { join } from "path";
 import sharp from "sharp";
 
