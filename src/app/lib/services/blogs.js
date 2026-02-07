@@ -3,7 +3,7 @@ import { getBaseUrl } from "./base";
 export async function getBlogs() {
   try {
     const base = getBaseUrl();
-    const res = await fetch(`${base}/api/scrape/sporelog`, { next: { revalidate: 3600 } });
+    const res = await fetch(`${base}/api/scrape/sporelog`, { next: { revalidate: 360 } });
     if (!res.ok) return [];
     const json = await res.json();
     const posts = json.posts || [];

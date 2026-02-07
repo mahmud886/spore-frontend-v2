@@ -7,7 +7,7 @@ export async function getProducts({ limit = 20, offset = 0 } = {}) {
     params.set("limit", String(limit));
     params.set("offset", String(offset));
     const res = await fetch(`${base}/api/printful/store-products?${params.toString()}`, {
-      next: { revalidate: 3600 },
+      next: { revalidate: 360 },
     });
     if (!res.ok) return [];
     const json = await res.json();

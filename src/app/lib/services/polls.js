@@ -48,7 +48,7 @@ export async function getPolls({ status, limit } = {}) {
     const params = new URLSearchParams();
     if (status) params.set("status", status);
     if (limit) params.set("limit", String(limit));
-    const res = await fetch(`${base}/api/polls?${params.toString()}`, { next: { revalidate: 60 } });
+    const res = await fetch(`${base}/api/polls?${params.toString()}`, { next: { revalidate: 360 } });
     if (!res.ok) return [];
     const json = await res.json();
     const list = json.polls || [];
