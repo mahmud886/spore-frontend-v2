@@ -18,12 +18,21 @@ export async function generateMetadata() {
   return {
     title,
     description,
+    keywords: ["Partnerships", "Investors", "Sci-Fi IP", "Transmedia", "Entertainment Investment"],
     openGraph: {
       title,
       description,
       url: `${base}/partnerships`,
       siteName: "SPORE FALL",
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title, type: "image/jpeg" }],
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: "Partner with SPORE FALL - Collaborate with us in building the next generation of sci-fi experiences.",
+          type: "image/jpeg",
+        },
+      ],
       locale: "en_US",
       type: "website",
     },

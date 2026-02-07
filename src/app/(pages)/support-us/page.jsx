@@ -16,12 +16,21 @@ export async function generateMetadata() {
   return {
     title,
     description,
+    keywords: ["Support Spore Fall", "Inner Circle", "Sci-Fi Community", "World Building", "Patreon Alternative"],
     openGraph: {
       title,
       description,
       url: `${base}/support-us`,
       siteName: "SPORE FALL",
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title, type: "image/jpeg" }],
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: "Support SPORE FALL - Join the Inner Circle and help us build the universe.",
+          type: "image/jpeg",
+        },
+      ],
       locale: "en_US",
       type: "website",
     },

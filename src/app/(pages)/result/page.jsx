@@ -75,9 +75,17 @@ export async function generateMetadata({ searchParams }) {
       description,
       url,
       siteName: "SPORE FALL",
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title, type: "image/jpeg" }],
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: `Poll Results for: ${title}`,
+          type: "image/jpeg",
+        },
+      ],
       locale: "en_US",
-      type: "article",
+      type: "website",
     },
     twitter: {
       card: "summary_large_image",

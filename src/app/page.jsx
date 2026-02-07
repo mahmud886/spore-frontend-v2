@@ -1,6 +1,6 @@
+import { getBaseUrl } from "@/app/lib/services/base";
 import { getBlogs } from "@/app/lib/services/blogs";
 import { getEpisodes } from "@/app/lib/services/episodes";
-import { getBaseUrl } from "@/app/lib/services/base";
 import HomePage from "./components/home/HomePage";
 
 export const revalidate = 60;
@@ -15,12 +15,21 @@ export async function generateMetadata() {
   return {
     title,
     description,
+    keywords: ["Spore Fall", "Sci-Fi", "Narrative Series", "Lionara", "Audio Drama", "Interactive Story"],
     openGraph: {
       title,
       description,
       url: base,
       siteName: "SPORE FALL",
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title, type: "image/jpeg" }],
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: "SPORE FALL - The city of Lionara is quarantined. A spore is rewriting human fate.",
+          type: "image/jpeg",
+        },
+      ],
       locale: "en_US",
       type: "website",
     },
