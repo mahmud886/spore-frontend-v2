@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { fadeUp, staggerContainer } from "../../utils/animations";
+import { useCallback, useEffect, useState } from "react";
 import { AnimatedWrapper } from "../../components/shared/AnimatedWrapper";
-import { SectionTitle } from "../../components/shared/SectionTitle";
+import { fadeUp, staggerContainer } from "../../utils/animations";
 
 export default function DashboardPage() {
   const [timeframe, setTimeframe] = useState("7");
@@ -56,6 +55,7 @@ export default function DashboardPage() {
 
   const getPlatformIcon = (platform) => {
     const icons = {
+      page_view: "👁️",
       facebook: "📘",
       twitter: "🐦",
       linkedin: "💼",
@@ -221,26 +221,28 @@ export default function DashboardPage() {
             <p className="mt-2 text-sm text-orange-300 font-body">Last {timeframe} days</p>
           </motion.div>
 
-          {/* Google Analytics Card */}
           <motion.div
             variants={fadeUp}
             className="rounded-xl bg-gradient-to-br from-red-500/20 to-pink-600/20 border border-red-500/30 p-6 text-white shadow-lg backdrop-blur-sm"
           >
             <div className="mb-2 flex items-center justify-between">
-              <h3 className="font-medium text-red-300 font-body">Analytics</h3>
-              <span className="text-3xl">📊</span>
+              <h3 className="font-medium text-red-300 font-body">Site Visits</h3>
+              <span className="text-3xl">👁️</span>
             </div>
-            {gaData?.configured ? (
-              <>
-                <p className="text-4xl font-bold text-primary font-subheading">{gaData.activeUsers || 0}</p>
-                <p className="mt-2 text-sm text-red-300 font-body">Active users</p>
-              </>
-            ) : (
-              <>
-                <p className="text-2xl font-bold text-primary font-subheading">Not Setup</p>
-                <p className="mt-2 text-sm text-red-300 font-body">Configure GA4</p>
-              </>
-            )}
+            <p className="text-4xl font-bold text-primary font-subheading">{data.overview.totalVisits || 0}</p>
+            <p className="mt-2 text-sm text-red-300 font-body">Total page views</p>
+          </motion.div>
+
+          <motion.div
+            variants={fadeUp}
+            className="rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-600/20 border border-indigo-500/30 p-6 text-white shadow-lg backdrop-blur-sm"
+          >
+            <div className="mb-2 flex items-center justify-between">
+              <h3 className="font-medium text-indigo-300 font-body">Unique Visitors</h3>
+              <span className="text-3xl">👤</span>
+            </div>
+            <p className="text-4xl font-bold text-primary font-subheading">{data.overview.uniqueVisitors || 0}</p>
+            <p className="mt-2 text-sm text-indigo-300 font-body">Distinct users</p>
           </motion.div>
         </motion.div>
 
@@ -259,13 +261,36 @@ export default function DashboardPage() {
                     </div>
                     <div>
                       <p className="text-white/50 font-body">Active Users (Live)</p>
-                      <p className="text-xl font-bold text-primary font-subheading">{gaData.activeUsers || 0}</p>
+                      <p className="text-xl font-bold text-primary font-subheading">
+                        {data.overview.activeUsers || 0}
+                        <span className="ml-2 text-xs text-white/30 font-body uppercase">via Spore Tracker</span>
+                      </p>
                     </div>
                     <div>
                       <p className="text-white/50 font-body">Status</p>
                       <p className="font-bold text-green-400 font-subheading">🟢 Tracking Active</p>
                     </div>
                   </div>
+
+                  {/* Tracking Tags Grid */}
+                  <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                    {Object.entries(gaData.tracking || {}).map(([key, isActive]) => (
+                      <div
+                        key={key}
+                        className={`flex items-center gap-2 rounded-sm border p-2 text-xs transition-all ${
+                          isActive
+                            ? "border-green-500/50 bg-green-500/10 text-green-400"
+                            : "border-white/10 bg-white/5 text-white/30"
+                        }`}
+                      >
+                        <span className="text-sm">{isActive ? "⦿" : "○"}</span>
+                        <span className="font-bold uppercase font-subheading tracking-tighter">
+                          {key === "ga4" ? "Google Analytics 4" : key === "gtm" ? "Tag Manager" : key}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
                   {gaData.note && (
                     <p className="mt-3 rounded border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300 font-body">
                       ℹ️ {gaData.note}
@@ -370,6 +395,65 @@ export default function DashboardPage() {
 
         {/* UTM Sources & Referrers Section */}
         <div className="mb-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
+          {/* Live Activity Stream */}
+          <AnimatedWrapper
+            variant={fadeUp}
+            className="rounded-xl bg-black/50 border border-primary/20 p-6 shadow-lg backdrop-blur-sm relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 p-2">
+              <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+            </div>
+            <h2 className="mb-6 text-2xl font-bold text-primary font-subheading uppercase tracking-wider flex items-center gap-2">
+              🛰️ Live Activity Stream
+            </h2>
+            <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+              {!data.liveActivity || data.liveActivity.length === 0 ? (
+                <p className="py-8 text-center text-white/50 font-body">Waiting for transmissions...</p>
+              ) : (
+                data.liveActivity.map((activity, index) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 rounded-lg border border-white/5 bg-white/5 p-3 transition-all hover:border-primary/30"
+                  >
+                    <div className="text-2xl mt-1">{getPlatformIcon(activity.platform)}</div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <p className="font-bold text-white font-subheading text-xs truncate uppercase">
+                          {activity.platform === "page_view"
+                            ? `VISITED ${activity.utm_content || "HOME"}`
+                            : activity.polls?.title || "POLL INTERACTION"}
+                        </p>
+                        <span className="text-[10px] text-primary/70 font-mono whitespace-nowrap">
+                          {new Date(activity.clicked_at).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit",
+                          })}
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1">
+                        <div className="flex items-center gap-1">
+                          <span className="text-[10px] text-white/30 uppercase font-body">Source:</span>
+                          <span className="text-[10px] text-green-400 font-bold font-mono uppercase">
+                            {activity.utm_source || "Direct"}
+                          </span>
+                        </div>
+                        {activity.referrer && (
+                          <div className="flex items-center gap-1 max-w-[150px]">
+                            <span className="text-[10px] text-white/30 uppercase font-body">Via:</span>
+                            <span className="text-[10px] text-blue-400 font-bold font-mono truncate uppercase">
+                              {activity.referrer.replace(/https?:\/\/(www\.)?/, "").split("/")[0]}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </AnimatedWrapper>
+
           {/* UTM Sources */}
           <AnimatedWrapper
             variant={fadeUp}
@@ -393,7 +477,10 @@ export default function DashboardPage() {
                       <div className="mb-2 flex items-center justify-between">
                         <div>
                           <span className="font-bold text-white font-subheading uppercase">{utm.source}</span>
-                          <p className="text-sm text-white/50 font-body">{utm.campaigns} campaign(s)</p>
+                          <p className="text-xs text-white/50 font-body">
+                            {utm.campaignCount} campaigns: {utm.campaigns.join(", ")}
+                            {utm.campaignCount > 3 && "..."}
+                          </p>
                         </div>
                         <div className="text-right">
                           <p className="font-bold text-primary font-subheading">{utm.clicks}</p>
@@ -445,6 +532,47 @@ export default function DashboardPage() {
                       <span className="rounded-full bg-primary/20 border border-primary px-3 py-1 text-sm font-bold text-primary font-subheading">
                         {ref.count}
                       </span>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+          </AnimatedWrapper>
+        </div>
+
+        {/* Top Pages Section */}
+        <div className="mb-8">
+          <AnimatedWrapper
+            variant={fadeUp}
+            className="rounded-xl bg-black/50 border border-white/10 p-6 shadow-lg backdrop-blur-sm"
+          >
+            <h2 className="mb-6 text-2xl font-bold text-primary font-subheading uppercase tracking-wider">
+              📄 Most Visited Pages
+            </h2>
+            <div className="space-y-4">
+              {!data.topPages || data.topPages.length === 0 ? (
+                <p className="py-8 text-center text-white/50 font-body">No page visit data yet</p>
+              ) : (
+                data.topPages.map((page, index) => {
+                  const percentage =
+                    data.overview.totalVisits > 0 ? ((page.count / data.overview.totalVisits) * 100).toFixed(1) : 0;
+                  return (
+                    <div key={page.path} className="group">
+                      <div className="mb-2 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <span className="text-primary font-mono font-bold">0{index + 1}</span>
+                          <span className="font-medium text-white font-body truncate max-w-[200px] sm:max-w-md">
+                            {page.path === "/" ? "/ (Home)" : page.path}
+                          </span>
+                        </div>
+                        <span className="font-bold text-primary font-subheading">{page.count} visits</span>
+                      </div>
+                      <div className="h-2 overflow-hidden rounded-full bg-white/10">
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-primary to-blue-500 transition-all duration-700 group-hover:from-green-400 group-hover:to-primary"
+                          style={{ width: `${percentage}%` }}
+                        ></div>
+                      </div>
                     </div>
                   );
                 })

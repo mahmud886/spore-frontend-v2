@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import { createClient } from "@/app/lib/supabase-server";
+import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -12,6 +12,8 @@ export async function GET(request) {
 
     const daysAgo = new Date();
     daysAgo.setDate(daysAgo.getDate() - parseInt(timeframe));
+
+    const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
 
     // Get total polls count
     const { count: totalPolls, error: pollsError } = await supabase
@@ -30,10 +32,37 @@ export async function GET(request) {
     // Get total social shares (clicks) - handle case where table doesn't exist yet
     let allShares = [];
     let recentShares = [];
+    let liveClicks = [];
+    let activeUserCount = 0;
+    let totalVisitsCount = 0;
+    let uniqueVisitorsCount = 0;
+
     try {
-      const { data: sharesData, error: sharesError } = await supabase.from("social_media_clicks").select("*");
+      // Get total visits count specifically (unlimited)
+      const { count: visitsCount } = await supabase
+        .from("social_media_clicks")
+        .select("*", { count: "exact", head: true })
+        .eq("platform", "page_view");
+
+      totalVisitsCount = visitsCount || 0;
+
+      // Get unique visitors count (by user_agent as a proxy)
+      // Since we can't do DISTINCT in simple select, we'll fetch and process or use a trick
+      const { data: uniqueData } = await supabase
+        .from("social_media_clicks")
+        .select("user_agent")
+        .eq("platform", "page_view");
+
+      const uniqueUAs = new Set((uniqueData || []).map((d) => d.user_agent));
+      uniqueVisitorsCount = uniqueUAs.size;
+
+      const { data: sharesData, error: sharesError } = await supabase
+        .from("social_media_clicks")
+        .select("*")
+        .order("clicked_at", { ascending: false })
+        .limit(2000); // Increased limit for better stats
+
       if (sharesError && sharesError.code !== "42P01") {
-        // 42P01 is "relation does not exist" - ignore if table doesn't exist yet
         throw sharesError;
       }
       allShares = sharesData || [];
@@ -42,12 +71,39 @@ export async function GET(request) {
       const { data: recentSharesData, error: recentSharesError } = await supabase
         .from("social_media_clicks")
         .select("*")
-        .gte("clicked_at", daysAgo.toISOString());
+        .gte("clicked_at", daysAgo.toISOString())
+        .limit(2000);
 
       if (recentSharesError && recentSharesError.code !== "42P01") {
         throw recentSharesError;
       }
       recentShares = recentSharesData || [];
+
+      // Get latest 10 specific clicks for "Live" view
+      const { data: liveClicksData } = await supabase
+        .from("social_media_clicks")
+        .select("platform, utm_source, referrer, clicked_at, poll_id, polls(title), user_agent")
+        .order("clicked_at", { ascending: false })
+        .limit(20);
+
+      liveClicks = liveClicksData || [];
+
+      // Group visits by page path
+      const pageVisits = (liveClicks || [])
+        .filter((c) => c.platform === "page_view")
+        .reduce((acc, visit) => {
+          const path = visit.referrer || "/"; // Use referrer or fallback
+          acc[path] = (acc[path] || 0) + 1;
+          return acc;
+        }, {});
+
+      // Get "Active" users count (unique clicks in last 30 mins)
+      const { count: activeCount } = await supabase
+        .from("social_media_clicks")
+        .select("*", { count: "exact", head: true })
+        .gte("clicked_at", thirtyMinutesAgo.toISOString());
+
+      activeUserCount = activeCount || 0;
     } catch (tableError) {
       // Table doesn't exist yet - use empty arrays
       if (tableError.code !== "42P01") {
@@ -114,7 +170,8 @@ export async function GET(request) {
       .map((stat) => ({
         source: stat.source,
         clicks: stat.clicks,
-        campaigns: stat.campaigns.size,
+        campaignCount: stat.campaigns.size,
+        campaigns: Array.from(stat.campaigns).slice(0, 3),
       }))
       .sort((a, b) => b.clicks - a.clicks);
 
@@ -159,18 +216,39 @@ export async function GET(request) {
       });
     }
 
+    // Top pages from live activity
+    const topPages = Object.entries(
+      (allShares || [])
+        .filter((s) => s.platform === "page_view")
+        .reduce((acc, s) => {
+          const path = s.utm_content || "/"; // We'll start storing path in utm_content as a fallback
+          acc[path] = (acc[path] || 0) + 1;
+          return acc;
+        }, {}),
+    )
+      .map(([path, count]) => ({ path, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 5);
+
     return NextResponse.json({
       overview: {
         totalPolls: totalPolls || 0,
         totalVotes: totalVotes || 0,
-        totalShares: allShares?.length || 0,
-        recentShares: recentShares?.length || 0,
+        totalShares: allShares?.filter((s) => s.platform !== "page_view").length || 0,
+        totalVisits: totalVisitsCount,
+        uniqueVisitors: uniqueVisitorsCount,
+        recentShares: recentShares?.filter((s) => s.platform !== "page_view").length || 0,
+        activeUsers: activeUserCount,
       },
       topPolls: sortedPolls,
-      platformStats: Object.values(platformStats).sort((a, b) => b.count - a.count),
+      topPages,
+      platformStats: Object.values(platformStats)
+        .filter((p) => p.platform !== "page_view")
+        .sort((a, b) => b.count - a.count),
       utmSources: utmSourcesArray,
       referrers: referrerArray,
       dailyShares: dailySharesArray,
+      liveActivity: liveClicks,
       timeframe: parseInt(timeframe),
     });
   } catch (error) {

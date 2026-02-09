@@ -1,4 +1,5 @@
 import localFont from "next/font/local";
+import { Suspense } from "react";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import { Analytics } from "./components/shared/Analytics";
@@ -77,7 +78,9 @@ export default function RootLayout({ children }) {
       </head>
       <body className="antialiased text-white selection:bg-primary selection:text-black overflow-x-hidden ">
         <ScrollToTop />
-        <Analytics />
+        <Suspense fallback={null}>
+          <Analytics />
+        </Suspense>
         <BackgroundSetter />
         <VerticalLines />
         <div className="text-white selection:bg-primary selection:text-black cyber-hex-grid">

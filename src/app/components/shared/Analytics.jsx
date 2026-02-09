@@ -1,9 +1,15 @@
 "use client";
 
+import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
+import { useEffect } from "react";
 
 export function Analytics() {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
   const FACEBOOK_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID;
   const TWITTER_PIXEL_ID = process.env.NEXT_PUBLIC_TWITTER_PIXEL_ID;
   const LINKEDIN_PIXEL_ID = process.env.NEXT_PUBLIC_LINKEDIN_PIXEL_ID;
@@ -11,21 +17,71 @@ export function Analytics() {
   const PINTEREST_TAG_ID = process.env.NEXT_PUBLIC_PINTEREST_TAG_ID;
   const MICROSOFT_UET_ID = process.env.NEXT_PUBLIC_MICROSOFT_UET_ID;
 
+  // Track page views on route change
+  useEffect(() => {
+    // Google Analytics
+    if (GA_MEASUREMENT_ID && typeof window.gtag === "function") {
+      window.gtag("config", GA_MEASUREMENT_ID, {
+        page_path: pathname + searchParams.toString(),
+      });
+    }
+
+    // Internal tracking
+    const trackPageView = async () => {
+      try {
+        await fetch("/api/analytics/track", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: "page_view",
+            page_path: pathname,
+            referrer: document.referrer,
+            utm_source: searchParams.get("utm_source"),
+            utm_medium: searchParams.get("utm_medium"),
+            utm_campaign: searchParams.get("utm_campaign"),
+          }),
+        });
+      } catch (err) {
+        console.error("Failed to track page view:", err);
+      }
+    };
+
+    trackPageView();
+  }, [pathname, searchParams, GA_MEASUREMENT_ID]);
+
   return (
     <>
       {/* Google Analytics */}
       {GA_MEASUREMENT_ID && (
         <>
-          <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} strategy="lazyOnload" />
-          <Script id="google-analytics" strategy="lazyOnload">
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', '${GA_MEASUREMENT_ID}');
+              gtag('config', '${GA_MEASUREMENT_ID}', {
+                page_path: window.location.pathname,
+              });
             `}
           </Script>
         </>
+      )}
+
+      {/* Google Tag Manager */}
+      {GTM_ID && (
+        <Script id="google-tag-manager" strategy="afterInteractive">
+          {`
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${GTM_ID}');
+          `}
+        </Script>
       )}
 
       {/* Facebook Pixel */}
