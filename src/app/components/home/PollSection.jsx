@@ -1,6 +1,5 @@
 import { getLatestLiveNotEndedPoll } from "../../lib/services/polls";
-import { SectionTitle } from "../shared/SectionTitle";
-import ClientPollSectionFullWidth from "./ClientPollSectionFullWidth";
+import HomePollContent from "./HomePollContent";
 
 export default async function PollSection() {
   const p = await getLatestLiveNotEndedPoll();
@@ -15,13 +14,48 @@ export default async function PollSection() {
         options: p.options || [],
       }
     : null;
+
   if (!pollData) return null;
-  return (
-    <section className="pb-16 px-0">
-      <SectionTitle>Participate in the Poll</SectionTitle>
-      <div className="mt-8 flex items-center justify-center min-h-[420px]">
-        <ClientPollSectionFullWidth poll={pollData} />
-      </div>
-    </section>
-  );
+
+  // Calculate pollResultProps and heroHeaderProps
+  const option1 = pollData.options[0];
+  const option2 = pollData.options[1];
+
+  const pollResultProps =
+    option1 && option2
+      ? {
+          faction1: {
+            name: (option1.text || option1.option_text || "EVOLVE").toUpperCase(),
+            subLabel: option1.description || "BASTION PARTY",
+            percentage:
+              (option1.votes || option1.vote_count || 0) + (option2.votes || option2.vote_count || 0) > 0
+                ? Math.round(
+                    ((option1.votes || option1.vote_count || 0) /
+                      ((option1.votes || option1.vote_count || 0) + (option2.votes || option2.vote_count || 0))) *
+                      100,
+                  )
+                : 50,
+          },
+          faction2: {
+            name: (option2.text || option2.option_text || "RESIST").toUpperCase(),
+            subLabel: option2.description || "THE NEW ALLIANCE",
+            percentage:
+              (option1.votes || option1.vote_count || 0) + (option2.votes || option2.vote_count || 0) > 0
+                ? Math.round(
+                    ((option2.votes || option2.vote_count || 0) /
+                      ((option1.votes || option1.vote_count || 0) + (option2.votes || option2.vote_count || 0))) *
+                      100,
+                  )
+                : 50,
+          },
+          centerLabel: pollData.question || pollData.title || "THE CITY STANDS DIVIDED",
+        }
+      : null;
+
+  const heroHeaderProps = {
+    heading: "A NATION\nDIVIDED",
+    status: `● STATUS: ACTIVE CONFLICT // THE STACKS IN SECTOR 7, ZONE 10`,
+  };
+
+  return <HomePollContent poll={pollData} pollResultProps={pollResultProps} heroHeaderProps={heroHeaderProps} />;
 }

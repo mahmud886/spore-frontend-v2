@@ -31,7 +31,8 @@ async function fetchPoll(origin, id) {
   }
 }
 
-export async function GET(req, { params }) {
+export async function GET(req, { params: paramsPromise }) {
+  const params = await paramsPromise;
   const { id } = params || {};
   const url = new URL(req.url);
   const origin = `${url.protocol}//${url.host}`;

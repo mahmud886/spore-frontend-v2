@@ -127,7 +127,7 @@ export default function ClientPollSectionFullWidth({ poll }) {
               viewport={{ once: true }}
               onClick={() => firstOption?.id && submitVote(firstOption.id)}
               disabled={isSubmitting}
-              className="group relative flex flex-col items-center text-center p-12 rounded-3xl border border-white/10 bg-zinc-900/40 hover:bg-zinc-800/60 transition-all duration-500 outline-none disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-xl shadow-[0_0_30px_rgba(255,255,255,0.02)] hover:shadow-[0_0_60px_rgba(255,255,255,0.08)]"
+              className="cursor-pointer group relative flex flex-col items-center text-center p-12 rounded-3xl border border-white/10 bg-zinc-900/40 hover:bg-zinc-800/60 transition-all duration-500 outline-none disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-xl shadow-[0_0_30px_rgba(255,255,255,0.02)] hover:shadow-[0_0_60px_rgba(255,255,255,0.08)]"
             >
               {/* Outer Card Glow like the image */}
               <div className="absolute -inset-[2px] rounded-3xl bg-gradient-to-b from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
@@ -182,7 +182,7 @@ export default function ClientPollSectionFullWidth({ poll }) {
               viewport={{ once: true }}
               onClick={() => secondOption?.id && submitVote(secondOption.id)}
               disabled={isSubmitting}
-              className="group relative flex flex-col items-center text-center p-12 rounded-3xl border border-primary/10 bg-zinc-900/40 hover:bg-zinc-800/60 transition-all duration-500 outline-none disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-xl shadow-[0_0_30px_rgba(212,255,0,0.02)] hover:shadow-[0_0_60px_rgba(212,255,0,0.08)]"
+              className="cursor-pointer group relative flex flex-col items-center text-center p-12 rounded-3xl border border-primary/10 bg-zinc-900/40 hover:bg-zinc-800/60 transition-all duration-500 outline-none disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-xl shadow-[0_0_30px_rgba(212,255,0,0.02)] hover:shadow-[0_0_60px_rgba(212,255,0,0.08)]"
             >
               {/* Outer Card Glow like the image */}
               <div className="absolute -inset-[2px] rounded-3xl bg-gradient-to-b from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>

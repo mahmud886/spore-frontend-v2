@@ -6,18 +6,18 @@
   0%,
   100% {
     box-shadow:
-      0 0 5px rgba(212, 255, 0, 0.2),
-      0 0 10px rgba(212, 255, 0, 0.1);
+      0 0 10px rgba(194, 255, 2, 0.2),
+      0 0 20px rgba(194, 255, 2, 0.1);
   }
   50% {
     box-shadow:
-      0 0 20px rgba(212, 255, 0, 0.4),
-      0 0 30px rgba(212, 255, 0, 0.2);
+      0 0 40px rgba(194, 255, 2, 0.4),
+      0 0 60px rgba(194, 255, 2, 0.2);
   }
 }
 
 .cyber-glow-pulse {
-  animation: neonGlowPulse 2s ease-in-out infinite;
+  animation: neonGlowPulse 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 /* Soft Glitch Distortion */
@@ -112,7 +112,7 @@
   position: relative;
   background: linear-gradient(90deg, transparent, rgba(212, 255, 0, 0.3), transparent);
   background-size: 200% 100%;
-  animation: borderSweep 3s ease-in-out infinite;
+  animation: borderSweep 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 /* Hologram Flicker */
@@ -135,22 +135,19 @@
 /* Energy Fill Animation */
 @keyframes energyFill {
   0% {
-    box-shadow: 0 0 0px rgba(212, 255, 0, 0);
-  }
-  50% {
-    box-shadow: 0 0 8px rgba(212, 255, 0, 0.35);
+    filter: brightness(0.5) contrast(1.2);
   }
   100% {
-    box-shadow: 0 0 16px rgba(212, 255, 0, 0.25);
+    filter: brightness(1) contrast(1);
   }
 }
 
 .cyber-energy-fill {
   position: relative;
   overflow: hidden;
-  animation: energyFill 2s ease-out forwards;
-  /* stripeFlow 10s linear infinite; */
-  /* will-change: background-position, box-shadow; */
+  animation:
+    energyFill 8s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+    stripeFlow 30s linear infinite;
 }
 
 @keyframes stripeFlow {
@@ -158,7 +155,7 @@
     background-position: 0 0;
   }
   100% {
-    background-position: 24px 24px;
+    background-position: 500px 0;
   }
 }
 
@@ -167,12 +164,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 34%;
+  width: 100%;
   height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
-  mix-blend-mode: overlay;
-  animation: sheenSweep 3.5s ease-in-out infinite;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(0, 0, 0, 0.1) 100%);
   pointer-events: none;
 }
 
@@ -323,7 +317,7 @@
 }
 
 .cyber-glow-blink {
-  animation: glowBlink 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: glowBlink 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   will-change: text-shadow;
   transform: translateZ(0);
   -webkit-font-smoothing: antialiased;
@@ -496,13 +490,21 @@
   z-index: -1;
 } */
 
-/* Holographic Shimmer */
+/* Holographic Shimmer - Ultra Smooth with GPU Acceleration */
 @keyframes holographicShimmer {
   0% {
-    background-position: -200% center;
+    transform: translateX(-150%) skewX(-25deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.8;
   }
   100% {
-    background-position: 200% center;
+    transform: translateX(250%) skewX(-25deg);
+    opacity: 0;
   }
 }
 
@@ -514,23 +516,26 @@
 .cyber-holographic::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
   background: linear-gradient(
     90deg,
-    transparent,
-    rgba(194, 255, 2, 0.1),
-    rgba(0, 255, 255, 0.1),
-    rgba(194, 255, 2, 0.1),
-    transparent
+    transparent 0%,
+    rgba(194, 255, 2, 0.03) 20%,
+    rgba(0, 255, 255, 0.08) 35%,
+    rgba(255, 0, 255, 0.05) 50%,
+    rgba(0, 255, 255, 0.08) 65%,
+    rgba(194, 255, 2, 0.03) 80%,
+    transparent 100%
   );
-  background-size: 200% 100%;
-  animation: holographicShimmer 3s linear infinite;
+  filter: blur(40px);
+  animation: holographicShimmer 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   pointer-events: none;
   z-index: 1;
-  mix-blend-mode: overlay;
+  mix-blend-mode: color-dodge;
+  will-change: transform, opacity;
 }
 
 /* Energy Wave Pulse */
@@ -753,19 +758,25 @@
   mix-blend-mode: screen;
 }
 
-/* Power Surge Effect */
+/* Power Surge Effect - Atmospheric Pulse */
 @keyframes powerSurge {
   0% {
     opacity: 0;
-    transform: scaleY(0);
+    transform: translateY(100%);
+  }
+  20% {
+    opacity: 0.4;
   }
   50% {
-    opacity: 1;
-    transform: scaleY(1);
+    opacity: 0.6;
+    transform: translateY(0%);
+  }
+  80% {
+    opacity: 0.4;
   }
   100% {
     opacity: 0;
-    transform: scaleY(0);
+    transform: translateY(-100%);
   }
 }
 
@@ -774,25 +785,25 @@
   overflow: hidden;
 }
 
-/* .cyber-power-surge::before {
+.cyber-power-surge::after {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(194, 255, 2, 0.2),
-    rgba(194, 255, 2, 0.4),
-    rgba(194, 255, 2, 0.2),
-    transparent
+  background: radial-gradient(
+    ellipse at center,
+    rgba(194, 255, 2, 0.15) 0%,
+    rgba(0, 255, 255, 0.1) 30%,
+    transparent 70%
   );
-  animation: powerSurge 3s ease-in-out infinite;
+  filter: blur(60px);
+  animation: powerSurge 15s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   pointer-events: none;
   z-index: 1;
-} */
+  mix-blend-mode: plus-lighter;
+}
 
 /* Shimmer Loading Animation */
 @keyframes shimmer {

@@ -17,7 +17,7 @@ export default function HeroHeader({
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 1.2 }}
             className="inline-block border border-red-500/50 px-3 py-1 mb-6 cyber-glow-pulse"
           >
             <span className="text-[8px] md:text-[10px] text-red-500 font-bold tracking-[0.2em]">{status}</span>
@@ -26,7 +26,7 @@ export default function HeroHeader({
         <motion.h1
           initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 1.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-5xl md:text-7xl lg:text-9xl font-oswald font-bold uppercase tracking-tighter text-primary mb-8 leading-none glitch-text cursor-default cyber-text-glitch"
         >
           {headingLines.map((line, index) => (
@@ -34,7 +34,7 @@ export default function HeroHeader({
               key={index}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+              transition={{ duration: 1.0, delay: 0.5 + index * 0.2 }}
               className="tracking-normal"
             >
               {line}

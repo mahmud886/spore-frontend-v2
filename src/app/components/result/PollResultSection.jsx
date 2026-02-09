@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 function AnimatedPercentage({ value, delay = 0 }) {
   const [displayValue, setDisplayValue] = useState(0);
-  const spring = useSpring(0, { stiffness: 50, damping: 30 });
+  const spring = useSpring(0, { stiffness: 20, damping: 20 });
 
   useEffect(() => {
     spring.set(value);
@@ -76,10 +76,11 @@ export default function PollResultSection({
   const dynamicCenterLabel = centerLabel || getDynamicCenterLabel(faction1.percentage, faction2.percentage);
   return (
     <motion.section
-      className="mb-12 cyber-holographic cyber-power-surge"
+      // cyber-holographic cyber-power-surge
+      className="mb-12 "
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 1.5 }}
     >
       {/* Top Labels */}
       <div className="flex justify-between items-center mb-4">
@@ -87,7 +88,7 @@ export default function PollResultSection({
           className="text-white text-sm font-bold tracking-widest uppercase"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 1.2, delay: 0.2 }}
         >
           {faction1.name}
         </motion.h3>
@@ -95,7 +96,7 @@ export default function PollResultSection({
           className="text-center max-w-[50%] text-[8px] text-white/60 md:text-[10px] uppercase tracking-widest"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 1.2, delay: 0.4 }}
         >
           {dynamicCenterLabel}
         </motion.p>
@@ -103,39 +104,41 @@ export default function PollResultSection({
           className="text-primary text-sm font-bold tracking-widest uppercase"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 1.2, delay: 0.6 }}
         >
           {faction2.name}
         </motion.h3>
       </div>
 
       {/* Progress Bar */}
-      <div className="h-16 w-full flex overflow-hidden rounded-full relative cyber-border-sweep">
+      <div className="h-16 w-full flex overflow-hidden rounded-full relative border border-white/10 bg-black/40 backdrop-blur-sm shadow-inner">
         <motion.div
           className="flex items-center justify-center cyber-energy-fill"
           style={{
             background: "repeating-linear-gradient(45deg, #9ca3af, #9ca3af 10px, #ffffff 10px, #ffffff 20px)",
+            backgroundSize: "28px 28px",
             borderTopLeftRadius: "9999px",
             borderBottomLeftRadius: "9999px",
           }}
           initial={{ width: "0%" }}
           animate={{ width: `${faction1.percentage}%` }}
-          transition={{ duration: 2, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: 4, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <AnimatedPercentage value={faction1.percentage} delay={1.5} />
+          <AnimatedPercentage value={faction1.percentage} delay={3.0} />
         </motion.div>
         <motion.div
           className="flex items-center justify-center cyber-energy-fill"
           style={{
             background: "repeating-linear-gradient(45deg, #C2FF02, #C2FF02 10px, #a8db02 10px, #a8db02 20px)",
+            backgroundSize: "28px 28px",
             borderTopRightRadius: "9999px",
             borderBottomRightRadius: "9999px",
           }}
           initial={{ width: "0%" }}
           animate={{ width: `${faction2.percentage}%` }}
-          transition={{ duration: 2, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: 4, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <AnimatedPercentage value={faction2.percentage} delay={1.5} />
+          <AnimatedPercentage value={faction2.percentage} delay={3.0} />
         </motion.div>
       </div>
 
@@ -145,7 +148,7 @@ export default function PollResultSection({
           className="text-center max-w-[50%] text-[8px] text-white/60 md:text-[10px] uppercase tracking-widest"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 1.2, delay: 0.8 }}
         >
           {faction1.subLabel}
         </motion.p>
@@ -153,7 +156,7 @@ export default function PollResultSection({
           className="text-center max-w-[50%] text-[8px] text-white/60 md:text-[10px] uppercase tracking-widest"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: 1.2, delay: 1.0 }}
         >
           {faction2.subLabel}
         </motion.p>

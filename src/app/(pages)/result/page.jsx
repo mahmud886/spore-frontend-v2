@@ -9,7 +9,8 @@ import ResultContent from "./ResultContent";
 export const revalidate = 3600;
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata({ searchParams }) {
+export async function generateMetadata({ searchParams: searchParamsPromise }) {
+  const searchParams = await searchParamsPromise;
   const base = getBaseUrl();
   const supabase = await createClient();
   const episodeId = searchParams?.episode || null;
