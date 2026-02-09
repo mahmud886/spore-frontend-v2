@@ -24,7 +24,7 @@ function ProductsLoading() {
 
 export default function PrintfulProducts() {
   return (
-    <div id="shop">
+    <div>
       <Suspense fallback={<ProductsLoading />}>
         <ProductsList />
       </Suspense>

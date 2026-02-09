@@ -19,8 +19,26 @@ export default function Navbar() {
     const updateHash = () => setCurrentHash(window.location.hash || "");
     updateHash();
     window.addEventListener("hashchange", updateHash);
+
+    // Handle initial hash on mount or pathname change
+    if (window.location.hash) {
+      const hash = window.location.hash.substring(1);
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          const offset = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.scrollY - offset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 500); // Slightly longer delay for home page dynamic content
+    }
+
     return () => window.removeEventListener("hashchange", updateHash);
-  }, [isClient]);
+  }, [isClient, pathname]);
 
   // Helper function to get active class names
   const getActiveClass = (condition) => {
@@ -32,51 +50,13 @@ export default function Navbar() {
     // Close mobile menu when clicking a link
     setIsMobileMenuOpen(false);
 
-    // Special handling for "shop" - always go to result page
-    if (sectionId === "shop") {
-      if (pathname === "/result") {
-        // Already on result page, scroll to shop section
-        const scrollToElement = () => {
-          const element = document.getElementById("shop");
-          if (element) {
-            const offset = 80; // Account for sticky navbar height
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: "smooth",
-            });
-            window.location.hash = "#shop";
-            return true;
-          }
-          return false;
-        };
-
-        // Try to scroll immediately
-        if (!scrollToElement()) {
-          setTimeout(() => {
-            const didScroll = scrollToElement();
-            if (!didScroll) {
-              window.location.hash = "#shop";
-            }
-          }, 100);
-        }
-      } else {
-        // Navigate to result page with shop hash
-        router.push("/result#shop");
-        setCurrentHash("#shop");
-      }
-      return;
-    }
-
     // Scroll to element on current page
     const scrollToElement = () => {
       const element = document.getElementById(sectionId);
       if (element) {
         const offset = 80; // Account for sticky navbar height
         const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        const offsetPosition = elementPosition + window.scrollY - offset;
 
         window.scrollTo({
           top: offsetPosition,
@@ -120,7 +100,7 @@ export default function Navbar() {
                   router.push("/");
                 }
               }}
-              className={`${getActiveClass(pathname === "/")} transition-colors`}
+              className={`${getActiveClass(pathname === "/" && (currentHash === "" || currentHash === "#home"))} transition-colors`}
             >
               HOME
             </Link>
@@ -133,16 +113,16 @@ export default function Navbar() {
               VAULT 7
             </Link>
             <Link
-              href="/result"
+              href="/"
               onClick={(e) => {
                 e.preventDefault();
-                if (pathname === "/result") {
+                if (pathname === "/") {
                   handleScrollToSection(e, "shop");
                 } else {
-                  router.push("/result#shop");
+                  router.push("/#shop");
                 }
               }}
-              className={`${getActiveClass(pathname === "/result")} transition-colors`}
+              className={`${getActiveClass(pathname === "/" && currentHash === "#shop")} transition-colors`}
             >
               SHOP
             </Link>
@@ -186,7 +166,7 @@ export default function Navbar() {
                       router.push("/");
                     }
                   }}
-                  className={`${getActiveClass(pathname === "/")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                  className={`${getActiveClass(pathname === "/" && (currentHash === "" || currentHash === "#home"))} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
                 >
                   HOME
                 </Link>
@@ -200,17 +180,17 @@ export default function Navbar() {
                   VAULT 7
                 </Link>
                 <Link
-                  href="/result"
+                  href="/"
                   onClick={(e) => {
                     e.preventDefault();
                     setIsMobileMenuOpen(false);
-                    if (pathname === "/result") {
+                    if (pathname === "/") {
                       handleScrollToSection(e, "shop");
                     } else {
-                      router.push("/result#shop");
+                      router.push("/#shop");
                     }
                   }}
-                  className={`${getActiveClass(pathname === "/result")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                  className={`${getActiveClass(pathname === "/" && currentHash === "#shop")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
                 >
                   SHOP
                 </Link>

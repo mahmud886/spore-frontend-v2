@@ -75,7 +75,7 @@ export default function HomePage({ episodes = [], blogPosts = [] }) {
             <PollSection />
           </div>
 
-          <div id="shop" style={{ contentVisibility: "auto", containIntrinsicSize: "1200px" }}>
+          <div id="episodes" style={{ contentVisibility: "auto", containIntrinsicSize: "1200px" }}>
             <EpisodesSection episodes={episodes} />
           </div>
           <div className="px-10 " style={{ contentVisibility: "auto", containIntrinsicSize: "600px" }}>
