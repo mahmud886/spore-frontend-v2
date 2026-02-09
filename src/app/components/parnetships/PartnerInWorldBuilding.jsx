@@ -34,7 +34,7 @@ export const PartnerInWorldBuilding = () => {
             </ul>
             <a
               className="inline-flex items-center gap-4 px-8 py-4 bg-primary text-black font-subheading font-bold tracking-widest text-[10px] md:text-sm rounded-sm hover:bg-white transition-all group"
-              href="#"
+              href="mailto:partners@edenstone.group"
             >
               SCHEDULE FOR A BRIEF
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />

@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -45,7 +46,6 @@ export default function ClientPollSectionFullWidth({ poll }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ optionId }),
       });
-      const data = await response.json();
       if (!response.ok) {
         setIsSubmitting(false);
         return;
@@ -67,92 +67,184 @@ export default function ClientPollSectionFullWidth({ poll }) {
     }
   };
 
-  return (
-    <div className="w-full relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full -translate-y-1/2 pointer-events-none"></div>
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-cyan-500/5 blur-[120px] rounded-full translate-y-1/2 pointer-events-none"></div>
+  const pulseAnimation = {
+    scale: [1, 1.05, 1],
+    opacity: [0.7, 1, 0.7],
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  };
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 relative z-10">
+  const flickerAnimation = {
+    opacity: [1, 0.8, 1, 0.9, 1],
+    filter: ["brightness(1)", "brightness(1.2)", "brightness(1)", "brightness(1.3)", "brightness(1)"],
+    transition: {
+      duration: 3,
+      repeat: Infinity,
+      times: [0, 0.2, 0.4, 0.6, 1],
+    },
+  };
+
+  return (
+    <div className="w-full relative overflow-hidden bg-black/40 py-20 rounded-3xl">
+      {/* Decorative background elements */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-white/5 blur-[120px] rounded-full -translate-y-1/2 pointer-events-none"></div>
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full translate-y-1/2 pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col items-center">
           {/* Header */}
-          <div className="text-center mb-16">
-            <span className="inline-block font-subheading text-[10px] md:text-xs tracking-[0.3em] text-white/50 mb-6 uppercase border border-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <span className="inline-block font-subheading text-[10px] md:text-xs tracking-[0.4em] text-white/60 mb-8 border border-white/20 px-6 py-2 rounded-full backdrop-blur-md">
               {phase}
             </span>
-            <h1 className="max-w-[80%] mx-auto text-4xl md:text-6xl font-subheading font-bold tracking-wider mb-4 uppercase bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60">
+            <motion.h1
+              animate={flickerAnimation}
+              className="max-w-[90%] mx-auto text-5xl md:text-7xl font-subheading font-bold tracking-widest mb-6 uppercase bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/40"
+            >
               {title}
-            </h1>
-            <p className="font-subheading text-sm md:text-base text-white/40 tracking-widest uppercase">{subtitle}</p>
-          </div>
+            </motion.h1>
+            <div className="flex items-center justify-center gap-4">
+              <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-white/20"></div>
+              <p className="font-subheading text-xs md:text-sm text-primary tracking-[0.3em] uppercase">{subtitle}</p>
+              <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-white/20"></div>
+            </div>
+          </motion.div>
 
           {/* Voting Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-8 md:gap-12 w-full max-w-5xl">
-            {/* Evolve Option */}
-            <button
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 w-full max-w-5xl">
+            {/* Evolve Option (White) */}
+            <motion.button
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
               onClick={() => firstOption?.id && submitVote(firstOption.id)}
               disabled={isSubmitting}
-              className="group relative flex flex-col items-center text-center p-10 md:p-12 rounded-2xl border border-white/5 bg-gradient-to-b from-zinc-900/40 to-primary/5 hover:from-zinc-900/60 hover:to-primary/10 hover:border-primary/30 transition-all duration-500 outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm"
+              className="group relative flex flex-col items-center text-center p-12 rounded-3xl border border-white/10 bg-zinc-900/40 hover:bg-zinc-800/60 transition-all duration-500 outline-none disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-xl shadow-[0_0_30px_rgba(255,255,255,0.02)] hover:shadow-[0_0_60px_rgba(255,255,255,0.08)]"
             >
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+              {/* Outer Card Glow like the image */}
+              <div className="absolute -inset-[2px] rounded-3xl bg-gradient-to-b from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
 
-              <div className="relative z-10 w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-500 shadow-[0_0_30px_rgba(var(--primary-rgb),0.1)]">
+              <motion.div
+                animate={pulseAnimation}
+                className="absolute inset-0 bg-white/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"
+              ></motion.div>
+
+              {/* Icon Container with Concentrated Glow like the image */}
+              <div className="relative z-10 w-32 h-32 rounded-full flex items-center justify-center mb-10 group-hover:scale-110 transition-all duration-500">
+                {/* The "Aura" behind the icon */}
+                <div className="absolute inset-0 bg-white/10 blur-[30px] rounded-full group-hover:bg-white/20 transition-all duration-500"></div>
+                <div className="absolute inset-4 bg-white/5 blur-[15px] rounded-full group-hover:bg-white/10 transition-all duration-500"></div>
+
+                <motion.div
+                  animate={{
+                    boxShadow: [
+                      "0 0 30px rgba(255,255,255,0.1)",
+                      "0 0 60px rgba(255,255,255,0.4)",
+                      "0 0 30px rgba(255,255,255,0.1)",
+                    ],
+                  }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="absolute inset-0 rounded-full border border-white/10"
+                ></motion.div>
+
                 <Image
                   src="/assets/images/evolve.png"
                   alt="Evolve"
-                  width={64}
-                  height={64}
-                  className="opacity-80 group-hover:opacity-100 transition-opacity"
+                  width={72}
+                  height={72}
+                  className="relative z-20 opacity-90 group-hover:opacity-100 transition-opacity brightness-125"
                 />
               </div>
 
-              <h2 className="relative z-10 text-3xl md:text-4xl font-subheading font-bold text-white group-hover:text-primary mb-6 tracking-wider uppercase transition-colors duration-300">
+              <h2 className="relative z-10 text-4xl md:text-5xl font-subheading font-bold text-white group-hover:text-white mb-6 tracking-widest uppercase transition-all duration-300">
                 {firstOptionName}
               </h2>
 
-              <p className="relative z-10 font-body text-[12px] md:text-sm leading-relaxed text-white/40 max-w-xs group-hover:text-white/70 transition-colors duration-300">
+              <p className="relative z-10 font-body text-sm leading-relaxed text-white/40 max-w-xs group-hover:text-white/80 transition-colors duration-300 italic">
                 {firstOptionDescription}
               </p>
 
-              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 opacity-50"></div>
-            </button>
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-white group-hover:w-1/2 transition-all duration-500"></div>
+            </motion.button>
 
-            {/* Resist Option */}
-            <button
+            {/* Resist Option (Green) */}
+            <motion.button
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
               onClick={() => secondOption?.id && submitVote(secondOption.id)}
               disabled={isSubmitting}
-              className="group relative flex flex-col items-center text-center p-10 md:p-12 rounded-2xl border border-white/5 bg-gradient-to-b from-zinc-900/40 to-cyan-950/5 hover:from-zinc-900/60 hover:to-cyan-900/10 hover:border-cyan-500/30 transition-all duration-500 outline-none focus:ring-2 focus:ring-cyan-500/50 disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm"
+              className="group relative flex flex-col items-center text-center p-12 rounded-3xl border border-primary/10 bg-zinc-900/40 hover:bg-zinc-800/60 transition-all duration-500 outline-none disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-xl shadow-[0_0_30px_rgba(212,255,0,0.02)] hover:shadow-[0_0_60px_rgba(212,255,0,0.08)]"
             >
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+              {/* Outer Card Glow like the image */}
+              <div className="absolute -inset-[2px] rounded-3xl bg-gradient-to-b from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
 
-              <div className="relative z-10 w-24 h-24 rounded-full bg-cyan-500/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-cyan-500/20 transition-all duration-500 shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+              <motion.div
+                animate={pulseAnimation}
+                className="absolute inset-0 bg-primary/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"
+              ></motion.div>
+
+              {/* Icon Container with Concentrated Glow like the image */}
+              <div className="relative z-10 w-32 h-32 rounded-full flex items-center justify-center mb-10 group-hover:scale-110 transition-all duration-500">
+                {/* The "Aura" behind the icon */}
+                <div className="absolute inset-0 bg-primary/10 blur-[30px] rounded-full group-hover:bg-primary/20 transition-all duration-500"></div>
+                <div className="absolute inset-4 bg-primary/5 blur-[15px] rounded-full group-hover:bg-primary/10 transition-all duration-500"></div>
+
+                <motion.div
+                  animate={{
+                    boxShadow: [
+                      "0 0 30px rgba(212,255,0,0.1)",
+                      "0 0 60px rgba(212,255,0,0.5)",
+                      "0 0 30px rgba(212,255,0,0.1)",
+                    ],
+                  }}
+                  transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                  className="absolute inset-0 rounded-full border border-primary/10"
+                ></motion.div>
+
                 <Image
                   src="/assets/images/resist.png"
                   alt="Resist"
-                  width={64}
-                  height={64}
-                  className="opacity-80 group-hover:opacity-100 transition-opacity"
+                  width={72}
+                  height={72}
+                  className="relative z-20 opacity-90 group-hover:opacity-100 transition-opacity"
                 />
               </div>
 
-              <h2 className="relative z-10 text-3xl md:text-4xl font-subheading font-bold text-white group-hover:text-cyan-400 mb-6 tracking-wider uppercase transition-colors duration-300">
+              <h2 className="relative z-10 text-4xl md:text-5xl font-subheading font-bold text-white group-hover:text-primary mb-6 tracking-widest uppercase transition-all duration-300">
                 {secondOptionName}
               </h2>
 
-              <p className="relative z-10 font-body text-[12px] md:text-sm leading-relaxed text-white/40 max-w-xs group-hover:text-white/70 transition-colors duration-300">
+              <p className="relative z-10 font-body text-sm leading-relaxed text-white/40 max-w-xs group-hover:text-white/80 transition-colors duration-300 italic">
                 {secondOptionDescription}
               </p>
 
-              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 opacity-50"></div>
-            </button>
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-primary group-hover:w-1/2 transition-all duration-500"></div>
+            </motion.button>
           </div>
 
           {/* Footer */}
-          <div className="mt-16 text-center">
-            <p className="font-subheading text-xs md:text-sm uppercase tracking-[0.2em] text-white/30">
-              The Fate of the City Hangs on Your Decision
-            </p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mt-24 text-center"
+          >
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/5 bg-white/5 backdrop-blur-sm">
+              <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+              <p className="font-subheading text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/50">
+                Live Poll: Your decision will manifest in the next episode
+              </p>
+            </div>
+          </motion.div>
         </div>
       </div>
     </div>

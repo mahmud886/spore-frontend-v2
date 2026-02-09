@@ -235,7 +235,7 @@ export const SupportUsTier = () => {
               </ul>
             </div>
             <div className="space-y-4">
-              <div className="tier-card-inner p-8 rounded-lg relative bg-black/50 border border-primary/20">
+              <div className="tier-card-inner p-8 rounded-lg relative bg-black/80 border border-primary/20">
                 {tier.badges && (
                   <div className="mb-6">
                     {tier.badges.map((badge, idx) => (

@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export const ProofOfConcept = () => {
   return (
@@ -29,18 +30,18 @@ export const ProofOfConcept = () => {
             SPORE FALL IS OUR FIRST PROOF-OF-CONCEPT AND FLAGSHIP NARRATIVE UNIVERSE, DEMONSTRATING OUR ENGINE IN
             ACTION.
           </p>
-          <a
+          <Link
             className="inline-flex items-center gap-4 px-8 py-4 bg-primary text-black font-subheading font-bold tracking-widest text-sm rounded-sm hover:bg-primary/90 transition-all group"
-            href="#"
+            href="/"
           >
             EXPLORE THE WORLD OF SPORE FALL
             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-          </a>
+          </Link>
         </div>
       </div>
       <div className="max-w-7xl mx-auto mt-16 pt-16 text-center border-white/10">
         <h2 className="font-subheading text-4xl md:text-5xl text-white mb-8 leading-tight tracking-widest uppercase">
-          A TECH-POWERED FUTURE
+          Future of Media Franchises: Immersive, tech-augmented & globally scalable
         </h2>
         <div className="space-y-6 text-gray-400 text-lg font-light leading-relaxed">
           <p>

@@ -22,8 +22,8 @@ const PartnershipsHeader = () => {
               src="/assets/images/partnerships/edenstone.png"
             />
             <p className="mt-5 text-lg md:text-[24px] max-w-2xl font-body mx-auto font-light leading-relaxed mb-4">
-              is a multi-platform narrative universe and the flagship intellectual property of{" "}
-              <span className="text-primary font-semibold">Edenstone Group.</span>
+              <span className="text-primary font-semibold">Spore Fall</span> is a multi-platform narrative universe and
+              the flagship intellectual property of <span className="text-primary font-semibold">Edenstone Group.</span>
             </p>
             <p className="text-sm text-gray-400 font-body max-w-xl mx-auto">
               Forged through years of brand storytelling for global giants, Edenstone now focus exclusively on building
@@ -35,7 +35,7 @@ const PartnershipsHeader = () => {
               className="leading-wider  px-8 py-4 bg-primary text-black font-display font-bold tracking-widest text-[20px] md:text-[28px] rounded-sm hover:bg-primary/90 transition-colors duration-300"
               href="/"
             >
-              EXPLORE SPORE FALL
+              EXPLORE
             </Link>
             {/* <a
               className="leading-wider  px-8 py-4 border-2 border-primary text-primary font-display font-bold tracking-widest text-[20px] md:text-[27px] rounded-sm hover:bg-primary hover:text-black transition-all duration-300"

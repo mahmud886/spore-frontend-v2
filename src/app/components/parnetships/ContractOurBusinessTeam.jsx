@@ -14,7 +14,7 @@ export const ContractOurBusinessTeam = () => {
         </h2>
         <a
           className="inline-flex items-center gap-4 px-8 py-4 bg-primary text-black font-subheading font-bold tracking-widest text-sm rounded-sm hover:bg-white transition-all group"
-          href="#"
+          href="mailto:partners@edenstone.group"
         >
           CONTACT OUR BUSINESS TEAM
         </a>

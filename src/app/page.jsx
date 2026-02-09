@@ -1,6 +1,6 @@
-import { getBaseUrl } from "@/app/lib/services/base";
 import { getBlogs } from "@/app/lib/services/blogs";
 import { getEpisodes } from "@/app/lib/services/episodes";
+import { getBaseUrl } from "@/app/lib/services/base";
 import HomePage from "./components/home/HomePage";
 
 export const revalidate = 60;

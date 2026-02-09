@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function HeroHeader({
   status = "● STATUS: ACTIVE CONFLICT // THE STACKS IN SECTOR 7, ZONE 10",
-  heading = "THE CITY IS\nDIVIDED",
+  heading = "BATTLE LINES\nARE DRAWN",
   showStatus = true,
 }) {
   // Split heading by newline or use <br />
@@ -35,6 +35,7 @@ export default function HeroHeader({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+              className="tracking-normal"
             >
               {line}
               {index < headingLines.length - 1 && <br />}
