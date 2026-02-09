@@ -1,4 +1,5 @@
 import { getBaseUrl } from "@/app/lib/services/base";
+import { getBlogs } from "@/app/lib/services/blogs";
 import { getEpisodes } from "@/app/lib/services/episodes";
 import { getProducts } from "@/app/lib/services/products";
 import { createClient } from "@/app/lib/supabase-server";
@@ -97,13 +98,14 @@ export async function generateMetadata({ searchParams }) {
 }
 
 export default async function Result() {
-  const [products, episodes] = await Promise.all([
+  const [products, episodes, blogs] = await Promise.all([
     getProducts({ limit: 20, offset: 0 }),
     getEpisodes({ limit: 10, offset: 0 }),
+    getBlogs(),
   ]);
   return (
     <Suspense>
-      <ResultContent products={products} episodes={episodes} />
+      <ResultContent products={products} episodes={episodes} blogs={blogs} />
     </Suspense>
   );
 }

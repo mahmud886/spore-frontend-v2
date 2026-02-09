@@ -976,7 +976,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
 
   if (loading) {
     return (
-      <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "py-24 px-8"} cyber-hex-grid`}>
+      <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "pt-0 pb-24 px-8"} cyber-hex-grid`}>
         <div className="mb-8">
           <SectionTitle>Episodes</SectionTitle>
         </div>
@@ -991,7 +991,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
 
   if (error) {
     return (
-      <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "py-24 px-8"} cyber-hex-grid`}>
+      <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "pt-0 pb-24 px-8"} cyber-hex-grid`}>
         <div className="text-center py-20">
           <p className="text-red-500 mb-2">Error loading episodes</p>
           <p className="text-white/60 text-sm">{error}</p>
@@ -1002,7 +1002,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
 
   if (episodes.length === 0) {
     return (
-      <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "py-24 px-8"} cyber-hex-grid`}>
+      <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "pt-0 pb-24 px-8"} cyber-hex-grid`}>
         <div className="text-center py-20">
           <p className="text-white/60 text-sm">No episodes available at the moment.</p>
         </div>
@@ -1012,7 +1012,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
 
   return (
     <>
-      <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "py-24 px-8"} cyber-hex-grid`} ref={rootRef}>
+      <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "pt-0 pb-24 px-8"} cyber-hex-grid`} ref={rootRef}>
         <Carousel
           items={episodes}
           renderItem={renderEpisodeCard}

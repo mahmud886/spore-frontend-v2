@@ -7,7 +7,6 @@ import CountdownSection from "./CountdownSection";
 import HeroHeader from "./HeroHeader";
 import MobilizeNetworkCard from "./MobilizeNetworkCard";
 import PollResultSection from "./PollResultSection";
-import ProductsSection from "./ProductsSection";
 
 export default function ResultPage({
   heroHeaderProps,
@@ -78,16 +77,11 @@ export default function ResultPage({
           onShare={onShare}
           copied={copied}
         />
-        {/* <IdentityArtifactSection {...identityArtifactProps} /> */}
-        {/* <UserProfileSection {...userProfileProps} /> */}
 
         <EpisodesSection episodes={episodes} />
 
         <NewsletterSection />
-        <div id="shop" className="pt-24">
-          <ProductsSection {...productsProps} />
-        </div>
-        <div id="spore-log">
+        <div id="spore-log" className="pt-24">
           <SporeBlogSection {...blogProps} />
         </div>
       </Wrapper>

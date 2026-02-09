@@ -17,7 +17,7 @@ export default async function PollSection() {
     : null;
   if (!pollData) return null;
   return (
-    <section className="pt-12 pb-16 px-0">
+    <section className="pb-16 px-0">
       <SectionTitle>Participate in the Poll</SectionTitle>
       <div className="mt-8 flex items-center justify-center min-h-[420px]">
         <ClientPollSectionFullWidth poll={pollData} />

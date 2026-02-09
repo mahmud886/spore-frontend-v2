@@ -6,7 +6,7 @@ import ResultPage from "../../components/result/ResultPage";
 import { trackEvent } from "../../components/shared/Analytics";
 import ResultLoader from "../../components/shared/skeletons/ResultLoader";
 
-export default function ResultContent({ products: products = [], episodes: episodes = [] }) {
+export default function ResultContent({ products: products = [], episodes: episodes = [], blogs: blogs = [] }) {
   const searchParams = useSearchParams();
   const episodeId = searchParams.get("episode");
   const pollIdParam = searchParams.get("poll") || searchParams.get("pollId");
@@ -288,6 +288,7 @@ export default function ResultContent({ products: products = [], episodes: episo
       copied={copied}
       productsProps={{ products }}
       episodesProps={{ episodes }}
+      blogProps={{ posts: blogs }}
     />
   );
 }

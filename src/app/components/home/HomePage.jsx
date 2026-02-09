@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { Wrapper } from "../shared/Wrapper";
 import HeroSection from "./HeroSection";
 import PollSection from "./PollSection";
+import PrintfulProducts from "./PrintfulProducts";
 import { PrologueSection } from "./PrologueSection";
 import { Synopsis } from "./Synopsis";
 const SporeBlogSection = dynamic(() => import("../shared/SporeBlogSection"));
@@ -69,23 +70,27 @@ export default function HomePage({ episodes = [], blogPosts = [] }) {
         <div className="relative z-10 -mx-4 sm:-mx-6 lg:-mx-8">
           {/* <AboutSection /> */}
 
+          <CharacterLogsSection />
+          <div className="px-8" style={{ contentVisibility: "auto", containIntrinsicSize: "600px" }}>
+            <PollSection />
+          </div>
+
           <div id="shop" style={{ contentVisibility: "auto", containIntrinsicSize: "1200px" }}>
             <EpisodesSection episodes={episodes} />
           </div>
           <div className="px-10 " style={{ contentVisibility: "auto", containIntrinsicSize: "600px" }}>
             <NewsletterSection />
           </div>
-          <CharacterLogsSection />
-          <div className="px-8" style={{ contentVisibility: "auto", containIntrinsicSize: "600px" }}>
-            <PollSection />
+          <div id="shop" className="pb-4 px-8 pt-24">
+            <PrintfulProducts />
           </div>
-          <div
+          {/* <div
             id="spore-log"
             className="pb-4 px-8 "
             style={{ contentVisibility: "auto", containIntrinsicSize: "1000px" }}
           >
             <SporeBlogSection title="VAULT 7" className="" sectionClassName="" fetchFromAPI={false} posts={blogPosts} />
-          </div>
+          </div> */}
         </div>
       </Wrapper>
     </>
