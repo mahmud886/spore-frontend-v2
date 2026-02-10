@@ -53,19 +53,20 @@ export default function FundMovieSection() {
 
           {/* Call to Action Button */}
           <div className="relative z-10 mt-10 md:mt-16 flex justify-center">
-            <motion.button
+            <motion.a
               href="/partnerships"
               target="_blank"
+              aria-label="Fund the movie"
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0 0 35px rgba(212, 255, 0, 0.6)",
                 backgroundColor: "#e5ff00",
               }}
               whileTap={{ scale: 0.95 }}
-              className="bg-primary text-black font-subheading font-bold py-4 md:py-6 px-12 md:px-24 rounded-md tracking-[0.3em] text-lg md:text-2xl transition-all duration-300 shadow-[0_0_20px_rgba(212,255,0,0.3)] uppercase"
+              className="bg-primary text-black font-subheading font-bold py-4 md:py-6 px-12 md:px-24 rounded-md tracking-[0.3em] text-lg md:text-2xl transition-all duration-300 shadow-[0_0_20px_rgba(212,255,0,0.3)] uppercase cursor-pointer"
             >
               FUND THE MOVIE
-            </motion.button>
+            </motion.a>
           </div>
         </div>
       </div>
