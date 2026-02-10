@@ -54,6 +54,8 @@ export default function FundMovieSection() {
           {/* Call to Action Button */}
           <div className="relative z-10 mt-10 md:mt-16 flex justify-center">
             <motion.button
+              href="/partnerships"
+              target="_blank"
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0 0 35px rgba(212, 255, 0, 0.6)",

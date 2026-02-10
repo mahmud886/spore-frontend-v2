@@ -33,6 +33,8 @@ export const ProofOfConcept = () => {
           <Link
             className="inline-flex items-center gap-4 px-8 py-4 bg-primary text-black font-subheading font-bold tracking-widest text-sm rounded-sm hover:bg-primary/90 transition-all group"
             href="/"
+            aria-label="Explore the world of Spore Fall"
+            target="_blank"
           >
             EXPLORE THE WORLD OF SPORE FALL
             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
@@ -55,8 +57,8 @@ export const ProofOfConcept = () => {
           <p className="text-primary">
             Edenstone is built to meet a new age of immersive, tech-augmented storytelling.
           </p>
-          <p className="text-primary font-subheading text-sm tracking-widest">
-            WE ARE CREATED IN SINGAPORE; FOR THE WORLD.
+          <p className="text-primary font-subheading text-xl tracking-widest">
+            We are created in Singapore for the world.
           </p>
         </div>
       </div>

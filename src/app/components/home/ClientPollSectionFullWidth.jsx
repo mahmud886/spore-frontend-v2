@@ -102,20 +102,34 @@ export default function ClientPollSectionFullWidth({ poll }) {
             viewport={{ once: true }}
             className="text-center mb-20"
           >
-            <span className="inline-block font-subheading text-[10px] md:text-xs tracking-[0.4em] text-white/60 mb-8 border border-white/20 px-6 py-2 rounded-full backdrop-blur-md">
+            {/* <span className="inline-block font-subheading text-[10px] md:text-xs tracking-[0.4em] text-white/60 mb-8 border border-white/20 px-6 py-2 rounded-full backdrop-blur-md">
               {phase}
-            </span>
+            </span> */}
             <motion.h1
               animate={flickerAnimation}
-              className="max-w-[90%] mx-auto text-5xl md:text-7xl font-subheading font-bold tracking-widest mb-6 uppercase bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/40"
+              className="max-w-full mx-auto text-5xl md:text-3xl font-subheading font-bold tracking-widest mb-6 uppercase bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/40"
             >
               {title}
             </motion.h1>
+
             <div className="flex items-center justify-center gap-4">
               <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-white/20"></div>
               <p className="font-subheading text-xs md:text-sm text-primary tracking-[0.3em] uppercase">{subtitle}</p>
               <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-white/20"></div>
             </div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <div className="mt-4 inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/5 bg-white/5 backdrop-blur-sm">
+                <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                <p className="font-subheading text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/50">
+                  Live Poll
+                </p>
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Voting Cards */}
@@ -230,21 +244,6 @@ export default function ClientPollSectionFullWidth({ poll }) {
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-primary group-hover:w-1/2 transition-all duration-500"></div>
             </motion.button>
           </div>
-
-          {/* Footer */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="mt-24 text-center"
-          >
-            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/5 bg-white/5 backdrop-blur-sm">
-              <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-              <p className="font-subheading text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/50">
-                Live Poll: Your decision will manifest in the next episode
-              </p>
-            </div>
-          </motion.div>
         </div>
       </div>
     </div>

@@ -34,6 +34,7 @@ const PartnershipsHeader = () => {
             <Link
               className="leading-wider  px-8 py-4 bg-primary text-black font-display font-bold tracking-widest text-[20px] md:text-[28px] rounded-sm hover:bg-primary/90 transition-colors duration-300"
               href="/"
+              target="_blank"
             >
               EXPLORE
             </Link>

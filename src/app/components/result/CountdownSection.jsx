@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { staggerContainer } from "../../utils/animations";
 import CountdownCard from "./CountdownCard";
 
-export default function CountdownSection({ targetDate, title, pollData, highlightMinutes = true }) {
+export default function CountdownSection({ targetDate, title, pollData, highlightMinutes = true, closedTitle }) {
   // Calculate target date from poll data or provided targetDate
   const targetTime = useMemo(() => {
     // First, try to get from pollData
@@ -43,6 +43,8 @@ export default function CountdownSection({ targetDate, title, pollData, highligh
     seconds: 0,
   });
 
+  const [isClosed, setIsClosed] = useState(false);
+
   const formatValue = (value) => {
     return String(value).padStart(2, "0");
   };
@@ -59,8 +61,10 @@ export default function CountdownSection({ targetDate, title, pollData, highligh
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
         setTimeLeft({ days, hours, minutes, seconds });
+        setIsClosed(false);
       } else {
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        setIsClosed(true);
       }
     };
 
@@ -73,6 +77,8 @@ export default function CountdownSection({ targetDate, title, pollData, highligh
     return () => clearInterval(interval);
   }, [targetTime]);
 
+  const displayTitle = isClosed && closedTitle ? closedTitle : title;
+
   return (
     <motion.section
       key="countdown-section"
@@ -81,7 +87,7 @@ export default function CountdownSection({ targetDate, title, pollData, highligh
       transition={{ duration: 0.6 }}
       className="mb-12"
     >
-      {title && (
+      {displayTitle && (
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -89,7 +95,7 @@ export default function CountdownSection({ targetDate, title, pollData, highligh
           transition={{ duration: 0.6 }}
           className="text-2xl font-bold text-primary pb-4 text-center mb-6 font-subheading cyber-text-glitch uppercase tracking-wider"
         >
-          {title}
+          {displayTitle}
         </motion.h1>
       )}
       {/* {pollData?.duration_days && (

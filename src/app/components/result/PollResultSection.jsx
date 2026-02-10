@@ -92,14 +92,14 @@ export default function PollResultSection({
         >
           {faction1.name}
         </motion.h3>
-        <motion.p
+        {/* <motion.p
           className="text-center max-w-[50%] text-[8px] text-white/60 md:text-[10px] uppercase tracking-widest"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.4 }}
         >
           {dynamicCenterLabel}
-        </motion.p>
+        </motion.p> */}
         <motion.h3
           className="text-primary text-sm font-bold tracking-widest uppercase"
           initial={{ opacity: 0, y: -20 }}
@@ -140,6 +140,21 @@ export default function PollResultSection({
         >
           <AnimatedPercentage value={faction2.percentage} delay={3.0} />
         </motion.div>
+
+        {/* VS Indicator */}
+        <div
+          className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
+          style={{ left: `${faction1.percentage}%` }}
+        >
+          <motion.div
+            initial={{ scale: 0, rotate: -45 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ delay: 3.5, type: "spring", stiffness: 200 }}
+            className="bg-black border-2 border-red-500 w-10 h-10 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(239,68,68,0.5)]"
+          >
+            <span className="text-red-500 font-black text-sm italic tracking-tighter">VS</span>
+          </motion.div>
+        </div>
       </div>
 
       {/* Bottom Labels */}

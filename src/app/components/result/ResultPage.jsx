@@ -35,6 +35,7 @@ export default function ResultPage({
   copied,
 }) {
   const { episodes = [] } = episodesProps || {};
+
   useEffect(() => {
     const hash = window.location.hash.substring(1);
     if (hash) {
@@ -60,7 +61,11 @@ export default function ResultPage({
         </div>
 
         <PollResultSection {...pollResultProps} />
-        <CountdownSection title={countdownProps?.title || "POLL CLOSES IN"} pollData={pollData} />
+        <CountdownSection
+          title={"Decide the Fate of Lionara City"}
+          closedTitle={"Time's Up for Lionara City"}
+          pollData={pollData}
+        />
         <MobilizeNetworkCard
           title="Share to unlock the next drop"
           description="Broadcast this signal. A hidden reward unlocks at the end."
