@@ -21,18 +21,14 @@ export async function POST(request) {
 
     // Track in social_media_clicks for now as a 'page_view' type
     // We'll use 'platform' as 'page_view' to distinguish
-    
+
     let targetPollId = poll_id;
-    
+
     // Fallback: if no poll_id is provided, try to find the first available poll
     // because the database has a NOT NULL constraint on poll_id
     if (!targetPollId) {
-      const { data: firstPoll } = await supabase
-        .from("polls")
-        .select("id")
-        .limit(1)
-        .single();
-      
+      const { data: firstPoll } = await supabase.from("polls").select("id").limit(1).single();
+
       if (firstPoll) {
         targetPollId = firstPoll.id;
       }

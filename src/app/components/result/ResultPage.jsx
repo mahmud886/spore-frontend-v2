@@ -4,6 +4,7 @@ import NewsletterSection from "../home/NewsletterSection";
 import SporeBlogSection from "../shared/SporeBlogSection";
 import { Wrapper } from "../shared/Wrapper";
 import CountdownSection from "./CountdownSection";
+import FundMovieSection from "./FundMovieSection";
 import HeroHeader from "./HeroHeader";
 import MobilizeNetworkCard from "./MobilizeNetworkCard";
 import PollResultSection from "./PollResultSection";
@@ -77,6 +78,8 @@ export default function ResultPage({
           onShare={onShare}
           copied={copied}
         />
+
+        <FundMovieSection />
 
         <EpisodesSection episodes={episodes} />
 
