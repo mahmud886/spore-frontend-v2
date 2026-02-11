@@ -100,36 +100,37 @@ export default function PollStepModal({
         return; // Don't redirect if vote failed
       }
 
-      // Mark user as voted for this specific episode in localStorage
-      const votedEpisodes = JSON.parse(localStorage.getItem("sporefall_voted_episodes") || "[]");
-      // Convert to strings for consistent comparison
-      const episodeIdStr = String(episodeIdToUse);
-      const votedEpisodesStr = votedEpisodes.map((id) => String(id));
+      // Success! Show notification before redirecting
+      setNotificationMessage("Vote recorded. Redirecting to results...");
+      setIsNotificationOpen(true);
 
-      if (!votedEpisodesStr.includes(episodeIdStr)) {
-        votedEpisodes.push(episodeIdToUse);
-        localStorage.setItem("sporefall_voted_episodes", JSON.stringify(votedEpisodes));
+      // Track voted episode
+      try {
+        const votedEpisodes = JSON.parse(localStorage.getItem("sporefall_voted_episodes") || "[]");
+        const eidStr = String(episodeIdToUse);
+        const votedStr = votedEpisodes.map((id) => String(id));
+        if (!votedStr.includes(eidStr)) {
+          votedEpisodes.push(episodeIdToUse);
+          localStorage.setItem("sporefall_voted_episodes", JSON.stringify(votedEpisodes));
+        }
+        localStorage.removeItem("sporefall_modal_closed");
+      } catch (err) {
+        console.error("Error saving vote to local storage:", err);
       }
-      // Also clear modal closed flag since user completed the action
-      localStorage.removeItem("sporefall_modal_closed");
 
       // Notify parent component about successful vote
       if (onVoteSuccess) {
         onVoteSuccess(episodeIdToUse);
       }
 
-      // Close modal and redirect to result page with episode ID
-      if (onClose) {
-        onClose();
-      }
-
-      // Small delay to ensure modal closes smoothly
+      // Small delay to let user see the success notification
       setTimeout(() => {
-        const resultUrl = episodeIdToUse ? `/result?episode=${encodeURIComponent(episodeIdToUse)}` : "/result";
-        router.push(resultUrl);
-      }, 100);
+        if (onClose) onClose();
+        router.push(`/result?episode=${encodeURIComponent(episodeIdToUse)}`);
+      }, 2000);
     } catch (error) {
-      setNotificationMessage(`Error submitting vote: ${error.message}`);
+      console.error("Error submitting vote:", error);
+      setNotificationMessage("Failed to submit vote. Please try again later.");
       setIsNotificationOpen(true);
       setIsSubmitting(false);
     }
