@@ -40,7 +40,7 @@ export default function FundMovieSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60" />
 
                 {/* Text on the screen/theater area */}
-                <div className="absolute inset-0 flex flex-col items-center justify-end pb-[5%] md:pb-[10%]">
+                {/* <div className="absolute inset-0 flex flex-col items-center justify-end pb-[5%] md:pb-[10%]">
                   <motion.h2
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
@@ -50,7 +50,7 @@ export default function FundMovieSection() {
                   >
                     BRING SPORE FALL INTO CINEMAS
                   </motion.h2>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
