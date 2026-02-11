@@ -83,7 +83,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-background-dark/90 backdrop-blur-md border-b border-white/5 px-6 py-4 ">
+    <nav className="sticky top-0 z-50 bg-background-dark/20 backdrop-blur-md border-b border-black/5 px-6 py-4 ">
       <Wrapper>
         <div className="flex justify-between items-center">
           <Link href="/" className="font-display font-subheading font-bold text-xl tracking-widest">
