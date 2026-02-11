@@ -7,24 +7,108 @@ import { SectionTitle } from "../shared/SectionTitle";
 
 const characters = [
   {
-    name: "Lena",
-    role: "Technician",
-    image: "/assets/images/characters/lena.png",
+    name: "Lena Chen",
+    role: "Botanist-in-training",
+    year: "777 BF",
+    image: "/assets/images/characters/01.jpg",
   },
   {
-    name: "Eli",
-    role: "Guide",
-    image: "/assets/images/characters/eli.png",
+    name: "Marcus Varga",
+    role: "Assistant Horticulturist of Lionara's Seed Vault",
+    year: "777 BF",
+    image: "/assets/images/characters/02.jpg",
   },
   {
-    name: "Troopers",
-    role: "Armour",
-    image: "/assets/images/characters/troopers.png",
+    name: "Eli Chen",
+    role: "Test Subject",
+    status: "Infection Lvl 1",
+    image: "/assets/images/characters/03.jpg",
   },
   {
     name: "Dust Keeper",
-    role: "Commando",
-    image: "/assets/images/characters/dustkeeper.png",
+    role: "Spore Task Force Command",
+    unit: "Valkyrie Protocol (Black Ops)",
+    chain: "Direct synaptic link to LEADER X",
+    image: "/assets/images/characters/04.jpg",
+  },
+  {
+    name: "Leader X",
+    role: "Leader of the Bastion Party",
+    year: "Present Day",
+    image: "/assets/images/characters/05.jpg",
+  },
+  {
+    name: "Bastion Party Trooper",
+    role: "Trooper",
+    image: "/assets/images/characters/06.jpg",
+  },
+  {
+    name: "Lena Chen",
+    role: "Medic & Botanist",
+    year: "Present Day",
+    image: "/assets/images/characters/07.jpg",
+  },
+  {
+    name: "Marcus Varga | Tactical",
+    role: "Bastion Party Scout",
+    year: "Present Day",
+    image: "/assets/images/characters/08.jpg",
+  },
+  {
+    name: "Aly",
+    role: "New Alliance Defence Force Captain",
+    image: "/assets/images/characters/09.jpg",
+  },
+  {
+    name: "NADF Trooper",
+    role: "New Alliance Defence Force Trooper with Enhanced Bionics",
+    image: "/assets/images/characters/10.jpg",
+  },
+  {
+    name: "Leader H",
+    role: "Prime Leader of Golden Age Lionara",
+    year: "777 BF",
+    image: "/assets/images/characters/11.jpg",
+  },
+  {
+    name: "Cordelia Rajan",
+    status: "Status Unknown",
+    image: "/assets/images/characters/12.jpg",
+  },
+  {
+    name: "Lena Chen",
+    role: "Status Unknown",
+    year: "001 AF",
+    image: "/assets/images/characters/13.jpg",
+  },
+  {
+    name: "Marcus Varga",
+    role: "Status Unknown",
+    year: "001 AF",
+    image: "/assets/images/characters/14.jpg",
+  },
+  {
+    name: "Cleaner",
+    role: "Deployment Unit",
+    description: "Cleaners are deployed to dispose the Spore-infected in a unit of 3 or 4.",
+    image: "/assets/images/characters/15.jpg",
+  },
+  {
+    name: "Leader X",
+    role: "Youth Party Leader of Young Lionara",
+    year: "777 BF",
+    image: "/assets/images/characters/16.jpg",
+  },
+  {
+    name: "Eli Chen",
+    role: "Scavenger",
+    image: "/assets/images/characters/17.jpg",
+  },
+  {
+    name: "Marcus Varga | Military Fatigue",
+    role: "Bastion Party Cadet",
+    year: "Present Day",
+    image: "/assets/images/characters/18.jpg",
   },
 ];
 
@@ -43,7 +127,7 @@ export default function CharacterLogsSection() {
       >
         {/* Content wrapper */}
         <div
-          className="relative overflow-hidden  border-3 border-primary/10 group-hover:border-primary transition-all duration-500"
+          className="relative overflow-hidden border-3 border-primary/10 group-hover:border-primary transition-all duration-500"
           style={{
             borderTopRightRadius: "17px",
             borderBottomLeftRadius: "17px",
@@ -51,20 +135,46 @@ export default function CharacterLogsSection() {
         >
           <Image
             alt={character.name}
-            className="w-full h-[400px] object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+            className="w-full h-[450px] object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
             src={character.image}
             width={400}
-            height={400}
+            height={500}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             quality={75}
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-          <div className="absolute bottom-6 left-6 z-10">
-            <span className="bg-primary text-black text-[9px] px-2 py-0.5 font-bold uppercase mb-2 inline-block">
-              {character.role}
-            </span>
-            <h3 className="text-4xl font-display font-black text-white uppercase tracking-tighter">{character.name}</h3>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+
+          <div className="absolute top-4 right-4 flex flex-col items-end gap-1">
+            {character.year && (
+              <span className="text-primary font-display text-[10px] tracking-widest font-black bg-black/80 px-2 py-0.5 border border-primary/20">
+                {character.year}
+              </span>
+            )}
+            {character.status && (
+              <span className="text-red-500 font-display text-[9px] tracking-wider font-bold bg-black/80 px-2 py-0.5 border border-red-500/20">
+                {character.status}
+              </span>
+            )}
+          </div>
+
+          <div className="absolute bottom-6 left-6 z-10 right-6">
+            {character.role && (
+              <span className="bg-primary text-black text-[9px] px-2 py-0.5 font-bold uppercase mb-2 inline-block tracking-tighter max-w-full truncate">
+                {character.role}
+              </span>
+            )}
+            <h3 className="text-2xl font-display font-black text-white uppercase tracking-tighter leading-none break-words">
+              {character.name}
+            </h3>
+            {character.description && (
+              <p className="text-[10px] text-gray-400 mt-2 font-body leading-tight opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                {character.description}
+              </p>
+            )}
+            {character.unit && (
+              <p className="text-[9px] text-primary/80 mt-1 font-display tracking-widest uppercase">{character.unit}</p>
+            )}
           </div>
         </div>
       </div>
