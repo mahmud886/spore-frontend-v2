@@ -107,7 +107,7 @@ export default function ClientPollSectionFullWidth({ poll }) {
             </span> */}
             <motion.h1
               animate={flickerAnimation}
-              className="max-w-full mx-auto text-5xl md:text-3xl font-subheading font-bold tracking-widest mb-6 uppercase bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/40"
+              className="max-w-full mx-auto text-2xl md:text-5xl font-subheading font-bold tracking-widest mb-6 uppercase bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/40"
             >
               {title}
             </motion.h1>
