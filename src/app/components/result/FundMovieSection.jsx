@@ -4,10 +4,14 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { fadeUp } from "../../utils/animations";
 import { AnimatedWrapper } from "../shared/AnimatedWrapper";
+import { SectionTitle } from "../shared/SectionTitle";
 
 export default function FundMovieSection() {
   return (
     <AnimatedWrapper variant={fadeUp} className="mb-24">
+      <div className="mb-12">
+        <SectionTitle>Bring Spore Fall into Cinemas</SectionTitle>
+      </div>
       <div className="relative  mx-auto group">
         {/* Nebula/Space background container for the whole section */}
         <div className="relative p-6 md:p-12 overflow-hidden bg-black/50 border border-white/5 shadow-2xl">

@@ -179,7 +179,7 @@ export const SupportHeader = () => {
                 {/* Outer Card Glow Extension (Resist Style) */}
                 <div className="absolute -inset-[2px] rounded-sm bg-gradient-to-b from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
 
-                <span className="relative z-10 transition-transform duration-500">Donate Any Amount</span>
+                <span className="relative z-10 transition-transform duration-500">Contribute Now</span>
 
                 {/* Expanding Bottom Border (Resist Style) */}
                 <div className="absolute bottom-0 left-0 w-0 h-[4px] bg-primary group-hover:w-full transition-all duration-500 z-20">
