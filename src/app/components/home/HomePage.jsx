@@ -78,7 +78,7 @@ export default function HomePage({ episodes = [], blogPosts = [] }) {
           <div id="episodes" style={{ contentVisibility: "auto", containIntrinsicSize: "1200px" }}>
             <EpisodesSection episodes={episodes} />
           </div>
-          <div className="px-10 " style={{ contentVisibility: "auto", containIntrinsicSize: "600px" }}>
+          <div className="px-10">
             <NewsletterSection />
           </div>
           <div id="shop" className="pb-4 px-8 pt-24">
