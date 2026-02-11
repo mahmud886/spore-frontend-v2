@@ -93,7 +93,7 @@ export const SupportHeader = () => {
             OUR NEXT MISSION:
           </motion.h2>
           <p className="text-center text-[16px] max-w-[80%] mx-auto mb-6">
-            complete Seasons 2 and 3 - the final chapters of our micro-drama trilogy. And after? We want to put a movie
+            Complete Seasons 2 and 3 - the final chapters of our micro-drama trilogy. And after? We want to put a movie
             on the big screens.
           </p>
           <motion.h2
