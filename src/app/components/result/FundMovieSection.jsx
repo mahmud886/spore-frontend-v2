@@ -36,13 +36,13 @@ export default function FundMovieSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60" />
 
                 {/* Text on the screen/theater area */}
-                <div className="absolute inset-0 flex flex-col items-center justify-end pb-[10%] md:pb-[12%]">
+                <div className="absolute inset-0 flex flex-col items-center justify-end pb-[5%] md:pb-[10%]">
                   <motion.h2
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 1, ease: "easeOut" }}
-                    className="text-white font-subheading text-lg md:text-3xl lg:text-5xl tracking-[0.25em] font-bold text-center px-6 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] uppercase"
+                    className="text-white font-subheading text-sm md:text-3xl lg:text-5xl md:tracking-[0.25em] font-bold text-center px-6 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] uppercase"
                   >
                     BRING SPORE FALL INTO CINEMAS
                   </motion.h2>
@@ -63,7 +63,7 @@ export default function FundMovieSection() {
                 backgroundColor: "#e5ff00",
               }}
               whileTap={{ scale: 0.95 }}
-              className="bg-primary text-black font-subheading font-bold py-4 md:py-6 px-12 md:px-24 rounded-md tracking-[0.3em] text-lg md:text-2xl transition-all duration-300 shadow-[0_0_20px_rgba(212,255,0,0.3)] uppercase cursor-pointer"
+              className="bg-primary justify-center text-center text-black font-subheading font-bold py-4 md:py-6 px-12 md:px-24 rounded-md tracking-[0.3em] text-sm md:text-2xl transition-all duration-300 shadow-[0_0_20px_rgba(212,255,0,0.3)] uppercase cursor-pointer"
             >
               FUND THE MOVIE
             </motion.a>

@@ -15,12 +15,12 @@ export default function ResultPage({
   pollResultProps = {
     faction1: {
       name: "EVOLVE",
-      subLabel: "TRANSCEND HUMANITY. UNLOCK YOUR LATENT CODE. BE SOMETHING MORE.",
+      subLabel: "TRANSCEND HUMANITY",
       percentage: 50,
     },
     faction2: {
       name: "RESIST",
-      subLabel: "PRESERVE ORDER. BURN THE OLD WORLD. REBUILD FROM ASHES.",
+      subLabel: "BURN THE OLD WORLD",
       percentage: 50,
     },
     centerLabel: "THE CITY STANDS DIVIDED",

@@ -25,7 +25,7 @@ export const InvestorsAndPartners = () => {
             levers.
           </p>
           <a
-            className="inline-flex items-center gap-4 px-8 py-4 bg-primary text-black font-subheading font-bold tracking-widest text-sm rounded-sm hover:bg-white transition-all group"
+            className="inline-flex justify-center text-center items-center gap-4 px-8 py-4 bg-primary text-black font-subheading font-bold tracking-widest text-sm rounded-sm hover:bg-white transition-all group"
             href="mailto:partners@edenstone.group"
           >
             CONTACT FOR DEAL FLOW

@@ -22,7 +22,7 @@ export const SupportUsFAQ = () => {
 
   return (
     <Wrapper>
-      <section className="max-w-4xl mx-auto mt-56">
+      <section className="max-w-4xl mx-auto mt-16 md:mt-56">
         <h2 className="font-subheading text-4xl font-black text-primary mb-16 tracking-widest uppercase neon-text">
           FAQ / KEY DETAILS SECTION:
         </h2>

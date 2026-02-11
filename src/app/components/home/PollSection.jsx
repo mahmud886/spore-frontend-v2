@@ -26,7 +26,7 @@ export default async function PollSection() {
       ? {
           faction1: {
             name: (option1.text || option1.option_text || "EVOLVE").toUpperCase(),
-            subLabel: option1.description || "BASTION PARTY",
+            subLabel: option1.description || "TRANSCEND HUMANITY",
             percentage:
               (option1.votes || option1.vote_count || 0) + (option2.votes || option2.vote_count || 0) > 0
                 ? Math.round(
@@ -38,7 +38,7 @@ export default async function PollSection() {
           },
           faction2: {
             name: (option2.text || option2.option_text || "RESIST").toUpperCase(),
-            subLabel: option2.description || "THE NEW ALLIANCE",
+            subLabel: option2.description || "BURN THE OLD WORLD",
             percentage:
               (option1.votes || option1.vote_count || 0) + (option2.votes || option2.vote_count || 0) > 0
                 ? Math.round(

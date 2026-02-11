@@ -10,7 +10,13 @@ export async function POST(request, { params }) {
   try {
     const supabase = await createClient();
     const { episodeId } = await params;
-    const body = await request.json();
+    let body;
+    try {
+      body = await request.json();
+    } catch (e) {
+      console.error("Failed to parse request body:", e.message);
+      return createErrorResponse("Invalid JSON body", 400);
+    }
 
     if (!episodeId) {
       return createErrorResponse("Episode ID is required", 400);
@@ -42,16 +48,21 @@ export async function POST(request, { params }) {
     const poll = polls[0];
     console.log("Found poll:", poll.id);
 
-    // Verify the option belongs to this poll
+    // Verify the option exists
     const { data: option, error: optionError } = await supabase
       .from("poll_options")
       .select("*")
       .eq("id", body.optionId)
-      .eq("poll_id", poll.id)
       .single();
 
     if (optionError || !option) {
-      return createErrorResponse("Invalid option ID or option does not belong to this poll", 400);
+      console.error("Invalid option ID:", body.optionId, "Error:", optionError?.message);
+      return createErrorResponse("Invalid option ID", 400);
+    }
+
+    // Optional: Log if the option belongs to a different poll
+    if (option.poll_id !== poll.id) {
+      console.log("Note: Option", body.optionId, "belongs to poll", option.poll_id, "but latest LIVE poll is", poll.id);
     }
 
     // Increment vote count atomically using Supabase RPC or direct increment

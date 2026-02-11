@@ -31,7 +31,7 @@ export const ProofOfConcept = () => {
             ACTION.
           </p>
           <Link
-            className="inline-flex items-center gap-4 px-8 py-4 bg-primary text-black font-subheading font-bold tracking-widest text-sm rounded-sm hover:bg-primary/90 transition-all group"
+            className="inline-flex justify-center text-center items-center gap-4 px-8 py-4 bg-primary text-black font-subheading font-bold tracking-widest text-sm rounded-sm hover:bg-primary/90 transition-all group"
             href="/"
             aria-label="Explore the world of Spore Fall"
             target="_blank"

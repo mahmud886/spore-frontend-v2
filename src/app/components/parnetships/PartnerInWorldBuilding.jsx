@@ -33,7 +33,7 @@ export const PartnerInWorldBuilding = () => {
               </li>
             </ul>
             <a
-              className="inline-flex items-center gap-4 px-8 py-4 bg-primary text-black font-subheading font-bold tracking-widest text-[10px] md:text-sm rounded-sm hover:bg-white transition-all group"
+              className="inline-flex justify-center text-center items-center gap-4 px-8 py-4 bg-primary text-black font-subheading font-bold tracking-widest text-[10px] md:text-sm rounded-sm hover:bg-white transition-all group"
               href="mailto:partners@edenstone.group"
             >
               SCHEDULE FOR A BRIEF

@@ -32,7 +32,7 @@ const PartnershipsHeader = () => {
           </div>
           <div className="mt-10 font-subheading flex flex-col sm:flex-row items-center justify-center gap-6">
             <Link
-              className="leading-wider  px-8 py-4 bg-primary text-black font-display font-bold tracking-widest text-[20px] md:text-[28px] rounded-sm hover:bg-primary/90 transition-colors duration-300"
+              className="leading-wider  px-8 py-4 text-center bg-primary text-black font-display font-bold tracking-widest text-[20px] md:text-[28px] rounded-sm hover:bg-primary/90 transition-colors duration-300"
               href="/"
               target="_blank"
             >

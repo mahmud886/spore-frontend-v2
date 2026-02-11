@@ -51,10 +51,10 @@ export default function CharacterLogsSection() {
         >
           <Image
             alt={character.name}
-            className="w-full h-[500px] object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+            className="w-full h-[400px] object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
             src={character.image}
             width={400}
-            height={500}
+            height={400}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             quality={75}
             loading="lazy"

@@ -88,15 +88,22 @@ export const SupportHeader = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="font-subheading text-lg md:text-[24px] font-bold mb-10 tracking-widest text-yellow-300 uppercase leading-normal"
+            className="font-subheading text-lg md:text-[24px] font-bold mb-4 tracking-widest text-white uppercase leading-normal"
           >
-            &quot;Your contribution directly funds seasons 2 & 3, unlocking our path to a feature length theatrical
-            release in movie theatres.&quot;
+            OUR NEXT MISSION:
           </motion.h2>
-          <p className="text-center text-[16px] max-w-[80%] mx-auto">
-            Our immediate mission: complete Seasons 2 and 3—the final chapters of our micro-drama trilogy. And after? We
-            want to put a movie on the big screens. This is our collective leap from micro-drama to macro-legacy.
+          <p className="text-center text-[16px] max-w-[80%] mx-auto mb-6">
+            complete Seasons 2 and 3 - the final chapters of our micro-drama trilogy. And after? We want to put a movie
+            on the big screens.
           </p>
+          <motion.h2
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="font-subheading text-lg md:text-[24px] font-bold mb-4 tracking-widest text-yellow-300 uppercase leading-normal"
+          >
+            &quot;YOUR CONTRIBUTION DIRECTLY UNLOCKS OUR PATH TO A FEATURE MOVIE RELEASE IN THEATRES&quot;
+          </motion.h2>
         </div>
       </motion.section>
 
@@ -105,8 +112,8 @@ export const SupportHeader = () => {
           animate={flickerAnimation}
           className="font-subheading text-lg md:text-[36px] font-bold mb-14 tracking-widest text-yellow-300 uppercase leading-normal "
         >
-          &quot;THE SPORE FALL UNIVERSE NEEDS A HEARTBEAT, <br className="hidden md:block" />
-          YOU HOLD THE KEY.&quot;
+          &quot;THE SPORE FALL UNIVERSE NEEDS A HEARTBEAT <br className="hidden md:block" /> &amp; YOU HOLD THE
+          KEY&quot;
         </motion.h2>
 
         <div className="space-y-12">
@@ -124,13 +131,13 @@ export const SupportHeader = () => {
               <Image src="/assets/images/resist.png" alt="" width={80} height={80} />
             </div> */}
 
-            <h4 className="font-subheading text-sm text-[30px] mb-6 text-white tracking-normal font-normal uppercase">
+            {/* <h4 className="font-subheading text-sm text-[30px] mb-6 text-white tracking-normal font-normal uppercase">
               THE MISSION:
             </h4>
             <p className="text-gray-400 text-sm md:text-lg leading-relaxed font-light font-body">
               Fund Seasons 2 &amp; 3 to expand the universe. Join our Inner Circle to co-create the future of{" "}
               <span className="text-primary font-bold">Spore Fall Chronicles</span> together.
-            </p>
+            </p> */}
           </motion.div>
 
           <div className="pt-8 flex justify-center">
@@ -153,12 +160,12 @@ export const SupportHeader = () => {
               <motion.div
                 animate={{ scale: [1, 1.05, 1], opacity: [0.1, 0.3, 0.1] }}
                 transition={{ duration: 3, repeat: Infinity }}
-                className="absolute -inset-6 border-2 border-primary/20 rounded-sm pointer-events-none z-0"
+                className="absolute -inset-4 border-2 border-primary/20 rounded-sm pointer-events-none z-0"
               />
               <motion.div
                 animate={{ scale: [1, 1.1, 1], opacity: [0.05, 0.2, 0.05] }}
                 transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
-                className="absolute -inset-10 border border-primary/10 rounded-sm pointer-events-none z-0"
+                className="absolute -inset-8 border border-primary/10 rounded-sm pointer-events-none z-0"
               />
 
               <motion.button
@@ -167,7 +174,7 @@ export const SupportHeader = () => {
                 viewport={{ once: true }}
                 animate={flickerAnimation}
                 onClick={handleScrollToDonate}
-                className="relative cursor-pointer bg-zinc-900/40 hover:bg-zinc-800/60 text-white group-hover:text-primary font-subheading font-black text-xl px-20 py-8 rounded-sm transition-all duration-500 uppercase tracking-[0.2em] border-2 border-primary/20 hover:border-primary transition-all duration-500 overflow-hidden flex flex-col items-center justify-center z-10 shadow-[0_0_30px_rgba(212,255,0,0.02)] hover:shadow-[0_0_60px_rgba(212,255,0,0.08)] backdrop-blur-xl"
+                className="relative cursor-pointer bg-zinc-900/40 hover:bg-zinc-800/60 text-white group-hover:text-primary font-subheading font-black text-sm md:text-lg px-8 py-4 md:px-12 md:py-5 rounded-sm transition-all duration-500 uppercase tracking-[0.2em] border-2 border-primary/20 hover:border-primary transition-all duration-500 overflow-hidden flex flex-col items-center justify-center z-10 shadow-[0_0_30px_rgba(212,255,0,0.02)] hover:shadow-[0_0_60px_rgba(212,255,0,0.08)] backdrop-blur-xl"
               >
                 {/* Outer Card Glow Extension (Resist Style) */}
                 <div className="absolute -inset-[2px] rounded-sm bg-gradient-to-b from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>

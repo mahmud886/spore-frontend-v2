@@ -236,12 +236,12 @@ export default function ResultContent({ products: products = [], episodes: episo
       return {
         faction1: {
           name: "EVOLVE",
-          subLabel: "BASTION PARTY",
+          subLabel: "TRANSCEND HUMANITY",
           percentage: 50,
         },
         faction2: {
           name: "RESIST",
-          subLabel: "THE NEW ALLIANCE",
+          subLabel: "BURN THE OLD WORLD",
           percentage: 50,
         },
         centerLabel: "THE CITY STANDS DIVIDED",
@@ -257,12 +257,12 @@ export default function ResultContent({ products: products = [], episodes: episo
     return {
       faction1: {
         name: (option1.text || option1.option_text || "EVOLVE").toUpperCase(),
-        subLabel: option1.description || "BASTION PARTY",
+        subLabel: option1.description || "TRANSCEND HUMANITY",
         percentage: percentage1,
       },
       faction2: {
         name: (option2.text || option2.option_text || "RESIST").toUpperCase(),
-        subLabel: option2.description || "THE NEW ALLIANCE",
+        subLabel: option2.description || "BURN THE OLD WORLD",
         percentage: percentage2,
       },
       centerLabel: pollData.question || pollData.title || "THE CITY STANDS DIVIDED",

@@ -62,12 +62,12 @@ function getDynamicCenterLabel(faction1Percentage, faction2Percentage) {
 export default function PollResultSection({
   faction1 = {
     name: "EVOLVE",
-    subLabel: "TRANSCEND HUMANITY. UNLOCK YOUR LATENT CODE. BE SOMETHING MORE.",
+    subLabel: "TRANSCEND HUMANITY",
     percentage: 50,
   },
   faction2 = {
     name: "RESIST",
-    subLabel: "PRESERVE ORDER. BURN THE OLD WORLD. REBUILD FROM ASHES.",
+    subLabel: "BURN THE OLD WORLD",
     percentage: 50,
   },
   centerLabel, // Will be dynamically generated if not provided
@@ -150,9 +150,9 @@ export default function PollResultSection({
             initial={{ scale: 0, rotate: -45 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ delay: 3.5, type: "spring", stiffness: 200 }}
-            className="bg-black border-2 border-red-500 w-10 h-10 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(239,68,68,0.5)]"
+            className="bg-black border-2 border-red-500 w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_25px_rgba(239,68,68,0.6)]"
           >
-            <span className="text-red-500 font-black text-sm italic tracking-tighter">VS</span>
+            <span className="text-red-500 font-black text-xl italic tracking-tighter">VS</span>
           </motion.div>
         </div>
       </div>
@@ -160,7 +160,7 @@ export default function PollResultSection({
       {/* Bottom Labels */}
       <div className="flex justify-between items-center mt-4">
         <motion.p
-          className="text-center max-w-[50%] text-[8px] text-white/60 md:text-[10px] uppercase tracking-widest"
+          className="text-center max-w-[50%] text-[8px] font-bold text-white/60 md:text-[10px] uppercase tracking-widest"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.8 }}
@@ -168,7 +168,7 @@ export default function PollResultSection({
           {faction1.subLabel}
         </motion.p>
         <motion.p
-          className="text-center max-w-[50%] text-[8px] text-white/60 md:text-[10px] uppercase tracking-widest"
+          className="text-center max-w-[50%] text-[8px] font-bold text-white/60 md:text-[10px] uppercase tracking-widest"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 1.0 }}
