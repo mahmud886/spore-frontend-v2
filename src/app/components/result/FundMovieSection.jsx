@@ -28,7 +28,7 @@ export default function FundMovieSection() {
               {/* Cinema Image Container */}
               <div className="relative aspect-video w-full overflow-hidden">
                 <Image
-                  src="/assets/images/fund-the-movie.png"
+                  src="/assets/images/fund-the-movie.webp"
                   alt="Fund The Movie"
                   fill
                   sizes="(max-width: 1268px) 100vw, 1268px"
