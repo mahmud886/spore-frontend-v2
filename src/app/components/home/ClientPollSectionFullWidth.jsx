@@ -103,8 +103,8 @@ export default function ClientPollSectionFullWidth({ poll }) {
       <NotificationPopup
         isOpen={showPopup}
         onClose={() => setShowPopup(false)}
-        title="System Notification"
-        message="Vote recorded. Redirecting to results..."
+        title="Lionara City  Public Service"
+        message={`Your Vote is Secret.\n\nRedirecting to results...`}
       />
 
       <div className="w-full relative overflow-hidden bg-black/40 py-20 rounded-3xl">

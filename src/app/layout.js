@@ -34,11 +34,13 @@ const mokoto = localFont({
 
 export const metadata = {
   metadataBase: new URL("https://sporefall.com"),
-  title: "SPORE FALL | Sci-Fi Narrative Series",
-  description: "The city of Lionara is quarantined. A spore is rewriting human fate.",
+  title: "SPORE FALL | a Sci-Fi Saga",
+  description:
+    "A deadly pathogen threatens to overrun the nation city of Lionara. Join the resistance or embrace the evolution.",
   openGraph: {
-    title: "SPORE FALL | Sci-Fi Narrative Series",
-    description: "The city of Lionara is quarantined. A spore is rewriting human fate.",
+    title: "SPORE FALL | a Sci-Fi Saga",
+    description:
+      "A deadly pathogen threatens to overrun the nation city of Lionara. Join the resistance or embrace the evolution.",
     url: "/",
     siteName: "SPORE FALL",
     images: [
@@ -46,7 +48,7 @@ export const metadata = {
         url: "/api/og",
         width: 1200,
         height: 630,
-        alt: "SPORE FALL - Sci-Fi Narrative Series",
+        alt: "SPORE FALL - a Sci-Fi Saga",
         type: "image/jpeg",
       },
     ],
@@ -55,8 +57,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SPORE FALL | Sci-Fi Narrative Series",
-    description: "The city of Lionara is quarantined. A spore is rewriting human fate.",
+    title: "SPORE FALL | a Sci-Fi Saga",
+    description:
+      "A deadly pathogen threatens to overrun the nation city of Lionara. Join the resistance or embrace the evolution.",
     images: ["/api/og"],
   },
   robots: {

@@ -39,12 +39,12 @@ export async function generateMetadata({ searchParams: searchParamsPromise }) {
   }
   const title = poll
     ? `${(poll.question || poll.title || "Poll Results").toUpperCase()} | SPORE FALL`
-    : "POLL RESULTS | SPORE FALL";
+    : "POLL RESULTS | SPORE FALL | a Sci-Fi Saga";
   const totalVotes =
     poll && Array.isArray(poll.options) ? poll.options.reduce((sum, o) => sum + (o.vote_count || o.votes || 0), 0) : 0;
   const description = poll
-    ? `View the latest results for: ${poll.question || poll.title}. Join ${totalVotes} others in shaping the story.`
-    : `Poll Results - ${totalVotes} total votes. See how the community is voting in the Spore Fall universe.`;
+    ? `View the latest results for: ${poll.question || poll.title}. Join ${totalVotes} others in shaping this Sci-Fi Saga.`
+    : `A deadly pathogen threatens to overrun the nation city of Lionara. Join ${totalVotes} others in shaping the resistance or embracing the evolution.`;
   const pollIdForImage = poll ? poll.id : pollParam || "";
   const platform = (searchParams?.utm_source || "").toLowerCase();
   const platformSizeMap = {

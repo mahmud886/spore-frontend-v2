@@ -14,7 +14,7 @@ const characters = [
   },
   {
     name: "Marcus Varga",
-    role: "Assistant Horticulturist of Lionara's Seed Vault",
+    role: "Horticulturalist of Lionara Seed Vault",
     year: "777 BF",
     image: "/assets/images/characters/02.jpg",
   },
@@ -60,8 +60,8 @@ const characters = [
     image: "/assets/images/characters/09.jpg",
   },
   {
-    name: "NADF Trooper",
-    role: "New Alliance Defence Force Trooper with Enhanced Bionics",
+    name: "New Alliance Trooper",
+    role: "NA Defence Force Enhanced",
     image: "/assets/images/characters/10.jpg",
   },
   {
@@ -77,13 +77,13 @@ const characters = [
   },
   {
     name: "Lena Chen",
-    role: "Status Unknown",
+    status: "Status Unknown",
     year: "001 AF",
     image: "/assets/images/characters/13.jpg",
   },
   {
     name: "Marcus Varga",
-    role: "Status Unknown",
+    status: "Status Unknown",
     year: "001 AF",
     image: "/assets/images/characters/14.jpg",
   },
@@ -151,19 +151,21 @@ export default function CharacterLogsSection() {
                 {character.year}
               </span>
             )}
-            {character.status && (
-              <span className="text-red-500 font-display text-[9px] tracking-wider font-bold bg-black/80 px-2 py-0.5 border border-red-500/20">
-                {character.status}
-              </span>
-            )}
           </div>
 
           <div className="absolute bottom-6 left-6 z-10 right-6">
-            {character.role && (
-              <span className="bg-primary text-black text-[9px] px-2 py-0.5 font-bold uppercase mb-2 inline-block tracking-tighter max-w-full truncate">
-                {character.role}
-              </span>
-            )}
+            <div className="flex flex-wrap gap-2 mb-2">
+              {character.status && (
+                <span className="bg-red-500 text-white text-[9px] px-2 py-0.5 font-bold uppercase tracking-tighter">
+                  {character.status}
+                </span>
+              )}
+              {character.role && (
+                <span className="bg-primary text-black text-[9px] px-2 py-0.5 font-bold uppercase tracking-tighter max-w-full truncate">
+                  {character.role}
+                </span>
+              )}
+            </div>
             <h3 className="text-2xl font-display font-black text-white uppercase tracking-tighter leading-none break-words">
               {character.name}
             </h3>

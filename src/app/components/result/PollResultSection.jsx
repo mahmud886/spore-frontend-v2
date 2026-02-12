@@ -150,9 +150,9 @@ export default function PollResultSection({
             initial={{ scale: 0, rotate: -45 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ delay: 3.5, type: "spring", stiffness: 200 }}
-            className="bg-black border-2 border-red-500 w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_25px_rgba(239,68,68,0.6)]"
+            className="bg-black border-2 border-red-500 w-10 h-10 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(239,68,68,0.5)]"
           >
-            <span className="text-red-500 font-black text-xl italic tracking-tighter">VS</span>
+            <span className="text-red-500 font-black text-sm italic tracking-tighter">VS</span>
           </motion.div>
         </div>
       </div>

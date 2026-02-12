@@ -101,7 +101,8 @@ export default function PollStepModal({
       }
 
       // Success! Show notification before redirecting
-      setNotificationMessage("Vote recorded. Redirecting to results...");
+      setIsSubmitting(false);
+      setNotificationMessage(`Your Vote is Secret.\n\nRedirecting to results...`);
       setIsNotificationOpen(true);
 
       // Track voted episode
@@ -126,8 +127,8 @@ export default function PollStepModal({
       // Small delay to let user see the success notification
       // We wait slightly longer than the notification animation
       setTimeout(() => {
-        if (onClose) onClose();
         router.push(`/result?episode=${encodeURIComponent(episodeIdToUse)}`);
+        if (onClose) onClose();
       }, 2500);
     } catch (error) {
       console.error("Error submitting vote:", error);
@@ -167,12 +168,12 @@ export default function PollStepModal({
     const notLive = pollData.status && String(pollData.status).toUpperCase() !== "LIVE";
     const isEnded = notLive || (endsMs && nowMs >= endsMs);
     if (isEnded) {
-      if (onClose) onClose();
       setTimeout(() => {
         setNotificationMessage("This episode poll has ended.");
         setIsNotificationOpen(true);
         const eid = pollData.episodeId || episodeId;
         setTimeout(() => {
+          if (onClose) onClose();
           if (eid) {
             router.push(`/result?episode=${encodeURIComponent(eid)}`);
           } else {
@@ -304,8 +305,8 @@ export default function PollStepModal({
         isOpen={isNotificationOpen}
         onClose={() => setIsNotificationOpen(false)}
         message={notificationMessage}
-        title="System Notification"
-        type={notificationMessage.includes("recorded") ? "success" : "error"}
+        title="Lionara City  Public Service"
+        type={notificationMessage.includes("Secret") ? "success" : "error"}
       />
     </>,
     document.body,

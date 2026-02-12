@@ -10,9 +10,9 @@ import { fadeUp } from "../../utils/animations";
 
 export async function generateMetadata() {
   const base = getBaseUrl();
-  const title = "PARTNERSHIPS | SPORE FALL";
+  const title = "PARTNERSHIPS | SPORE FALL | a Sci-Fi Saga";
   const description =
-    "Collaborate with us in building the next generation of sci-fi narrative experiences. Investors, partners, and world-builders welcome.";
+    "Collaborate with us in building the next generation of sci-fi narrative experiences. Join the resistance or embrace the evolution of this Sci-Fi Saga.";
   const ogImage = `${base}/api/og?title=${encodeURIComponent("PARTNERSHIPS")}&subtitle=${encodeURIComponent("COLLABORATE WITH US IN BUILDING THE NEXT GENERATION OF SCI-FI NARRATIVE EXPERIENCES.")}`;
 
   return {
@@ -29,7 +29,7 @@ export async function generateMetadata() {
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: "Partner with SPORE FALL - Collaborate with us in building the next generation of sci-fi experiences.",
+          alt: `Partner with SPORE FALL - ${description}`,
           type: "image/jpeg",
         },
       ],

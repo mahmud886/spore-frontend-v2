@@ -95,13 +95,19 @@ export default function NotificationPopup({ isOpen, onClose, message, title = "N
                   </div>
                 </div>
 
-                {/* Content */}
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-                  <h3 className="text-2xl font-subheading font-bold text-white mb-3 uppercase tracking-[0.2em]">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="flex flex-col items-center"
+                >
+                  <h3 className="text-2xl font-subheading font-bold text-white mb-3 uppercase tracking-[0.2em] text-center">
                     {title}
                   </h3>
                   <div className="h-[1px] w-12 bg-primary/40 mx-auto mb-4" />
-                  <p className="text-white/70 font-body text-lg font-medium leading-relaxed max-w-[280px]">{message}</p>
+                  <p className="text-white/70 font-body text-lg font-medium leading-relaxed max-w-[280px] whitespace-pre-line text-center flex flex-col items-center justify-center">
+                    {message}
+                  </p>
                 </motion.div>
 
                 {/* Animated status text */}

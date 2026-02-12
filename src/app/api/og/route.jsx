@@ -9,7 +9,8 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const title = (searchParams.get("title") || "SPORE FALL").toUpperCase();
   const subtitle =
-    searchParams.get("subtitle") || "The city of Lionara is quarantined. A spore is rewriting human fate.";
+    searchParams.get("subtitle") ||
+    "A deadly pathogen threatens to overrun the nation city of Lionara. Join the resistance or embrace the evolution.";
 
   try {
     const publicPath = join(process.cwd(), "public");

@@ -6,10 +6,10 @@ export const revalidate = 60;
 
 export async function generateMetadata() {
   const base = getBaseUrl();
-  const title = "SPORE FALL | Sci-Fi Narrative Series";
+  const title = "SPORE FALL | a Sci-Fi Saga";
   const description =
-    "The city of Lionara is quarantined. A spore is rewriting human fate. Join the resistance or embrace the evolution.";
-  const ogImage = `${base}/api/og?title=${encodeURIComponent("SPORE FALL")}&subtitle=${encodeURIComponent("THE CITY OF LIONARA IS QUARANTINED. A SPORE IS REWRITING HUMAN FATE.")}`;
+    "A deadly pathogen threatens to overrun the nation city of Lionara. Join the resistance or embrace the evolution.";
+  const ogImage = `${base}/api/og?title=${encodeURIComponent("SPORE FALL")}&subtitle=${encodeURIComponent("A DEADLY PATHOGEN THREATENS TO OVERRUN THE NATION CITY OF LIONARA. JOIN THE RESISTANCE OR EMBRACE THE EVOLUTION.")}`;
 
   return {
     title,
@@ -25,7 +25,7 @@ export async function generateMetadata() {
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: "SPORE FALL - The city of Lionara is quarantined. A spore is rewriting human fate.",
+          alt: `SPORE FALL - ${description}`,
           type: "image/jpeg",
         },
       ],

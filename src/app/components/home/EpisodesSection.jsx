@@ -333,11 +333,14 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
       const votedEpisodesStr = votedEpisodes.map((id) => String(id));
 
       if (votedEpisodesStr.includes(selectedEpisodeIdStr)) {
-        // User already voted, don't open modal
+        // User already voted, show redirecting notification then redirect
         setSelectedEpisodeId(null);
         setPollLoading(false);
-        setNotificationMessage("You have already voted on this episode.");
+        setNotificationMessage(`Your Vote is Secret.\n\nRedirecting to results...`);
         setIsNotificationOpen(true);
+        setTimeout(() => {
+          router.push(`/result?episode=${encodeURIComponent(selectedEpisodeIdStr)}`);
+        }, 2000);
         return;
       }
 
@@ -675,11 +678,14 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
       const votedEpisodesStr = votedEpisodes.map((id) => String(id));
 
       if (votedEpisodesStr.includes(selectedEpisodeIdStr)) {
-        // User already voted, don't open modal
+        // User already voted, show redirecting notification then redirect
         setSelectedEpisodeId(null);
         setPollLoading(false);
-        setNotificationMessage("You have already voted on this episode.");
+        setNotificationMessage(`Your Vote is Secret.\n\nRedirecting to results...`);
         setIsNotificationOpen(true);
+        setTimeout(() => {
+          router.push(`/result?episode=${encodeURIComponent(selectedEpisodeIdStr)}`);
+        }, 2000);
         return;
       }
 
@@ -889,10 +895,13 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
                           return;
                         }
 
-                        // If user already voted, show message instead of opening modal
+                        // If user already voted, show redirecting notification then redirect
                         if (hasVoted) {
-                          setNotificationMessage("You have already voted on this episode.");
+                          setNotificationMessage(`Your Vote is Secret.\n\nRedirecting to results...`);
                           setIsNotificationOpen(true);
+                          setTimeout(() => {
+                            router.push(`/result?episode=${encodeURIComponent(episodeIdStr)}`);
+                          }, 2000);
                           return;
                         }
 
@@ -1056,7 +1065,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
         isOpen={isNotificationOpen}
         onClose={handleCloseNotification}
         message={notificationMessage}
-        title="Notice"
+        title="Lionara City  Public Service"
       />
     </>
   );
