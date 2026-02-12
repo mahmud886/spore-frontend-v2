@@ -13,8 +13,14 @@ export default function ClientPollSectionFullWidth({ poll }) {
 
   if (!poll) return null;
 
-  const evolveOption = poll.options?.find((opt) => (opt?.name || opt?.text || "").toUpperCase() === "EVOLVE");
-  const resistOption = poll.options?.find((opt) => (opt?.name || opt?.text || "").toUpperCase() === "RESIST");
+  const evolveOption = poll.options?.find((opt) => {
+    const name = (opt?.name || opt?.text || "").toUpperCase();
+    return name === "EVOLVE" || name === "EVOLUTION";
+  });
+  const resistOption = poll.options?.find((opt) => {
+    const name = (opt?.name || opt?.text || "").toUpperCase();
+    return name === "RESIST" || name === "RESISTANCE" || name === "CONTAIN";
+  });
 
   const firstOption = evolveOption || poll.options?.[0];
   const secondOption = resistOption || poll.options?.[1];

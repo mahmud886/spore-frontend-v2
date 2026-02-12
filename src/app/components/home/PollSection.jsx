@@ -18,15 +18,32 @@ export default async function PollSection() {
   if (!pollData) return null;
 
   // Calculate pollResultProps and heroHeaderProps
-  const option1 = pollData.options[0];
-  const option2 = pollData.options[1];
+  const evolveOption = pollData.options?.find((opt) => {
+    const name = (opt?.name || opt?.text || "").toUpperCase();
+    return name === "EVOLVE" || name === "EVOLUTION";
+  });
+  const resistOption = pollData.options?.find((opt) => {
+    const name = (opt?.name || opt?.text || "").toUpperCase();
+    return name === "RESIST" || name === "RESISTANCE" || name === "CONTAIN";
+  });
+
+  const option1 = evolveOption || pollData.options[0];
+  const option2 = resistOption || pollData.options[1] || pollData.options[0];
+
+  const getSubLabel = (opt, defaultLabel) => {
+    if (opt?.description) return opt.description;
+    const name = (opt?.name || opt?.text || "").toUpperCase();
+    if (name === "EVOLVE" || name === "EVOLUTION") return "TRANSCEND HUMANITY";
+    if (name === "RESIST" || name === "RESISTANCE" || name === "CONTAIN") return "BURN THE OLD WORLD";
+    return defaultLabel;
+  };
 
   const pollResultProps =
     option1 && option2
       ? {
           faction1: {
             name: (option1.text || option1.option_text || "EVOLVE").toUpperCase(),
-            subLabel: option1.description || "TRANSCEND HUMANITY",
+            subLabel: getSubLabel(option1, "TRANSCEND HUMANITY"),
             percentage:
               (option1.votes || option1.vote_count || 0) + (option2.votes || option2.vote_count || 0) > 0
                 ? Math.round(
@@ -38,7 +55,7 @@ export default async function PollSection() {
           },
           faction2: {
             name: (option2.text || option2.option_text || "RESIST").toUpperCase(),
-            subLabel: option2.description || "BURN THE OLD WORLD",
+            subLabel: getSubLabel(option2, "BURN THE OLD WORLD"),
             percentage:
               (option1.votes || option1.vote_count || 0) + (option2.votes || option2.vote_count || 0) > 0
                 ? Math.round(
