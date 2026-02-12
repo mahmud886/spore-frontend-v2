@@ -20,7 +20,7 @@ export function Synopsis() {
           <p className="text-xl md:text-3xl font-subheading text-white leading-relaxed tracking-widest text-center">
             In the fractured city of Lionara where a deadly Spore pathogen outbreak is brutally suppressed by an
             iron-fisted regime, a disillusioned soldier and a rogue medic must bridge their ideological divide when her
-            infected brother develops predictive abilities that could accelerate humanity&#39;s evolution or end it.
+            infected brother develops abilities that could accelerate humanity&#39;s evolution or end it.
           </p>
         </div>
         {/* CTA Button */}

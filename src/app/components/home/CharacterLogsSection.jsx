@@ -116,7 +116,7 @@ export default function CharacterLogsSection() {
   const renderCharacterCard = (character, index) => (
     <AnimatedCard key={index} hoverGlow={true} hoverFloat={true}>
       <div
-        className="group relative bg-black/50"
+        className="group relative bg-black/50 cursor-pointer touch-manipulation"
         style={{
           borderTopRightRadius: "20px",
           borderBottomLeftRadius: "20px",
@@ -127,7 +127,7 @@ export default function CharacterLogsSection() {
       >
         {/* Content wrapper */}
         <div
-          className="relative overflow-hidden border-3 border-primary/10 group-hover:border-primary transition-all duration-500"
+          className="relative overflow-hidden border-3 border-primary/10 group-hover:border-primary group-active:border-primary transition-all duration-500"
           style={{
             borderTopRightRadius: "17px",
             borderBottomLeftRadius: "17px",
@@ -135,7 +135,7 @@ export default function CharacterLogsSection() {
         >
           <Image
             alt={character.name}
-            className="w-full h-[450px] object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+            className="w-full h-[450px] object-cover grayscale-0 md:grayscale md:group-hover:grayscale-0 group-active:grayscale-0 transition-all duration-500"
             src={character.image}
             width={400}
             height={500}
@@ -168,7 +168,7 @@ export default function CharacterLogsSection() {
               {character.name}
             </h3>
             {character.description && (
-              <p className="text-[10px] text-gray-400 mt-2 font-body leading-tight opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <p className="text-[10px] text-gray-400 mt-2 font-body leading-tight opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-500">
                 {character.description}
               </p>
             )}

@@ -124,10 +124,11 @@ export default function PollStepModal({
       }
 
       // Small delay to let user see the success notification
+      // We wait slightly longer than the notification animation
       setTimeout(() => {
         if (onClose) onClose();
         router.push(`/result?episode=${encodeURIComponent(episodeIdToUse)}`);
-      }, 2000);
+      }, 2500);
     } catch (error) {
       console.error("Error submitting vote:", error);
       setNotificationMessage("Failed to submit vote. Please try again later.");
@@ -303,7 +304,8 @@ export default function PollStepModal({
         isOpen={isNotificationOpen}
         onClose={() => setIsNotificationOpen(false)}
         message={notificationMessage}
-        title="Notice"
+        title="System Notification"
+        type={notificationMessage.includes("recorded") ? "success" : "error"}
       />
     </>,
     document.body,

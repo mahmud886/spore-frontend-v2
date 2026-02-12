@@ -58,7 +58,7 @@ export default function FundMovieSection() {
           {/* Call to Action Button */}
           <div className="relative z-10 mt-10 md:mt-16 flex justify-center">
             <motion.a
-              href="/partnerships"
+              href="/support-us"
               target="_blank"
               aria-label="Fund the movie"
               whileHover={{
