@@ -84,7 +84,7 @@ export default function MobilizeNetworkCard({ title, description, platforms = de
           className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full"
         >
           {platforms.map((platform, index) => (
-            <motion.div key={index} variants={fadeUp} whileHover={{ scale: 1.05, y: -3 }}>
+            <motion.div key={index} variants={fadeUp}>
               <SocialShareCard platform={platform} onClick={() => handleShare(platform)} />
             </motion.div>
           ))}
