@@ -142,12 +142,68 @@ export default function ClientPollSectionFullWidth({ poll }) {
                 viewport={{ once: true }}
                 className="text-center"
               >
-                <div className="mt-4 inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/5 bg-white/5 backdrop-blur-sm">
-                  <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-                  <p className="font-subheading text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/50">
+                <motion.div
+                  animate={{
+                    borderColor: ["rgba(255,255,255,0.1)", "rgba(239,68,68,0.5)", "rgba(255,255,255,0.1)"],
+                    boxShadow: [
+                      "0 0 0px rgba(239,68,68,0)",
+                      "0 0 10px rgba(239,68,68,0.2)",
+                      "0 0 0px rgba(239,68,68,0)",
+                    ],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="mt-4 inline-flex items-center gap-3 px-6 py-3 rounded-full border bg-white/5 backdrop-blur-md group/live cursor-default hover:border-red-500/50 transition-colors duration-500"
+                >
+                  <div className="relative flex items-center justify-center">
+                    {/* Outer pulse ring */}
+                    <motion.div
+                      animate={{
+                        scale: [1, 1.8],
+                        opacity: [0.5, 0],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeOut",
+                      }}
+                      className="absolute w-2 h-2 rounded-full bg-red-500"
+                    />
+                    {/* Main dot with glow */}
+                    <motion.div
+                      animate={{
+                        opacity: [1, 0.5, 1],
+                        boxShadow: [
+                          "0 0 4px rgba(239,68,68,0.4)",
+                          "0 0 12px rgba(239,68,68,0.8)",
+                          "0 0 4px rgba(239,68,68,0.4)",
+                        ],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                      className="w-2 h-2 rounded-full bg-red-500 relative z-10"
+                    />
+                  </div>
+                  <motion.p
+                    animate={{
+                      opacity: [0.5, 1, 0.5],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="font-subheading text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/70 group-hover/live:text-red-500 transition-colors"
+                  >
                     Live Poll
-                  </p>
-                </div>
+                  </motion.p>
+                </motion.div>
               </motion.div>
             </motion.div>
 

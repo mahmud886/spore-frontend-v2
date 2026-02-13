@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import ShareMediaModal from "../../components/popups/ShareMediaModal";
 import ResultPage from "../../components/result/ResultPage";
 import { trackEvent } from "../../components/shared/Analytics";
 import ResultLoader from "../../components/shared/skeletons/ResultLoader";
@@ -19,6 +20,7 @@ export default function ResultContent({ products: products = [], episodes: episo
   const [pollData, setPollData] = useState(null);
   const [loading, setLoading] = useState(!!episodeId || !!pollId);
   const [copied, setCopied] = useState(false);
+  const [shareModal, setShareModal] = useState({ isOpen: false, platform: "", imageUrl: "" });
 
   useEffect(() => {
     if (pollId) {
@@ -169,26 +171,48 @@ export default function ResultContent({ products: products = [], episodes: episo
   };
 
   const getUTMUrl = (platform) => {
-    if (typeof window === "undefined" || !pollData) return "";
-    const baseUrl = window.location.href.split("?")[0];
-    const utmParams = new URLSearchParams({
-      utm_source: platform.toLowerCase(),
-      utm_medium: "social",
-      utm_campaign: "poll_share",
-      utm_content: `poll_${pollData.id}`,
-    });
-    return `${baseUrl}?${utmParams.toString()}`;
+    if (typeof window === "undefined") return "";
+
+    const url = new URL(window.location.href);
+    const searchParams = url.searchParams;
+
+    // Set UTM parameters while keeping existing ones (like episode)
+    searchParams.set("utm_source", platform.toLowerCase());
+    searchParams.set("utm_medium", "social");
+    searchParams.set("utm_campaign", "poll_share");
+
+    if (pollData?.id) {
+      searchParams.set("utm_content", `poll_${pollData.id}`);
+    }
+
+    return url.toString();
   };
 
-  const handleShare = async (platform) => {
-    if (!pollData) return;
-    await trackSocialClick(platform);
-    const shareText = `${pollData.question || "Check out this poll"} - Vote now on SPOREFALL.COM`;
+  const handleShare = (platform) => {
+    console.log("handleShare called with platform:", platform);
+
+    // Safety check for platform string
+    if (!platform || typeof platform !== "string") {
+      console.warn("Invalid platform provided to handleShare");
+      return;
+    }
+
+    const platformUpper = platform.toUpperCase();
+
+    // Fallback for pollData during development/missing data
+    const effectivePollData = pollData || { id: "default", question: "Check out SPORE FALL" };
+
+    const shareText = `${effectivePollData.question || "Check out this poll"} - Vote now on SPOREFALL.COM`;
     const utmUrl = getUTMUrl(platform);
     const encodedText = encodeURIComponent(shareText);
     const encodedUrl = encodeURIComponent(utmUrl);
-    const imageUrl = `${window.location.origin}/api/polls/${pollData.id}/image?format=png&size=pinterest`;
+
+    // For Pinterest/Modal: Use a vertical format for Stories/TikTok if possible, or fallback to standard
+    // Use the actual pollData.id if available, otherwise use "default"
+    const pollIdToUse = effectivePollData?.id || "default";
+    const imageUrl = `${window.location.origin}/api/polls/${pollIdToUse}/image?format=png&size=facebook`;
     const encodedImage = encodeURIComponent(imageUrl);
+
     let shareLink = "";
     const platformMap = {
       FACEBOOK: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
@@ -198,33 +222,39 @@ export default function ResultContent({ products: products = [], episodes: episo
       WHATSAPP: `https://wa.me/?text=${encodedText}%0A${encodedUrl}`,
       PINTEREST: `https://pinterest.com/pin/create/button/?url=${encodedUrl}&media=${encodedImage}&description=${encodedText}`,
       TELEGRAM: `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`,
-      REDDIT: `https://reddit.com/submit?url=${encodedUrl}&title=${encodeURIComponent(pollData.question || "Poll Results")}`,
-      DISCORD: "",
-      THREADS: "",
+      REDDIT: `https://reddit.com/submit?url=${encodedUrl}&title=${encodeURIComponent(effectivePollData.question || "Poll Results")}`,
+      DISCORD: `https://discord.com/channels/@me`, // Discord doesn't support direct share URLs, opening app/web
+      THREADS: `https://www.threads.net/intent/post?text=${encodedText}%20${encodedUrl}`,
       TIKTOK: "",
       IG_STORY: "",
     };
-    shareLink = platformMap[platform.toUpperCase()] || "";
+
+    shareLink = platformMap[platformUpper] || "";
+
     if (shareLink) {
-      const newWin = window.open(shareLink, "_blank", "noopener,noreferrer,width=600,height=400");
-      if (newWin) {
-        newWin.opener = null;
-      }
-    } else if (platform.toUpperCase() === "TIKTOK" || platform.toUpperCase() === "IG_STORY") {
-      try {
-        await navigator.clipboard.writeText(`${shareText}\n\n${utmUrl}`);
-        alert(`Link copied! Open ${platform} app to share.`);
-      } catch {}
+      console.log("Opening share link:", shareLink);
+      window.open(shareLink, "_blank", "noopener,noreferrer,width=600,height=400");
+    } else if (platformUpper === "TIKTOK" || platformUpper === "IG_STORY" || platformUpper === "INSTAGRAM") {
+      console.log("Opening ShareMediaModal for:", platformUpper);
+      setShareModal({
+        isOpen: true,
+        platform: platformUpper === "IG_STORY" ? "Instagram" : "TikTok",
+        imageUrl: imageUrl,
+      });
+      trackSocialClick(platform);
+      return;
     } else {
+      console.log("Falling back to clipboard copy");
       copyToClipboard();
     }
+
+    trackSocialClick(platform);
   };
 
   const copyToClipboard = async () => {
-    if (!pollData) return;
     try {
-      const shareText = `${pollData.question || "Check out this poll"} - Vote now on SPOREFALL.COM`;
-      const shareUrl = window.location.href;
+      const shareText = `${pollData?.question || "Check out this poll"} - Vote now on SPOREFALL.COM`;
+      const shareUrl = getUTMUrl("direct_copy");
       await navigator.clipboard.writeText(`${shareText}\n\n${shareUrl}`);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -300,15 +330,24 @@ export default function ResultContent({ products: products = [], episodes: episo
   }
 
   return (
-    <ResultPage
-      pollResultProps={getPollResultProps()}
-      countdownProps={getCountdownProps()}
-      pollData={pollData}
-      onShare={handleShare}
-      copied={copied}
-      productsProps={{ products }}
-      episodesProps={{ episodes }}
-      blogProps={{ posts: blogs }}
-    />
+    <>
+      <ResultPage
+        pollResultProps={getPollResultProps()}
+        countdownProps={getCountdownProps()}
+        pollData={pollData}
+        onShare={handleShare}
+        copied={copied}
+        productsProps={{ products }}
+        episodesProps={{ episodes }}
+        blogProps={{ posts: blogs }}
+      />
+      <ShareMediaModal
+        isOpen={shareModal.isOpen}
+        onClose={() => setShareModal({ ...shareModal, isOpen: false })}
+        platform={shareModal.platform}
+        imageUrl={shareModal.imageUrl}
+        shareUrl={getUTMUrl(shareModal.platform || "instagram")}
+      />
+    </>
   );
 }

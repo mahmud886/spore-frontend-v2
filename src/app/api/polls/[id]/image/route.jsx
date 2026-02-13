@@ -25,22 +25,36 @@ export async function GET(request, { params }) {
     const pollId = id;
 
     // Fetch poll data
-    const { data: poll, error: pollError } = await supabase.from("polls").select("*").eq("id", pollId).single();
+    let { data: poll, error: pollError } = await supabase.from("polls").select("*").eq("id", pollId).single();
 
-    if (pollError || !poll) {
+    // Handle "default" or not found polls gracefully
+    if ((pollError || !poll) && pollId === "default") {
+      poll = {
+        title: "SPORE FALL",
+        question: "JOIN THE RESISTANCE",
+      };
+    } else if (pollError || !poll) {
       return NextResponse.json({ error: "Poll not found", details: pollError?.message }, { status: 404 });
     }
 
     // Fetch poll options
-    const { data: options, error: optionsError } = await supabase
+    let { data: options, error: optionsError } = await supabase
       .from("poll_options")
       .select("*")
       .eq("poll_id", pollId)
       .order("display_order", { ascending: true })
       .order("id", { ascending: true });
 
-    if (optionsError) {
+    if (optionsError && pollId !== "default") {
       return NextResponse.json({ error: "Failed to fetch options", details: optionsError.message }, { status: 500 });
+    }
+
+    // Default options if none found or "default" id
+    if (!options || options.length === 0) {
+      options = [
+        { name: "EVOLVE", vote_count: 50 },
+        { name: "RESIST", vote_count: 50 },
+      ];
     }
 
     // Calculate percentages
@@ -98,7 +112,7 @@ export async function GET(request, { params }) {
           backgroundPosition: "center",
           position: "relative",
           fontFamily: "Mokoto, sans-serif",
-          padding: "40px",
+          padding: "40px 20%",
         }}
       >
         {/* Dark overlay gradient */}
@@ -123,7 +137,7 @@ export async function GET(request, { params }) {
             textAlign: "center",
             marginBottom: 60,
             zIndex: 10,
-            maxWidth: "80%",
+            maxWidth: "100%",
             letterSpacing: "0.05em",
           }}
         >
@@ -143,7 +157,7 @@ export async function GET(request, { params }) {
         >
           {/* Option 1 */}
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flex: 1 }}>
-            <span style={{ color: "#C2FF02", fontSize: 26, fontWeight: "bold", marginBottom: 15 }}>{option1Name}</span>
+            <span style={{ color: "#FFFFFF", fontSize: 26, fontWeight: "bold", marginBottom: 15 }}>{option1Name}</span>
             <div
               style={{
                 width: "100%",
@@ -158,7 +172,7 @@ export async function GET(request, { params }) {
                 style={{
                   width: `${percentage1}%`,
                   height: "100%",
-                  backgroundColor: "#C2FF02",
+                  backgroundColor: "#FFFFFF",
                   borderRadius: 12,
                 }}
               />
@@ -170,7 +184,7 @@ export async function GET(request, { params }) {
 
           {/* Option 2 */}
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flex: 1 }}>
-            <span style={{ color: "#00BFFF", fontSize: 26, fontWeight: "bold", marginBottom: 15 }}>{option2Name}</span>
+            <span style={{ color: "#C2FF02", fontSize: 26, fontWeight: "bold", marginBottom: 15 }}>{option2Name}</span>
             <div
               style={{
                 width: "100%",
@@ -185,7 +199,7 @@ export async function GET(request, { params }) {
                 style={{
                   width: `${percentage2}%`,
                   height: "100%",
-                  backgroundColor: "#00BFFF",
+                  backgroundColor: "#C2FF02",
                   borderRadius: 12,
                 }}
               />

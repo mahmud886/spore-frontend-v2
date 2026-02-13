@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
   Circle,
   Facebook,
@@ -30,17 +29,14 @@ export default function SocialShareCard({ platform, onClick }) {
   const Icon = platformIcons[platform] || Share2;
 
   return (
-    <motion.button
-      whileHover={{
-        scale: 1.05,
-        boxShadow: "0 0 20px rgba(194, 255, 2, 0.5)",
+    <button
+      className="border border-primary py-2 px-4 text-[10px] text-primary font-bold bg-transparent hover:bg-primary/10 hover:scale-[1.05] hover:shadow-[0_0_20px_rgba(194,255,2,0.5)] active:scale-[0.95] transition-all uppercase flex items-center justify-center gap-2 rounded-sm w-full cursor-pointer active:opacity-70 touch-manipulation"
+      onClick={() => {
+        if (onClick) onClick();
       }}
-      whileTap={{ scale: 0.95 }}
-      className="border border-primary py-2 px-4 text-[10px] text-primary font-bold bg-transparent hover:bg-primary/10 transition-all uppercase flex items-center justify-center gap-2 rounded-sm w-full"
-      onClick={onClick}
     >
       <Icon className="w-4 h-4" />
       <span>Execute: {platform}</span>
-    </motion.button>
+    </button>
   );
 }
