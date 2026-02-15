@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-02-14T18:58:29.806Z",
+  "orderId": "SPORE-B9XQ5CDYY",
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "Dhaka",
+      "state": "Dhaka",
+      "postal_code": "1216",
+      "country": "US"
+    }
+  },
+  "items": [
+    {
+      "id": 415350114,
+      "name": "The Stacks: Carry-All Bag",
+      "image": "https://files.cdn.printful.com/files/054/054e520187c6bdfad7c3f14d0475b318_preview.png",
+      "imageAlt": "The Stacks: Carry-All Bag",
+      "price": "From $25.00 USD",
+      "description": "1 variants available",
+      "synced": 1,
+      "is_ignored": false,
+      "external_id": "6971da5d26d086",
+      "variant_id": null,
+      "quantity": 1
+    }
+  ],
+  "totalAmount": "25.00"
+}

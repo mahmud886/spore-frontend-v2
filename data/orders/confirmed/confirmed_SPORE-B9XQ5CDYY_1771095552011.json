@@ -1,0 +1,33 @@
+{
+  "orderId": "SPORE-B9XQ5CDYY",
+  "status": "PAID",
+  "timestamp": "2026-02-14T18:59:12.010Z",
+  "stripeData": {
+    "sessionId": "cs_test_a1oxwKykPHDvHVAYk3clRGhyej7LST2MFJosJk1gCVC5ujgphplaRQY5ey",
+    "paymentIntentId": "pi_3T0o3RKY7EJTycGh0HapaSko",
+    "amountTotal": 25,
+    "currency": "usd",
+    "paymentStatus": "paid"
+  },
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "Dhaka",
+      "state": "Dhaka",
+      "postal_code": "1216",
+      "country": "US"
+    }
+  },
+  "products": [
+    {
+      "name": "The Stacks: Carry-All Bag",
+      "quantity": 1,
+      "price": 25,
+      "currency": "usd",
+      "variant_id": null
+    }
+  ],
+  "printfulError": "Printful API error: Recipient: State cannot be blank."
+}

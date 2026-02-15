@@ -1,9 +1,12 @@
 "use client";
 
+import { useCartStore } from "@/app/lib/store/useCartStore";
+import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { AnimatedCard } from "../shared/AnimatedWrapper";
 
 export default function ProductCard({ product }) {
+  const addItem = useCartStore((state) => state.addItem);
   const {
     name,
     image,
@@ -16,7 +19,10 @@ export default function ProductCard({ product }) {
     imageEffect,
     imageWidth = 400,
     imageHeight = 400,
+    variants,
   } = product;
+
+  const isCartDisabled = variants === 1;
 
   return (
     <AnimatedCard hoverGlow={true} hoverFloat={true}>
@@ -67,13 +73,30 @@ export default function ProductCard({ product }) {
               {warning ? (
                 <p className="text-[9px] text-red-500 uppercase">{warning}</p>
               ) : (
-                <p className="text-[9px] text-white/40 uppercase">{description}</p>
+                <p className="text-[9px] text-white/40 uppercase line-clamp-1">{description}</p>
               )}
-              {/* <p className="text-[11px] font-mono text-primary mt-1">{price}</p> */}
+              <p className="text-[12px] font-mono text-primary mt-1">{price}</p>
             </div>
-            {/* <button className="bg-white/5 p-2 hover:bg-primary hover:text-black transition-colors">
-              <span className="material-symbols-outlined text-sm">add_shopping_cart</span>
-            </button> */}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                if (!isCartDisabled) {
+                  addItem(product);
+                }
+              }}
+              disabled={isCartDisabled}
+              className={`p-2 transition-all duration-300 rounded-lg group/btn flex items-center justify-center ${
+                isCartDisabled
+                  ? "bg-white/5 text-white/20 cursor-not-allowed"
+                  : "bg-white/5 hover:bg-primary hover:text-black"
+              }`}
+              title={isCartDisabled ? "View Only" : "Add to Cart"}
+            >
+              <ShoppingCart
+                size={16}
+                className={`${!isCartDisabled ? "group-hover/btn:scale-110 transition-transform" : "opacity-50"}`}
+              />
+            </button>
           </div>
         </div>
       </div>

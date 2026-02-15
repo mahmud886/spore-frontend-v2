@@ -52,6 +52,11 @@ const nextConfig = {
         hostname: "img.youtube.com",
         pathname: "/vi/**",
       },
+      {
+        protocol: "https",
+        hostname: "files.cdn.printful.com",
+        pathname: "/**",
+      },
     ],
   },
   // Remove console logs in production

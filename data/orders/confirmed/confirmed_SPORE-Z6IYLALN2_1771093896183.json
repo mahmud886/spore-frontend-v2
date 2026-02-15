@@ -1,0 +1,37 @@
+{
+  "orderId": "SPORE-Z6IYLALN2",
+  "status": "PAID",
+  "timestamp": "2026-02-14T18:31:36.181Z",
+  "stripeData": {
+    "sessionId": "cs_test_b1RCT4HFAjCtMncJdIqQzRdv9zbiScVMjWTGn6iwgLz3VmzhFEwaRLIMyw",
+    "paymentIntentId": "pi_3T0ncjKY7EJTycGh0RM8XCYz",
+    "amountTotal": 175,
+    "currency": "usd",
+    "paymentStatus": "paid"
+  },
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "Dhaka",
+      "state": "Dhaka",
+      "postal_code": "1216",
+      "country": "US"
+    }
+  },
+  "products": [
+    {
+      "name": "Spore Fall: Asteroid Cap",
+      "quantity": 4,
+      "price": 100,
+      "currency": "usd"
+    },
+    {
+      "name": "Spore Fall: Cap White",
+      "quantity": 3,
+      "price": 75,
+      "currency": "usd"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "orderId": "SPORE-HMDJO4CNR",
+  "status": "PAID",
+  "timestamp": "2026-02-14T19:19:37.207Z",
+  "stripeData": {
+    "sessionId": "cs_test_a14fSeJjlNIclp9tM9FI4Xfwb9hXuXgigmmdg4HHi7zlxdQnt3lnQB7YzG",
+    "paymentIntentId": "pi_3T0oNDKY7EJTycGh1iOpjX9B",
+    "amountTotal": 41.5,
+    "currency": "usd",
+    "paymentStatus": "paid"
+  },
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "Alameda",
+      "state": "CA",
+      "postal_code": "94501",
+      "country": "US"
+    }
+  },
+  "products": [
+    {
+      "name": "Spore Fall: Tote Bag | Black",
+      "quantity": 1,
+      "price": 41.5,
+      "currency": "usd",
+      "variant_id": "5157074067"
+    }
+  ],
+  "printfulError": "Printful API error: Item 0: Order  contains products that are out of stock"
+}

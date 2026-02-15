@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-02-14T18:30:45.270Z",
+  "orderId": "SPORE-Z6IYLALN2",
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "Dhaka",
+      "state": "Dhaka",
+      "postal_code": "1216",
+      "country": "US"
+    }
+  },
+  "items": [
+    {
+      "id": 415346432,
+      "name": "Spore Fall: Asteroid Cap",
+      "image": "https://files.cdn.printful.com/files/eda/eda0be39908398ae638c61500257806f_preview.png",
+      "imageAlt": "Spore Fall: Asteroid Cap",
+      "price": "From $25.00 USD",
+      "description": "1 variants available",
+      "synced": 1,
+      "is_ignored": false,
+      "external_id": "6971cb9fb36476",
+      "quantity": 4
+    },
+    {
+      "id": 415346107,
+      "name": "Spore Fall: Cap White",
+      "image": "https://files.cdn.printful.com/files/8df/8dffd6624e850d5a1e7ecc5b4eb33002_preview.png",
+      "imageAlt": "Spore Fall: Cap White",
+      "price": "From $25.00 USD",
+      "description": "1 variants available",
+      "synced": 1,
+      "is_ignored": false,
+      "external_id": "6971ca180c0967",
+      "quantity": 3
+    }
+  ],
+  "totalAmount": "175.00"
+}

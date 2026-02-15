@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-02-14T11:14:44.689Z",
+  "orderId": "SPORE-5B1SZZ9LO",
+  "customerData": {
+    "email": "iqbal886mahmud@gmail.com",
+    "name": "Md. Iqbal Mahmud",
+    "address": "Shahidbag, Mirpur 12, Pallabi",
+    "city": "Dhaka",
+    "state": "Dhaka",
+    "zip": "1216",
+    "country": "US"
+  },
+  "items": [
+    {
+      "id": 415482614,
+      "name": "Spore Fall: Tote Bag | Black",
+      "image": "https://files.cdn.printful.com/files/332/332bc706311c95a9835eaed465d7a014_preview.png",
+      "imageAlt": "Spore Fall: Tote Bag | Black",
+      "price": "From $25.00 USD",
+      "description": "1 variants available",
+      "synced": 1,
+      "is_ignored": false,
+      "external_id": "6973454adf03c4",
+      "quantity": 1
+    }
+  ],
+  "totalAmount": "25.00"
+}

@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-02-14T11:11:00.651Z",
+  "orderId": "SPORE-HNBN6HB2R",
+  "customerData": {
+    "email": "iqbal886mahmud@gmail.com",
+    "name": "Md. Iqbal Mahmud",
+    "address": "Shahidbag, Mirpur 12, Pallabi",
+    "city": "Dhaka",
+    "state": "Dhaka",
+    "zip": "1216",
+    "country": "US"
+  },
+  "items": [
+    {
+      "id": 415349540,
+      "name": "New Alliance: EVOLVE Cap",
+      "image": "https://files.cdn.printful.com/files/681/68147b695cda83fb4e00c9d1d5eb64d4_preview.png",
+      "imageAlt": "New Alliance: EVOLVE Cap",
+      "price": "From $25.00 USD",
+      "description": "1 variants available",
+      "synced": 1,
+      "is_ignored": false,
+      "external_id": "6971d75d4af0a5",
+      "quantity": 1
+    }
+  ],
+  "totalAmount": "25.00"
+}

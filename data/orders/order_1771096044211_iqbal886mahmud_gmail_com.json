@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-02-14T19:07:24.211Z",
+  "orderId": "SPORE-LOF616ESP",
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "California",
+      "state": "CA",
+      "postal_code": "94501",
+      "country": "US"
+    }
+  },
+  "items": [
+    {
+      "id": 415484108,
+      "name": "Spore Fall: Long Sleeve Tee | Unisex | White ",
+      "image": "https://files.cdn.printful.com/files/9cb/9cbbf83397a8b247d20fb3a02b462db6_preview.png",
+      "imageAlt": "Spore Fall: Long Sleeve Tee | Unisex | White ",
+      "price": "From $25.00 USD",
+      "description": "7 variants available",
+      "synced": 7,
+      "is_ignored": false,
+      "external_id": "697349e4aa37b5",
+      "variant_id": null,
+      "quantity": 1
+    }
+  ],
+  "totalAmount": "25.00"
+}

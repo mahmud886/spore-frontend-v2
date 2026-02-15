@@ -1,0 +1,33 @@
+{
+  "orderId": "SPORE-RKBQNOPTV",
+  "status": "PAID",
+  "timestamp": "2026-02-14T19:13:08.991Z",
+  "stripeData": {
+    "sessionId": "cs_test_a1yDzgyfcjT3btMxDxuOgblyaw963Lu9oCuP3PvS63Orq2LEKOgatstL1s",
+    "paymentIntentId": "pi_3T0oGxKY7EJTycGh0EOJo88m",
+    "amountTotal": 42.5,
+    "currency": "usd",
+    "paymentStatus": "paid"
+  },
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "California",
+      "state": "CA",
+      "postal_code": "94501",
+      "country": "US"
+    }
+  },
+  "products": [
+    {
+      "name": "Spore Fall: Long Sleeve Tee | Unisex | White",
+      "quantity": 1,
+      "price": 42.5,
+      "currency": "usd",
+      "variant_id": "5157080803"
+    }
+  ],
+  "printfulError": "Printful API error: Order with this External ID already exists"
+}

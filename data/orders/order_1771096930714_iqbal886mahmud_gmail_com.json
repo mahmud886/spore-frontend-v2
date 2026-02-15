@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-02-14T19:22:10.713Z",
+  "orderId": "SPORE-PDHB9FFA5",
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "Alameda",
+      "state": "CA",
+      "postal_code": "94501",
+      "country": "US"
+    }
+  },
+  "items": [
+    {
+      "id": 415350425,
+      "name": "The Stacks: Clear Case for iPhone®",
+      "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+      "imageAlt": "The Stacks: Clear Case for iPhone®",
+      "price": "$21.50 USD",
+      "description": "31 variants available",
+      "synced": 31,
+      "is_ignored": false,
+      "external_id": "6971dc0d3690d7",
+      "variant_id": 5155860906,
+      "quantity": 1
+    }
+  ],
+  "totalAmount": "21.50"
+}
