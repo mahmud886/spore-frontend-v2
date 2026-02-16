@@ -1,0 +1,364 @@
+{
+  "timestamp": "2026-02-16T19:08:14.341Z",
+  "orderId": "SPORE-OTQ0I1KA8",
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "Alameda",
+      "state": "CA",
+      "postal_code": "94501",
+      "country": "US"
+    }
+  },
+  "items": [
+    {
+      "id": 415350425,
+      "name": "The Stacks: Clear Case for iPhone® (The Stacks: Clear Case for iPhone® / iPhone 12 Pro)",
+      "description": "The Stacks: Clear Case for iPhone®",
+      "price": "21.50",
+      "images": [
+        {
+          "id": "main",
+          "url": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "alt": "The Stacks: Clear Case for iPhone®"
+        },
+        {
+          "id": 5155860908,
+          "url": "https://files.cdn.printful.com/files/b60/b6044a040b09acce9461dad54bd49f05_preview.png",
+          "alt": "The Stacks: Clear Case for iPhone® / iPhone 11"
+        },
+        {
+          "id": 5155860914,
+          "url": "https://files.cdn.printful.com/files/f58/f581939f9857e5895906faa83fafdebd_preview.png",
+          "alt": "The Stacks: Clear Case for iPhone® / iPhone 13 Pro Max"
+        },
+        {
+          "id": 5155860921,
+          "url": "https://files.cdn.printful.com/files/720/7205e55f7f9024c4a8d688be21c076ba_preview.png",
+          "alt": "The Stacks: Clear Case for iPhone® / iPhone 15 Plus"
+        }
+      ],
+      "variants": [
+        {
+          "id": 5155860906,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 11 Pro Max",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 11 Pro Max",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860907,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 11 Pro",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 11 Pro",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860908,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 11",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/b60/b6044a040b09acce9461dad54bd49f05_preview.png",
+          "size": "iPhone 11",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860909,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 12 mini",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 12 mini",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860910,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 12 Pro Max",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 12 Pro Max",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860911,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 12 Pro",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 12 Pro",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860912,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 12",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 12",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860913,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 13 mini",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 13 mini",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860914,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 13 Pro Max",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/f58/f581939f9857e5895906faa83fafdebd_preview.png",
+          "size": "iPhone 13 Pro Max",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860915,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 13 Pro",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 13 Pro",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860916,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 13",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 13",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860917,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 14 Plus",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 14 Plus",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860918,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 14 Pro Max",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 14 Pro Max",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860919,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 14 Pro",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 14 Pro",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860920,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 14",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 14",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860921,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 15 Plus",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/720/7205e55f7f9024c4a8d688be21c076ba_preview.png",
+          "size": "iPhone 15 Plus",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860922,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 15 Pro Max",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 15 Pro Max",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860923,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 15 Pro",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 15 Pro",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860924,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 15",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 15",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860925,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 16 Plus",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 16 Plus",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860926,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 16 Pro Max",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 16 Pro Max",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860927,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 16 Pro",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 16 Pro",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860928,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 16",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 16",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860929,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 17 Air",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 17 Air",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860930,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 17 Pro Max",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 17 Pro Max",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860931,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 17 Pro",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 17 Pro",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860932,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 17",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 17",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860933,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone 7/8",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone 7/8",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860934,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone SE",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone SE",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860935,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone X/XS",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone X/XS",
+          "color": null,
+          "availability_status": "active"
+        },
+        {
+          "id": 5155860936,
+          "name": "The Stacks: Clear Case for iPhone® / iPhone XR",
+          "retail_price": "21.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+          "size": "iPhone XR",
+          "color": null,
+          "availability_status": "active"
+        }
+      ],
+      "category": "Equipment",
+      "external_id": "6971dc0d3690d7",
+      "variant_id": 5155860911,
+      "image": "https://files.cdn.printful.com/files/dde/dde340969bd65a1d3749a5f38bf0f779_preview.png",
+      "quantity": 1,
+      "uniqueId": 5155860911
+    }
+  ],
+  "totalAmount": "21.50"
+}

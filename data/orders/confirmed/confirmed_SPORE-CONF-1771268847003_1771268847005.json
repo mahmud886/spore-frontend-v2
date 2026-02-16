@@ -1,0 +1,27 @@
+{
+  "orderId": "SPORE-CONF-1771268847003",
+  "status": "PAID",
+  "timestamp": "2026-02-16T19:07:27.003Z",
+  "type": "donation",
+  "stripeData": {
+    "sessionId": "cs_test_a1qzq8HVgK2VvzyGpCZgdT9y4YfmlQ7WCv6Xe4XMcRoiHpCcp6DB8bhEAo",
+    "paymentIntentId": "pi_3T1X8XKY7EJTycGh0v0emSyv",
+    "amountTotal": 129,
+    "currency": "usd",
+    "paymentStatus": "paid"
+  },
+  "customerData": {
+    "name": "MD IQBAL MAHMUD",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {}
+  },
+  "products": [
+    {
+      "name": "Support Spore Fall - THE PATRON",
+      "quantity": 1,
+      "price": 129,
+      "currency": "usd",
+      "variant_id": null
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import { createPendingOrder } from "@/app/lib/services/orders";
 import fs from "fs";
 import { NextResponse } from "next/server";
 import path from "path";
@@ -120,6 +121,19 @@ export async function POST(req) {
     }
 
     const session = await stripe.checkout.sessions.create(sessionOptions);
+
+    // 3. STORE ORDER TO SUPABASE (PENDING)
+    const orderPayload = {
+      ...fullOrderPayload,
+      stripeSessionId: session.id,
+      currency: "usd",
+      metadata: sessionOptions.metadata,
+    };
+
+    // Run in background to not block response
+    createPendingOrder(orderPayload, items, customerData).catch((err) =>
+      console.error("Failed to save pending order to Supabase:", err),
+    );
 
     return NextResponse.json({
       url: session.url,

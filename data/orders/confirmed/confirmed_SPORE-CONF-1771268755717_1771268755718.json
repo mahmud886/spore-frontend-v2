@@ -1,0 +1,27 @@
+{
+  "orderId": "SPORE-CONF-1771268755717",
+  "status": "PAID",
+  "timestamp": "2026-02-16T19:05:55.717Z",
+  "type": "donation",
+  "stripeData": {
+    "sessionId": "cs_test_a1tz7vvWnAYSdETvLmMpp5eFVF2ixrdP5SLpMgBgJDaeOh56H2reYYqwsP",
+    "paymentIntentId": "pi_3T1X3cKY7EJTycGh0btXe6Bu",
+    "amountTotal": 20,
+    "currency": "usd",
+    "paymentStatus": "paid"
+  },
+  "customerData": {
+    "name": "MD IQBAL MAHMUD",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {}
+  },
+  "products": [
+    {
+      "name": "Support Spore Fall - DONATE",
+      "quantity": 1,
+      "price": 20,
+      "currency": "usd",
+      "variant_id": null
+    }
+  ]
+}

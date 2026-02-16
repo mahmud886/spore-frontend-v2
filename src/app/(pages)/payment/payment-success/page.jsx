@@ -5,7 +5,7 @@ import { useCartStore } from "@/app/lib/store/useCartStore";
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState, Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import { useSearchParams } from "next/navigation";
 
@@ -16,8 +16,14 @@ function SuccessContent() {
   const [isVerifying, setIsVerifying] = useState(!!sessionId);
 
   useEffect(() => {
+    let mounted = true;
+
     const verifyAndStoreOrder = async () => {
       if (!sessionId) return;
+      if (sessionStorage.getItem(`processed_${sessionId}`)) {
+        setIsVerifying(false);
+        return;
+      }
 
       try {
         const response = await fetch("/api/orders/confirm", {
@@ -26,17 +32,24 @@ function SuccessContent() {
           body: JSON.stringify({ sessionId }),
         });
 
-        const data = await response.json();
-        console.log("Post-payment confirmation:", data);
+        if (response.ok) {
+          sessionStorage.setItem(`processed_${sessionId}`, "true");
+          const data = await response.json();
+          if (mounted) console.log("Post-payment confirmation:", data);
+        }
       } catch (err) {
         console.error("Failed to confirm order:", err);
       } finally {
-        setIsVerifying(false);
+        if (mounted) setIsVerifying(false);
       }
     };
 
     verifyAndStoreOrder();
     clearCart();
+
+    return () => {
+      mounted = false;
+    };
   }, [clearCart, sessionId]);
 
   return (

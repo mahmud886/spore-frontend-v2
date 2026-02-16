@@ -1,4 +1,6 @@
 import { createOrder } from "@/app/lib/printful";
+import { updateDonationPaymentStatus } from "@/app/lib/services/donations";
+import { updateOrderPaymentStatus } from "@/app/lib/services/orders";
 import fs from "fs";
 import { NextResponse } from "next/server";
 import path from "path";
@@ -24,10 +26,26 @@ export async function POST(req) {
     });
 
     // 2. Combine all data
+    // Check if it's a donation
+    const isDonation = session.metadata?.type === "donation";
+
+    // Update order status in Supabase (in case webhook is delayed)
+    let supabaseResult;
+    if (isDonation) {
+      supabaseResult = await updateDonationPaymentStatus(sessionId, session);
+    } else {
+      supabaseResult = await updateOrderPaymentStatus(sessionId, session);
+    }
+
+    if (!supabaseResult.success) {
+      console.warn("Failed to update order status in Supabase from confirm route:", supabaseResult.error);
+    }
+
     const confirmedOrderData = {
       orderId: session.metadata.orderId || `SPORE-CONF-${Date.now()}`,
       status: "PAID",
       timestamp: new Date().toISOString(),
+      type: isDonation ? "donation" : "order",
       stripeData: {
         sessionId: session.id,
         paymentIntentId: session.payment_intent?.id,
@@ -59,6 +77,7 @@ export async function POST(req) {
     console.log("=======================================");
     console.log("✅ PAYMENT SUCCESSFUL & VERIFIED");
     console.log("ORDER ID:", confirmedOrderData.orderId);
+    console.log("TYPE:", confirmedOrderData.type);
     console.log("FULL DATA:", JSON.stringify(confirmedOrderData, null, 2));
     console.log("=======================================");
 
@@ -70,6 +89,12 @@ export async function POST(req) {
     const fileName = `confirmed_${confirmedOrderData.orderId}_${Date.now()}.json`;
     const filePath = path.join(dirPath, fileName);
     fs.writeFileSync(filePath, JSON.stringify(confirmedOrderData, null, 2));
+
+    // Skip Printful for donations
+    if (isDonation) {
+      console.log("ℹ️ Skipping Printful integration for donation.");
+      return NextResponse.json({ success: true, order: confirmedOrderData });
+    }
 
     // 5. OPTIONAL: PUSH TO PRINTFUL
     let printfulOrder = null;

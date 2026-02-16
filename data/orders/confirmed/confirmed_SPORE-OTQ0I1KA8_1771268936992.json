@@ -1,0 +1,36 @@
+{
+  "orderId": "SPORE-OTQ0I1KA8",
+  "status": "PAID",
+  "timestamp": "2026-02-16T19:08:56.991Z",
+  "type": "order",
+  "stripeData": {
+    "sessionId": "cs_test_a1MxOg3GyqCBoFoiCwTHd1ukwpgGIxv9cYNBxKZADwMr1B1lZn3lSrKrAN",
+    "paymentIntentId": "pi_3T1X9zKY7EJTycGh1w6PlOvK",
+    "amountTotal": 21.5,
+    "currency": "usd",
+    "paymentStatus": "paid"
+  },
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "Alameda",
+      "state": "CA",
+      "postal_code": "94501",
+      "country": "US"
+    }
+  },
+  "products": [
+    {
+      "name": "The Stacks: Clear Case for iPhone® (The Stacks: Clear Case for iPhone® / iPhone 12 Pro)",
+      "quantity": 1,
+      "price": 21.5,
+      "currency": "usd",
+      "variant_id": "5155860911"
+    }
+  ],
+  "printfulOrderId": 146300401,
+  "printfulStatus": "draft",
+  "printfulDashboardUrl": "https://www.printful.com/dashboard?order_id=146300401"
+}
