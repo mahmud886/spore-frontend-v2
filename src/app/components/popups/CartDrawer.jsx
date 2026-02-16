@@ -77,21 +77,25 @@ export default function CartDrawer() {
                       <div className="flex items-center justify-between mt-2">
                         <div className="flex items-center gap-3 bg-white/5 rounded-lg p-1 border border-white/5">
                           <button
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            onClick={() =>
+                              updateQuantity(item.uniqueId || item.variant_id || item.id, item.quantity - 1)
+                            }
                             className="p-1 hover:text-primary transition-colors"
                           >
                             <Minus size={14} />
                           </button>
                           <span className="text-xs font-mono w-4 text-center">{item.quantity}</span>
                           <button
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            onClick={() =>
+                              updateQuantity(item.uniqueId || item.variant_id || item.id, item.quantity + 1)
+                            }
                             className="p-1 hover:text-primary transition-colors"
                           >
                             <Plus size={14} />
                           </button>
                         </div>
                         <button
-                          onClick={() => removeItem(item.id)}
+                          onClick={() => removeItem(item.uniqueId || item.variant_id || item.id)}
                           className="text-white/20 hover:text-red-500 transition-colors"
                         >
                           <Trash2 size={16} />

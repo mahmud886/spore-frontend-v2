@@ -17,7 +17,7 @@ export default async function ShopPage() {
         <div className="mb-12">
           <SectionTitle>Field Equipment</SectionTitle>
           <p className="text-white/40 mt-4 max-w-2xl text-sm sm:text-base font-mono">
-            // COMPLETE INVENTORY LOG
+            COMPLETE INVENTORY LOG
             <br />
             Select equipment for deployment. All items are field-tested and durable.
           </p>

@@ -1,0 +1,49 @@
+{
+  "orderId": "SPORE-K2SQSZOEA",
+  "status": "PAID",
+  "timestamp": "2026-02-16T18:08:47.467Z",
+  "stripeData": {
+    "sessionId": "cs_test_b1ag3lVulBQrRaJS39FSnv6n0qVw8W2cWlYc9BnDpS6xp0TdUYspBbwXKm",
+    "paymentIntentId": "pi_3T1WDkKY7EJTycGh1EAQS1YV",
+    "amountTotal": 132.5,
+    "currency": "usd",
+    "paymentStatus": "paid"
+  },
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "Alameda",
+      "state": "CA",
+      "postal_code": "94501",
+      "country": "US"
+    }
+  },
+  "products": [
+    {
+      "name": "The Stacks: Clear Case for iPhone® (The Stacks: Clear Case for iPhone® / iPhone 11 Pro Max)",
+      "quantity": 1,
+      "price": 21.5,
+      "currency": "usd",
+      "variant_id": "5155860906"
+    },
+    {
+      "name": "The Stacks: Carry-All Bag (The Stacks: Carry-All Bag)",
+      "quantity": 2,
+      "price": 75,
+      "currency": "usd",
+      "variant_id": "5155859050"
+    },
+    {
+      "name": "New Alliance: EVOLVE Cap (New Alliance: EVOLVE Cap)",
+      "quantity": 1,
+      "price": 36,
+      "currency": "usd",
+      "variant_id": "5155855096"
+    }
+  ],
+  "printfulOrderId": 146293588,
+  "printfulStatus": "draft",
+  "printfulDashboardUrl": "https://www.printful.com/dashboard?order_id=146293588"
+}

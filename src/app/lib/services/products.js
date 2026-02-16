@@ -9,6 +9,62 @@ export function inferCategory(name) {
   return "Equipment";
 }
 
+export async function getProduct(id) {
+  try {
+    const base = getBaseUrl();
+    const detailUrl = `${base}/api/printful/store-products?productId=${id}`;
+    const res = await fetch(detailUrl, {
+      next: { revalidate: 60 },
+    });
+
+    if (!res.ok) return null;
+
+    const json = await res.json();
+    const data = json.data;
+
+    if (!data || !data.sync_product) return null;
+
+    const product = data.sync_product;
+    const variants = data.sync_variants || [];
+
+    // Process variants to get unique images and options
+    const processedVariants = variants.map((v) => ({
+      id: v.id,
+      name: v.name,
+      retail_price: v.retail_price,
+      currency: v.currency,
+      image: v.files.find((f) => f.type === "preview")?.preview_url || product.thumbnail_url,
+      size: v.size, // Assuming size/color might be in name or separate fields if available
+      color: v.color,
+      availability_status: v.availability_status,
+    }));
+
+    // Collect all unique images
+    const images = [
+      { id: "main", url: product.thumbnail_url, alt: product.name },
+      ...processedVariants
+        .map((v) => ({ id: v.id, url: v.image, alt: v.name }))
+        .filter(
+          (img, index, self) => img.url !== product.thumbnail_url && index === self.findIndex((t) => t.url === img.url),
+        ),
+    ];
+
+    return {
+      id: product.id,
+      name: product.name,
+      description: product.name, // Printful API might not return full description in this endpoint
+      price: processedVariants[0]?.retail_price || "0.00",
+      images: images,
+      variants: processedVariants,
+      category: inferCategory(product.name),
+      external_id: product.external_id,
+    };
+  } catch (error) {
+    console.error(`Error fetching product ${id}:`, error);
+    return null;
+  }
+}
+
 export async function getProducts({ limit = 20, offset = 0 } = {}) {
   try {
     const base = getBaseUrl();
@@ -64,6 +120,7 @@ export async function getProducts({ limit = 20, offset = 0 } = {}) {
               external_id: product.external_id,
               variant_id: firstVariant ? firstVariant.id : null,
               variants: product.variants,
+              availability_status: firstVariant ? firstVariant.availability_status : "active",
             };
           } else {
             console.error(
