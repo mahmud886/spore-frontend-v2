@@ -98,11 +98,11 @@ export default function CheckoutPage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <Link
-              href="/#shop"
+              href="/shop"
               className="inline-flex items-center gap-2 text-white/40 hover:text-primary transition-colors group"
             >
               <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-              <span className="uppercase tracking-widest text-xs font-bold">Back to Supplies</span>
+              <span className="uppercase tracking-widest text-xs font-bold">Back to Shop</span>
             </Link>
           </div>
 
@@ -180,7 +180,9 @@ export default function CheckoutPage() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <label className="text-[10px] uppercase tracking-widest text-white/40 ml-1">State/Prov (2-Letter)</label>
+                        <label className="text-[10px] uppercase tracking-widest text-white/40 ml-1">
+                          State/Prov (2-Letter)
+                        </label>
                         <input
                           required
                           type="text"
@@ -207,7 +209,9 @@ export default function CheckoutPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest text-white/40 ml-1">Country Code (2-Letter)</label>
+                      <label className="text-[10px] uppercase tracking-widest text-white/40 ml-1">
+                        Country Code (2-Letter)
+                      </label>
                       <input
                         required
                         type="text"
@@ -218,7 +222,9 @@ export default function CheckoutPage() {
                         maxLength={2}
                         className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:border-primary/50 outline-none transition-colors font-mono text-sm uppercase"
                       />
-                      <p className="text-[9px] text-white/20 mt-1 uppercase tracking-tighter">Use 2-letter codes (e.g., US, CA, GB, BD)</p>
+                      <p className="text-[9px] text-white/20 mt-1 uppercase tracking-tighter">
+                        Use 2-letter codes (e.g., US, CA, GB, BD)
+                      </p>
                     </div>
                   </div>
 

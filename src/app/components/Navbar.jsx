@@ -116,18 +116,7 @@ export default function Navbar() {
               >
                 VAULT 7
               </Link>
-              <Link
-                href="/"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (pathname === "/") {
-                    handleScrollToSection(e, "shop");
-                  } else {
-                    router.push("/#shop");
-                  }
-                }}
-                className={`${getActiveClass(pathname === "/" && currentHash === "#shop")} transition-colors`}
-              >
+              <Link href="/shop" className={`${getActiveClass(pathname === "/shop")} transition-colors`}>
                 SHOP
               </Link>
               <Link
@@ -207,17 +196,9 @@ export default function Navbar() {
                   VAULT 7
                 </Link>
                 <Link
-                  href="/"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setIsMobileMenuOpen(false);
-                    if (pathname === "/") {
-                      handleScrollToSection(e, "shop");
-                    } else {
-                      router.push("/#shop");
-                    }
-                  }}
-                  className={`${getActiveClass(pathname === "/" && currentHash === "#shop")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                  href="/shop"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`${getActiveClass(pathname === "/shop")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
                 >
                   SHOP
                 </Link>

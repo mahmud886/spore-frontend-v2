@@ -80,7 +80,7 @@ export async function POST(req) {
             description: item.description,
             metadata: {
               variant_id: item.variant_id || "", // Pass variant ID through to Stripe
-            }
+            },
           },
           unit_amount: Math.round(priceValue * 100),
         },

@@ -1,9 +1,9 @@
 "use client";
 
 import { Wrapper } from "@/app/components/shared/Wrapper";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { XCircle } from "lucide-react";
+import Link from "next/link";
 
 export default function PaymentCancelPage() {
   return (
@@ -45,7 +45,7 @@ export default function PaymentCancelPage() {
               RETURN TO BASE
             </Link>
             <Link
-              href="/#shop"
+              href="/shop"
               className="bg-red-500 text-black font-heading px-8 py-3 rounded hover:bg-white transition-colors duration-300 tracking-widest text-sm w-full md:w-auto text-center"
             >
               RETRY TRANSMISSION

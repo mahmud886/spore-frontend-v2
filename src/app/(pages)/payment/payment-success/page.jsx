@@ -80,7 +80,7 @@ function SuccessContent() {
           RETURN TO BASE
         </Link>
         <Link
-          href="/#shop"
+          href="/shop"
           className="border border-primary/50 text-primary font-heading px-8 py-3 rounded hover:bg-primary/10 transition-colors duration-300 tracking-widest text-sm w-full md:w-auto text-center"
         >
           CONTINUE SHOPPING

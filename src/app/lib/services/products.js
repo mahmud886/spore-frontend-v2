@@ -1,5 +1,14 @@
 import { getBaseUrl } from "./base";
 
+export function inferCategory(name) {
+  const lowerName = name.toLowerCase();
+  if (lowerName.match(/t-shirt|hoodie|sweatshirt|jacket|shirt|tank|top|long sleeve|short sleeve/)) return "Apparel";
+  if (lowerName.match(/hat|cap|beanie|bag|tote|phone case|sticker|patch|backpack/)) return "Accessories";
+  if (lowerName.match(/poster|canvas|print|wall art/)) return "Art & Prints";
+  if (lowerName.match(/mug|pillow|towel|blanket|apron/)) return "Home & Living";
+  return "Equipment";
+}
+
 export async function getProducts({ limit = 20, offset = 0 } = {}) {
   try {
     const base = getBaseUrl();
@@ -38,12 +47,17 @@ export async function getProducts({ limit = 20, offset = 0 } = {}) {
               );
             }
 
+            const numericPrice = firstVariant ? parseFloat(firstVariant.retail_price) : 25.0;
+            const category = inferCategory(product.name);
+
             return {
               id: product.id,
               name: product.name,
               image: product.thumbnail_url,
               imageAlt: product.name,
               price: firstVariant ? `$${firstVariant.retail_price} USD` : "From $25.00 USD",
+              numericPrice: numericPrice,
+              category: category,
               description: `${product.variants} variants available`,
               synced: product.synced,
               is_ignored: product.is_ignored,
@@ -67,6 +81,8 @@ export async function getProducts({ limit = 20, offset = 0 } = {}) {
           image: product.thumbnail_url,
           imageAlt: product.name,
           price: "From $25.00 USD",
+          numericPrice: 25.0,
+          category: inferCategory(product.name),
           description: `${product.variants} variants available`,
           synced: product.synced,
           is_ignored: product.is_ignored,
