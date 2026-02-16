@@ -10,7 +10,7 @@ export default function BlogCard({ post }) {
 
   return (
     <AnimatedCard hoverGlow={true} hoverFloat={true} className="h-full">
-      <Link href={link || "#"} target="_blank" className="block h-full">
+      <Link href={link || "#"} target={link?.startsWith("/") ? "_self" : "_blank"} className="block h-full">
         <article
           className="bg-black/50 border border-primary/10 hover:border-primary/50 transition-all overflow-hidden h-full cyber-energy-wave"
           style={{

@@ -108,12 +108,7 @@ export default function Navbar() {
               >
                 HOME
               </Link>
-              <Link
-                href="https://edenstone.group/sporelog"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${getActiveClass(pathname === "/" && currentHash === "#spore-log")} transition-colors`}
-              >
+              <Link href="/vault-7" className={`${getActiveClass(pathname === "/vault-7")} transition-colors`}>
                 VAULT 7
               </Link>
               <Link href="/shop" className={`${getActiveClass(pathname === "/shop")} transition-colors`}>
@@ -187,11 +182,9 @@ export default function Navbar() {
                   HOME
                 </Link>
                 <Link
-                  href="https://edenstone.group/sporelog"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/vault-7"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`${getActiveClass(pathname === "/" && currentHash === "#spore-log")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
+                  className={`${getActiveClass(pathname === "/vault-7")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
                 >
                   VAULT 7
                 </Link>
