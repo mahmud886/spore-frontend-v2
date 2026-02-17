@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-02-17T17:43:08.034Z",
-  "orderId": "SPORE-XBV9VKEQ8",
+  "timestamp": "2026-02-17T18:05:46.364Z",
+  "orderId": "SPORE-RBA9A0ZBF",
   "customerData": {
     "name": "Md. Iqbal Mahmud",
     "email": "iqbal886mahmud@gmail.com",
@@ -16,9 +16,9 @@
   "items": [
     {
       "id": 415484108,
-      "name": "Spore Fall: Long Sleeve Tee | Unisex | White  (Spore Fall: Long Sleeve Tee | Unisex | White )",
+      "name": "Spore Fall: Long Sleeve Tee | Unisex | White  (Spore Fall: Long Sleeve Tee | Unisex | White  / L)",
       "description": "Spore Fall: Long Sleeve Tee | Unisex | White ",
-      "price": "42.50",
+      "price": "29.00",
       "images": [
         {
           "id": "main",
@@ -100,11 +100,11 @@
       ],
       "category": "Apparel",
       "external_id": "697349e4aa37b5",
-      "variant_id": 5157080803,
+      "variant_id": 5157089826,
       "image": "https://files.cdn.printful.com/files/9cb/9cbbf83397a8b247d20fb3a02b462db6_preview.png",
       "quantity": 1,
-      "uniqueId": 5157080803
+      "uniqueId": 5157089826
     }
   ],
-  "totalAmount": "42.50"
+  "totalAmount": "29.00"
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { Wrapper } from "@/app/components/shared/Wrapper";
+import { COUNTRIES, STATE_REQUIRED_COUNTRIES } from "@/app/lib/data/countries";
 import { useCartStore } from "@/app/lib/store/useCartStore";
 import { ChevronLeft, CreditCard, ShieldCheck, Truck, User } from "lucide-react";
 import Image from "next/image";
@@ -197,14 +198,15 @@ export default function CheckoutPage() {
                       <div className="space-y-2">
                         <label className="text-[10px] uppercase tracking-widest text-white/40 ml-1">
                           State/Prov (2-Letter)
+                          {!STATE_REQUIRED_COUNTRIES.includes(formData.country) && " (Optional)"}
                         </label>
                         <input
-                          required
+                          required={STATE_REQUIRED_COUNTRIES.includes(formData.country)}
                           type="text"
                           name="state"
                           value={formData.state}
                           onChange={handleChange}
-                          placeholder="NY"
+                          placeholder={STATE_REQUIRED_COUNTRIES.includes(formData.country) ? "NY" : "Optional"}
                           maxLength={2}
                           className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:border-primary/50 outline-none transition-colors font-mono text-sm uppercase"
                         />
@@ -224,22 +226,33 @@ export default function CheckoutPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest text-white/40 ml-1">
-                        Country Code (2-Letter)
-                      </label>
-                      <input
-                        required
-                        type="text"
-                        name="country"
-                        value={formData.country}
-                        onChange={handleChange}
-                        placeholder="US"
-                        maxLength={2}
-                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:border-primary/50 outline-none transition-colors font-mono text-sm uppercase"
-                      />
-                      <p className="text-[9px] text-white/20 mt-1 uppercase tracking-tighter">
-                        Use 2-letter codes (e.g., US, CA, GB, BD)
-                      </p>
+                      <label className="text-[10px] uppercase tracking-widest text-white/40 ml-1">Country</label>
+                      <div className="relative">
+                        <select
+                          required
+                          name="country"
+                          value={formData.country}
+                          onChange={handleChange}
+                          className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:border-primary/50 outline-none transition-colors font-mono text-sm uppercase appearance-none"
+                        >
+                          {COUNTRIES.map((country) => (
+                            <option key={country.code} value={country.code} className="bg-black text-white">
+                              {country.name} ({country.code})
+                            </option>
+                          ))}
+                        </select>
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white/40">
+                          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M1 1L5 5L9 1"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </div>
+                      </div>
                     </div>
                   </div>
 

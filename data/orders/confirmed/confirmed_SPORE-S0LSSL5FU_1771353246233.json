@@ -1,11 +1,11 @@
 {
-  "orderId": "SPORE-XBV9VKEQ8",
+  "orderId": "SPORE-S0LSSL5FU",
   "status": "PAID",
-  "timestamp": "2026-02-17T17:43:48.624Z",
+  "timestamp": "2026-02-17T18:34:06.233Z",
   "type": "order",
   "stripeData": {
-    "sessionId": "cs_test_a1CHc0vaYxtSouYJuUVNSqnpRXJPLvwTHxXHUXMR1xaVvA0UVCr5DpQRJf",
-    "paymentIntentId": "pi_3T1sJ8KY7EJTycGh1d2SBcQ6",
+    "sessionId": "cs_test_a14h6eVrQNJ17udHvjAJm0418XAnZjiUY8mbJb49n0VfHhL8Y4lzafE9C7",
+    "paymentIntentId": "pi_3T1t5nKY7EJTycGh0NcuMEMr",
     "amountTotal": 42.5,
     "currency": "usd",
     "paymentStatus": "paid"
@@ -13,12 +13,13 @@
   "customerData": {
     "name": "Md. Iqbal Mahmud",
     "email": "iqbal886mahmud@gmail.com",
+    "phone": "01670161693",
     "address": {
       "line1": "Shahidbag, Mirpur 12, Pallabi",
       "city": "Dhaka",
-      "state": "DK",
+      "state": "",
       "postal_code": "1216",
-      "country": "BA"
+      "country": "BD"
     }
   },
   "products": [
@@ -30,7 +31,7 @@
       "variant_id": "5157080803"
     }
   ],
-  "printfulOrderId": 146410843,
+  "printfulOrderId": 146415784,
   "printfulStatus": "draft",
-  "printfulDashboardUrl": "https://www.printful.com/dashboard?order_id=146410843"
+  "printfulDashboardUrl": "https://www.printful.com/dashboard?order_id=146415784"
 }

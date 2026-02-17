@@ -1,16 +1,16 @@
 {
-  "timestamp": "2026-02-17T17:43:08.034Z",
-  "orderId": "SPORE-XBV9VKEQ8",
+  "timestamp": "2026-02-17T18:17:45.632Z",
+  "orderId": "SPORE-V1O7DB3TR",
   "customerData": {
     "name": "Md. Iqbal Mahmud",
     "email": "iqbal886mahmud@gmail.com",
     "phone": "01670161693",
     "address": {
       "line1": "Shahidbag, Mirpur 12, Pallabi",
-      "city": "Dhaka",
-      "state": "DK",
-      "postal_code": "1216",
-      "country": "BA"
+      "city": "Alameda",
+      "state": "CA",
+      "postal_code": "94501",
+      "country": "DE"
     }
   },
   "items": [

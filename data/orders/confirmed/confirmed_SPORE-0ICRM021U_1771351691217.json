@@ -1,11 +1,11 @@
 {
-  "orderId": "SPORE-XBV9VKEQ8",
+  "orderId": "SPORE-0ICRM021U",
   "status": "PAID",
-  "timestamp": "2026-02-17T17:43:48.624Z",
+  "timestamp": "2026-02-17T18:08:11.216Z",
   "type": "order",
   "stripeData": {
-    "sessionId": "cs_test_a1CHc0vaYxtSouYJuUVNSqnpRXJPLvwTHxXHUXMR1xaVvA0UVCr5DpQRJf",
-    "paymentIntentId": "pi_3T1sJ8KY7EJTycGh1d2SBcQ6",
+    "sessionId": "cs_test_a1oa7EwF6QnO1KrEji9U27vYvD5vLkwNb2qBsUNkl5yKECMVuH5kuCWT40",
+    "paymentIntentId": "pi_3T1sghKY7EJTycGh1K3ByBUi",
     "amountTotal": 42.5,
     "currency": "usd",
     "paymentStatus": "paid"
@@ -13,12 +13,13 @@
   "customerData": {
     "name": "Md. Iqbal Mahmud",
     "email": "iqbal886mahmud@gmail.com",
+    "phone": "01670161693",
     "address": {
       "line1": "Shahidbag, Mirpur 12, Pallabi",
       "city": "Dhaka",
-      "state": "DK",
-      "postal_code": "1216",
-      "country": "BA"
+      "state": "CA",
+      "postal_code": "94501",
+      "country": "UN"
     }
   },
   "products": [
@@ -30,7 +31,5 @@
       "variant_id": "5157080803"
     }
   ],
-  "printfulOrderId": 146410843,
-  "printfulStatus": "draft",
-  "printfulDashboardUrl": "https://www.printful.com/dashboard?order_id=146410843"
+  "printfulError": "Printful API error: Recipient: Country is invalid."
 }

@@ -1,3 +1,4 @@
+import { COUNTRIES, STATE_REQUIRED_COUNTRIES } from "@/app/lib/data/countries";
 import { createPendingOrder } from "@/app/lib/services/orders";
 import fs from "fs";
 import { NextResponse } from "next/server";
@@ -31,6 +32,22 @@ export async function POST(req) {
 
   try {
     const { items, customerData } = await req.json();
+
+    // Validate Country
+    const country = customerData.address?.country?.toUpperCase();
+    const isValidCountry = COUNTRIES.some((c) => c.code === country);
+
+    if (!country || !isValidCountry) {
+      return NextResponse.json(
+        { error: `Invalid country code: ${country || "Missing"}. Please select a valid country.` },
+        { status: 400 },
+      );
+    }
+
+    // Validate State for required countries
+    if (STATE_REQUIRED_COUNTRIES.includes(country) && !customerData.address.state) {
+      return NextResponse.json({ error: `State/Province is required for ${country}.` }, { status: 400 });
+    }
 
     // 1. CONSOLE FULL DATA
     const fullOrderPayload = {
@@ -96,7 +113,7 @@ export async function POST(req) {
       success_url: `${origin}/payment/payment-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/checkout`,
       shipping_address_collection: {
-        allowed_countries: ["US", "CA", "GB", "AU"],
+        allowed_countries: COUNTRIES.map((c) => c.code),
       },
       metadata: {
         orderId: fullOrderPayload.orderId,
