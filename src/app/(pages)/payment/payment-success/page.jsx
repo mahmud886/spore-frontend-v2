@@ -53,7 +53,7 @@ function SuccessContent() {
   }, [clearCart, sessionId]);
 
   return (
-    <div className="max-w-2xl mx-auto text-center space-y-8 bg-black/40 border border-primary/20 p-8 md:p-12 rounded-lg backdrop-blur-sm relative overflow-hidden group">
+    <div className="w-full max-w-2xl mx-auto text-center space-y-6 md:space-y-8 bg-black/40 border border-primary/20 p-6 md:p-12 rounded-lg backdrop-blur-sm relative overflow-hidden group">
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-2 h-2 bg-primary/50" />
       <div className="absolute top-0 right-0 w-2 h-2 bg-primary/50" />
@@ -66,35 +66,35 @@ function SuccessContent() {
         transition={{ type: "spring", damping: 12, stiffness: 200 }}
         className="flex justify-center mb-4"
       >
-        <CheckCircle size={64} className="text-primary" />
+        <CheckCircle className="w-12 h-12 md:w-16 md:h-16 text-primary" />
       </motion.div>
 
-      <h1 className="font-heading text-4xl md:text-5xl text-primary leading-normal tracking-wider animate-pulse uppercase">
+      <h1 className="font-heading text-xl sm:text-3xl md:text-5xl text-primary leading-tight tracking-wider animate-pulse uppercase">
         {isVerifying ? "VERIFYING SIGNAL..." : "TRANSMISSION RECEIVED"}
       </h1>
 
-      <div className="space-y-6">
-        <p className="font-body text-xl text-white/90">
+      <div className="space-y-4 md:space-y-6">
+        <p className="font-body text-base md:text-xl text-white/90">
           {isVerifying
             ? "Syncing order data with the neural network..."
             : "Your contribution has been successfully logged in the network."}
         </p>
-        <p className="font-body text-gray-400 max-w-lg mx-auto leading-relaxed">
+        <p className="font-body text-xs md:text-base text-gray-400 max-w-lg mx-auto leading-relaxed">
           Thank you for fueling the resistance and helping us expand the Spore Fall universe. Your support keeps the
           signal alive.
         </p>
       </div>
 
-      <div className="pt-8 flex flex-col md:flex-row gap-4 justify-center items-center">
+      <div className="pt-6 md:pt-8 flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center">
         <Link
           href="/"
-          className="bg-primary text-black font-heading px-8 py-3 rounded hover:bg-white transition-colors duration-300 tracking-widest text-sm w-full md:w-auto text-center"
+          className="bg-primary text-black font-heading px-6 md:px-8 py-3 rounded hover:bg-white transition-colors duration-300 tracking-widest text-xs md:text-sm w-full sm:w-auto text-center"
         >
           RETURN TO BASE
         </Link>
         <Link
           href="/shop"
-          className="border border-primary/50 text-primary font-heading px-8 py-3 rounded hover:bg-primary/10 transition-colors duration-300 tracking-widest text-sm w-full md:w-auto text-center"
+          className="border border-primary/50 text-primary font-heading px-6 md:px-8 py-3 rounded hover:bg-primary/10 transition-colors duration-300 tracking-widest text-xs md:text-sm w-full sm:w-auto text-center"
         >
           CONTINUE SHOPPING
         </Link>

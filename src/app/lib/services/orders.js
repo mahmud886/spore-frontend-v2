@@ -105,6 +105,7 @@ export async function createOrderFromStripeSession(session) {
     const customerEmail = session.customer_details?.email || session.metadata?.customerEmail;
     const customerName = session.customer_details?.name || session.metadata?.customerName;
     const customerAddress = session.shipping_details?.address || session.customer_details?.address;
+    const customerPhone = session.customer_details?.phone || session.metadata?.customerPhone;
 
     // 1. Create or Update Customer
     const { data: customer, error: customerError } = await supabase
@@ -114,6 +115,7 @@ export async function createOrderFromStripeSession(session) {
           email: customerEmail,
           name: customerName,
           address: customerAddress,
+          phone: customerPhone,
           stripe_customer_id: session.customer,
           updated_at: new Date().toISOString(),
         },

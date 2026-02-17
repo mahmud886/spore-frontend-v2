@@ -56,6 +56,7 @@ export async function POST(req) {
       customerData: {
         name: session.customer_details?.name || session.metadata.customerName,
         email: session.customer_details?.email || session.metadata.customerEmail,
+        phone: session.customer_details?.phone || session.metadata.customerPhone,
         address: session.shipping_details?.address || {
           line1: session.metadata.customerAddress,
           city: session.metadata.customerCity,
@@ -113,6 +114,7 @@ export async function POST(req) {
           recipient: {
             name: confirmedOrderData.customerData.name,
             email: confirmedOrderData.customerData.email,
+            phone: confirmedOrderData.customerData.phone,
             address1: confirmedOrderData.customerData.address.line1,
             city: confirmedOrderData.customerData.address.city,
             state_code: confirmedOrderData.customerData.address.state || "",

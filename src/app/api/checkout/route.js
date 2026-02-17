@@ -102,6 +102,7 @@ export async function POST(req) {
         orderId: fullOrderPayload.orderId,
         customerName: customerData.name,
         customerEmail: customerData.email,
+        customerPhone: customerData.phone,
         itemsCount: items.length.toString(),
       },
     };
@@ -112,6 +113,7 @@ export async function POST(req) {
         ...sessionOptions.metadata,
         customerName: customerData.name,
         customerEmail: customerData.email,
+        customerPhone: customerData.phone,
         customerAddress: customerData.address?.line1 || "",
         customerCity: customerData.address?.city || "",
         customerState: customerData.address?.state || "",
