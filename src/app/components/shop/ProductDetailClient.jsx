@@ -4,11 +4,10 @@ import ProductCard from "@/app/components/home/ProductCard";
 import ShareModal from "@/app/components/popups/ShareModal";
 import { useCartStore } from "@/app/lib/store/useCartStore";
 import { useFavoriteStore } from "@/app/lib/store/useFavoriteStore";
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Heart, Minus, Plus, Share2, ShoppingCart } from "lucide-react";
-import Image from "next/image";
+import { ArrowLeft, Heart, Minus, Plus, Share2, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import ProductImageGallery from "./ProductImageGallery";
 
 export default function ProductDetailClient({ product, relatedProducts = [] }) {
   const addItem = useCartStore((state) => state.addItem);
@@ -79,14 +78,6 @@ export default function ProductDetailClient({ product, relatedProducts = [] }) {
     setIsShareModalOpen(true);
   };
 
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
-
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Breadcrumb / Back */}
@@ -99,70 +90,12 @@ export default function ProductDetailClient({ product, relatedProducts = [] }) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
         {/* Left Column - Image Gallery */}
-        <div className="space-y-4">
-          <div className="relative aspect-square bg-black/40 border border-white/10 rounded-2xl overflow-hidden group">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentImageIndex}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="w-full h-full relative"
-              >
-                <Image
-                  src={images[currentImageIndex]?.url}
-                  alt={images[currentImageIndex]?.alt || product.name}
-                  fill
-                  className="object-contain p-4"
-                  priority
-                />
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Navigation Arrows */}
-            {images.length > 1 && (
-              <>
-                <button
-                  onClick={prevImage}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-primary hover:text-black text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100"
-                >
-                  <ArrowLeft size={20} />
-                </button>
-                <button
-                  onClick={nextImage}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-primary hover:text-black text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100"
-                >
-                  <ArrowRight size={20} />
-                </button>
-              </>
-            )}
-
-            {/* Badges */}
-            <div className="absolute top-4 left-4 flex gap-2">
-              <span className="bg-primary/90 text-black text-xs font-bold px-2 py-1 rounded">NEW ARRIVAL</span>
-            </div>
-          </div>
-
-          {/* Thumbnails */}
-          {images.length > 1 && (
-            <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
-              {images.map((img, idx) => (
-                <button
-                  key={img.id || idx}
-                  onClick={() => setCurrentImageIndex(idx)}
-                  className={`relative w-20 h-20 flex-shrink-0 border-2 rounded-lg overflow-hidden transition-all ${
-                    currentImageIndex === idx
-                      ? "border-primary shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]"
-                      : "border-transparent opacity-60 hover:opacity-100"
-                  }`}
-                >
-                  <Image src={img.url} alt={img.alt || `Thumbnail ${idx}`} fill className="object-cover" />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        <ProductImageGallery
+          images={images}
+          currentIndex={currentImageIndex}
+          onIndexChange={setCurrentImageIndex}
+          productName={product.name}
+        />
 
         {/* Right Column - Product Info */}
         <div className="space-y-8">
