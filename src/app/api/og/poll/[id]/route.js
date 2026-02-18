@@ -1,6 +1,9 @@
+import { createClient } from "@/app/lib/supabase-server";
+import { readFile } from "fs/promises";
 import { ImageResponse } from "next/og";
+import { join } from "path";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 export const revalidate = 300;
 
 const SIZE_MAP = {
@@ -14,19 +17,28 @@ const SIZE_MAP = {
   default: { width: 1200, height: 630 },
 };
 
-async function fetchPoll(origin, id) {
+async function getPollData(id) {
   try {
-    const res = await fetch(`${origin}/api/polls/${encodeURIComponent(id)}`, {
-      headers: { Accept: "application/json" },
-      next: { revalidate: 120 },
-    });
-    if (!res.ok) return null;
-    const json = await res.json();
-    if (!json?.poll) return null;
-    const poll = json.poll;
-    const options = poll.options || poll.poll_options || [];
-    return { ...poll, options };
-  } catch {
+    const supabase = await createClient();
+
+    // Fetch poll data
+    const { data: poll, error: pollError } = await supabase.from("polls").select("*").eq("id", id).single();
+
+    if (pollError || !poll) return null;
+
+    // Fetch poll options
+    const { data: options, error: optionsError } = await supabase
+      .from("poll_options")
+      .select("*")
+      .eq("poll_id", id)
+      .order("display_order", { ascending: true })
+      .order("id", { ascending: true });
+
+    if (optionsError) return { ...poll, options: [] };
+
+    return { ...poll, options: options || [] };
+  } catch (error) {
+    console.error("Error fetching poll:", error);
     return null;
   }
 }
@@ -35,13 +47,12 @@ export async function GET(req, { params: paramsPromise }) {
   const params = await paramsPromise;
   const { id } = params || {};
   const url = new URL(req.url);
-  const origin = `${url.protocol}//${url.host}`;
   const size = url.searchParams.get("size") || "facebook";
   const dims = SIZE_MAP[size] || SIZE_MAP.default;
 
   let poll = null;
   if (id) {
-    poll = await fetchPoll(origin, id);
+    poll = await getPollData(id);
   }
 
   // Fallback data if poll not found or minimal
@@ -56,17 +67,18 @@ export async function GET(req, { params: paramsPromise }) {
   const rPct = totalVotes > 0 ? Math.round((rVotes / totalVotes) * 100) : 50;
 
   // Load assets
-  const fontData = await fetch(
-    new URL("../../../../../../public/assets/fonts/mokoto/mokoto.ttf", import.meta.url),
-  ).then((res) => res.arrayBuffer());
+  const publicPath = join(process.cwd(), "public");
 
-  const bgData = await fetch(new URL("../../../../../../public/og-image-bg.jpg", import.meta.url)).then((res) =>
-    res.arrayBuffer(),
-  );
+  const fontPath = join(publicPath, "assets/fonts/mokoto/mokoto.ttf");
+  const fontData = await readFile(fontPath);
 
-  const cardBgData = await fetch(
-    new URL("../../../../../../public/assets/images/result-background.png", import.meta.url),
-  ).then((res) => res.arrayBuffer());
+  const bgPath = join(publicPath, "og-image-bg.jpg");
+  const bgBuffer = await readFile(bgPath);
+  const bgData = `data:image/jpeg;base64,${bgBuffer.toString("base64")}`;
+
+  const cardBgPath = join(publicPath, "assets/images/result-background.png");
+  const cardBgBuffer = await readFile(cardBgPath);
+  const cardBgData = `data:image/png;base64,${cardBgBuffer.toString("base64")}`;
 
   return new ImageResponse(
     <div
