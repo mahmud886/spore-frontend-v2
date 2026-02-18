@@ -44,93 +44,208 @@ export async function GET(req, { params: paramsPromise }) {
     poll = await fetchPoll(origin, id);
   }
 
-  const title = poll?.question || poll?.title || "Poll Results";
+  // Fallback data if poll not found or minimal
   const options = Array.isArray(poll?.options) ? poll.options : [];
-  const totalVotes = options.reduce((s, o) => s + (o.vote_count || o.votes || 0), 0);
+  const totalVotes = options.reduce((s, o) => s + (o.vote_count || o.votes || 0), 0) || 5061;
   const left = options[0] || { name: "EVOLVE", vote_count: 0 };
   const right = options[1] || { name: "RESIST", vote_count: 0 };
   const lVotes = left.vote_count || left.votes || 0;
   const rVotes = right.vote_count || right.votes || 0;
+  // If totalVotes is 0, default to 50/50 for display
   const lPct = totalVotes > 0 ? Math.round((lVotes / totalVotes) * 100) : 50;
   const rPct = totalVotes > 0 ? Math.round((rVotes / totalVotes) * 100) : 50;
+
+  // Load assets
+  const fontData = await fetch(
+    new URL("../../../../../../public/assets/fonts/mokoto/mokoto.ttf", import.meta.url),
+  ).then((res) => res.arrayBuffer());
+
+  const bgData = await fetch(new URL("../../../../../../public/og-image-bg.jpg", import.meta.url)).then((res) =>
+    res.arrayBuffer(),
+  );
+
+  const cardBgData = await fetch(
+    new URL("../../../../../../public/assets/images/result-background.png", import.meta.url),
+  ).then((res) => res.arrayBuffer());
 
   return new ImageResponse(
     <div
       style={{
-        width: `${dims.width}px`,
-        height: `${dims.height}px`,
+        width: "100%",
+        height: "100%",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%)",
-        color: "#fff",
-        padding: 60,
-        fontFamily: "Arial, Helvetica, sans-serif",
+        justifyContent: "center",
+        fontFamily: "Mokoto",
+        position: "relative",
+        backgroundColor: "black",
       }}
     >
-      <div style={{ fontSize: 54, fontWeight: 800, color: "#C2FF02", textAlign: "center", marginBottom: 24 }}>
-        {title}
+      {/* Background Image */}
+      <img
+        src={bgData}
+        style={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: -1,
+        }}
+      />
+
+      {/* Top Text */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginBottom: 20,
+          color: "#C2FF02",
+          fontSize: 22,
+          lineHeight: 1.5,
+          letterSpacing: "0.05em",
+          textShadow: "0 0 10px rgba(0,0,0,0.8)",
+          textAlign: "center",
+          textTransform: "uppercase",
+        }}
+      >
+        <div>A DEADLY PATHOGEN THREATENS TO OVERRUN THE</div>
+        <div>NATION CITY OF LIONARA. JOIN THE RESISTANCE</div>
+        <div>OR EMBRACE THE EVOLUTION.</div>
       </div>
-      <div style={{ display: "flex", gap: 24, width: "100%", alignItems: "center" }}>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 24, color: "#C2FF02", textAlign: "center", marginBottom: 8 }}>
-            {(left.name || left.text || "EVOLVE").toString().toUpperCase()}
+
+      {/* Central Card */}
+      <div
+        style={{
+          display: "flex",
+          position: "relative",
+          width: 800,
+          height: 400,
+          marginBottom: 30,
+          border: "1px solid rgba(255,255,255,0.2)",
+          boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
+          overflow: "hidden",
+          backgroundColor: "black",
+        }}
+      >
+        <img
+          src={cardBgData}
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            opacity: 0.8,
+          }}
+        />
+        {/* Dark Overlay for Text Readability */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.4)",
+            zIndex: 1,
+          }}
+        />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            height: "100%",
+            padding: "20px 0",
+            position: "relative",
+            zIndex: 10,
+          }}
+        >
+          <div style={{ display: "flex", color: "white", fontSize: 20, letterSpacing: "0.05em" }}>
+            TOTAL VOTES: {totalVotes.toLocaleString()}
           </div>
           <div
             style={{
-              width: "100%",
-              height: 70,
-              background: "rgba(26,26,46,0.8)",
-              borderRadius: 14,
-              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              color: "#C2FF02",
+              fontSize: 60,
+              lineHeight: 0.85,
+              textShadow: "0 0 30px rgba(194,255,2,0.5)",
             }}
           >
-            <div
-              style={{
-                width: `${lPct}%`,
-                height: "100%",
-                background: "linear-gradient(90deg, #a8db02, #C2FF02)",
-              }}
-            />
+            <span>SPORE</span>
+            <span>FALL</span>
           </div>
-          <div style={{ fontSize: 22, textAlign: "center", marginTop: 10 }}>
-            {lPct}% · {lVotes} {lVotes === 1 ? "vote" : "votes"}
-          </div>
+          <div style={{ display: "flex", color: "white", fontSize: 20, letterSpacing: "0.05em" }}>#RESISTOREVOLVE</div>
         </div>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 24, color: "#00BFFF", textAlign: "center", marginBottom: 8 }}>
-            {(right.name || right.text || "RESIST").toString().toUpperCase()}
+      </div>
+
+      {/* Bottom Section */}
+      <div style={{ width: 800, display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 1 }}>
+          <span style={{ color: "white", fontSize: 24, letterSpacing: "0.05em" }}>
+            {(left.name || "EVOLVE").toUpperCase()}
+          </span>
+          <span style={{ color: "#C2FF02", fontSize: 24, letterSpacing: "0.05em" }}>
+            {(right.name || "RESIST").toUpperCase()}
+          </span>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            height: 40,
+            borderRadius: 20,
+            overflow: "hidden",
+            border: "1px solid rgba(255,255,255,0.2)",
+          }}
+        >
+          <div
+            style={{
+              width: `${lPct}%`,
+              background: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "black",
+              fontSize: 18,
+              fontWeight: "bold",
+            }}
+          >
+            {lPct}%
           </div>
           <div
             style={{
-              width: "100%",
-              height: 70,
-              background: "rgba(26,26,46,0.8)",
-              borderRadius: 14,
-              overflow: "hidden",
+              width: `${rPct}%`,
+              background: "#C2FF02",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "black",
+              fontSize: 18,
+              fontWeight: "bold",
             }}
           >
-            <div
-              style={{
-                width: `${rPct}%`,
-                height: "100%",
-                background: "linear-gradient(90deg, #6bc5ff, #00BFFF)",
-              }}
-            />
-          </div>
-          <div style={{ fontSize: 22, textAlign: "center", marginTop: 10 }}>
-            {rPct}% · {rVotes} {rVotes === 1 ? "vote" : "votes"}
+            {rPct}%
           </div>
         </div>
       </div>
-      <div style={{ fontSize: 28, fontWeight: 700, marginTop: 28 }}>Total Votes: {totalVotes}</div>
-      <div style={{ fontSize: 26, marginTop: 8, opacity: 0.9 }}>#RESISTOREVOLVE</div>
-      <div style={{ fontSize: 24, marginTop: 18, color: "#E5E7EB" }}>SPOREFALL.COM</div>
     </div>,
     {
       width: dims.width,
       height: dims.height,
+      fonts: [
+        {
+          name: "Mokoto",
+          data: fontData,
+          style: "normal",
+        },
+      ],
     },
   );
 }

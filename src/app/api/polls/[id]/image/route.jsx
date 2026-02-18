@@ -97,139 +97,166 @@ export async function GET(request, { params }) {
     const bgBuffer = await readFile(bgPath);
     const bgBase64 = `data:image/jpeg;base64,${bgBuffer.toString("base64")}`;
 
+    // Read card background image
+    const cardBgPath = join(publicPath, "assets/images/result-background.png");
+    const cardBgBuffer = await readFile(cardBgPath);
+    const cardBgBase64 = `data:image/png;base64,${cardBgBuffer.toString("base64")}`;
+
     const imageResponse = new ImageResponse(
       <div
         style={{
-          height: "100%",
           width: "100%",
+          height: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#050505",
-          backgroundImage: `url(${bgBase64})`,
-          backgroundSize: `${width}px ${height}px`,
-          backgroundPosition: "center",
-          position: "relative",
           fontFamily: "Mokoto, sans-serif",
-          padding: "40px 20%",
+          position: "relative",
+          backgroundColor: "black",
         }}
       >
-        {/* Dark overlay gradient */}
-        <div
+        {/* Background Image */}
+        <img
+          src={bgBase64}
           style={{
             position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5))",
-            display: "flex",
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: -1,
           }}
         />
 
-        {/* Question */}
-        <h2
-          style={{
-            fontSize: 38,
-            fontWeight: "bold",
-            color: "#C2FF02",
-            textAlign: "center",
-            marginBottom: 60,
-            zIndex: 10,
-            maxWidth: "100%",
-            letterSpacing: "0.05em",
-          }}
-        >
-          {pollQuestion}
-        </h2>
-
-        {/* Options Container */}
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "center",
-            gap: 40,
-            zIndex: 10,
-            marginBottom: 40,
-          }}
-        >
-          {/* Option 1 */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flex: 1 }}>
-            <span style={{ color: "#FFFFFF", fontSize: 26, fontWeight: "bold", marginBottom: 15 }}>{option1Name}</span>
-            <div
-              style={{
-                width: "100%",
-                height: 70,
-                backgroundColor: "rgba(26, 26, 46, 0.8)",
-                borderRadius: 12,
-                display: "flex",
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={{
-                  width: `${percentage1}%`,
-                  height: "100%",
-                  backgroundColor: "#FFFFFF",
-                  borderRadius: 12,
-                }}
-              />
-            </div>
-            <span style={{ color: "white", fontSize: 24, fontWeight: "bold", marginTop: 15 }}>
-              {percentage1}% · {votes1} {votes1 === 1 ? "vote" : "votes"}
-            </span>
-          </div>
-
-          {/* Option 2 */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flex: 1 }}>
-            <span style={{ color: "#C2FF02", fontSize: 26, fontWeight: "bold", marginBottom: 15 }}>{option2Name}</span>
-            <div
-              style={{
-                width: "100%",
-                height: 70,
-                backgroundColor: "rgba(26, 26, 46, 0.8)",
-                borderRadius: 12,
-                display: "flex",
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={{
-                  width: `${percentage2}%`,
-                  height: "100%",
-                  backgroundColor: "#C2FF02",
-                  borderRadius: 12,
-                }}
-              />
-            </div>
-            <span style={{ color: "white", fontSize: 24, fontWeight: "bold", marginTop: 15 }}>
-              {percentage2}% · {votes2} {votes2 === 1 ? "vote" : "votes"}
-            </span>
-          </div>
-        </div>
-
-        {/* Bottom Info */}
+        {/* Top Text */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            zIndex: 10,
-            marginTop: "auto",
+            marginBottom: 20,
+            color: "#C2FF02",
+            fontSize: 22,
+            lineHeight: 1.5,
+            letterSpacing: "0.05em",
+            textShadow: "0 0 10px rgba(0,0,0,0.8)",
+            textAlign: "center",
+            textTransform: "uppercase",
           }}
         >
-          <span style={{ color: "white", fontSize: 32, fontWeight: "bold", marginBottom: 10 }}>
-            Total Votes: {totalVotes}
-          </span>
-          <span style={{ color: "white", fontSize: 34, fontWeight: "bold", marginBottom: 15 }}>#RESISTOREVOLVE</span>
-          <span style={{ color: "#E5E7EB", fontSize: 30, fontWeight: "bold" }}>SPOREFALL.COM</span>
+          <div>A DEADLY PATHOGEN THREATENS TO OVERRUN THE</div>
+          <div>NATION CITY OF LIONARA. JOIN THE RESISTANCE</div>
+          <div>OR EMBRACE THE EVOLUTION.</div>
+        </div>
+
+        {/* Central Card */}
+        <div
+          style={{
+            display: "flex",
+            position: "relative",
+            width: 800,
+            height: 400,
+            marginBottom: 30,
+            overflow: "hidden",
+          }}
+        >
+          {/* Dark Overlay for Text Readability */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              zIndex: 1,
+            }}
+          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "100%",
+              height: "100%",
+              padding: "20px 0",
+              position: "relative",
+              zIndex: 10,
+            }}
+          >
+            <div style={{ display: "flex", color: "white", fontSize: 20, letterSpacing: "0.05em" }}>
+              TOTAL VOTES: {totalVotes.toLocaleString()}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                color: "#C2FF02",
+                fontSize: 60,
+                lineHeight: 0.85,
+                textShadow: "0 0 30px rgba(194,255,2,0.5)",
+              }}
+            >
+              <span>SPORE</span>
+              <span>FALL</span>
+            </div>
+            <div style={{ display: "flex", color: "white", fontSize: 20, letterSpacing: "0.05em" }}>
+              #RESISTOREVOLVE
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <div style={{ width: 800, display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 1 }}>
+            <span style={{ color: "white", fontSize: 24, letterSpacing: "0.05em" }}>{option1Name}</span>
+            <span style={{ color: "#C2FF02", fontSize: 24, letterSpacing: "0.05em" }}>{option2Name}</span>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              height: 40,
+              borderRadius: 20,
+              overflow: "hidden",
+              border: "1px solid rgba(255,255,255,0.2)",
+            }}
+          >
+            <div
+              style={{
+                width: `${percentage1}%`,
+                background: "white",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "black",
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
+            >
+              {percentage1}%
+            </div>
+            <div
+              style={{
+                width: `${percentage2}%`,
+                background: "#C2FF02",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "black",
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
+            >
+              {percentage2}%
+            </div>
+          </div>
         </div>
       </div>,
       {
-        width,
-        height,
+        width: width,
+        height: height,
         fonts: [
           {
             name: "Mokoto",
