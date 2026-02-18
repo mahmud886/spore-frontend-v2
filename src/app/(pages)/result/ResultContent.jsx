@@ -174,15 +174,20 @@ export default function ResultContent({ products: products = [], episodes: episo
     if (typeof window === "undefined") return "";
 
     const url = new URL(window.location.href);
-    const searchParams = url.searchParams;
+    const urlSearchParams = url.searchParams;
 
-    // Set UTM parameters while keeping existing ones (like episode)
-    searchParams.set("utm_source", platform.toLowerCase());
-    searchParams.set("utm_medium", "social");
-    searchParams.set("utm_campaign", "poll_share");
+    // Ensure episode param is present if we have it
+    if (episodeId && !urlSearchParams.has("episode")) {
+      urlSearchParams.set("episode", episodeId);
+    }
+
+    // Set UTM parameters while keeping existing ones
+    urlSearchParams.set("utm_source", platform.toLowerCase());
+    urlSearchParams.set("utm_medium", "social");
+    urlSearchParams.set("utm_campaign", "poll_share");
 
     if (pollData?.id) {
-      searchParams.set("utm_content", `poll_${pollData.id}`);
+      urlSearchParams.set("utm_content", `poll_${pollData.id}`);
     }
 
     return url.toString();
@@ -202,10 +207,25 @@ export default function ResultContent({ products: products = [], episodes: episo
     // Fallback for pollData during development/missing data
     const effectivePollData = pollData || { id: "default", question: "Check out SPORE FALL" };
 
-    const shareText = `${effectivePollData.question || "Check out this poll"} - Vote now on SPOREFALL.COM`;
     const utmUrl = getUTMUrl(platform);
-    const encodedText = encodeURIComponent(shareText);
+
+    const fullShareText = `SE Asia’s 1st Gen-AI sci-fi micro-drama just
+dropped the pen. ✍️
+
+Spore Fall wants YOU to decide:
+✊🏻 Resist
+🦅 Evolve
+
+Vote with me before it closes → ${utmUrl}
+First 1,000 unlock secret drops.
+
+Tag someone taking the red pill or blue pill
+below. 👇
+
+#ResistOrEvolve #SporeFall`;
+
     const encodedUrl = encodeURIComponent(utmUrl);
+    const encodedFullText = encodeURIComponent(fullShareText);
 
     // For Pinterest/Modal: Use a vertical format for Stories/TikTok if possible, or fallback to standard
     // Use the actual pollData.id if available, otherwise use "default"
@@ -216,15 +236,15 @@ export default function ResultContent({ products: products = [], episodes: episo
     let shareLink = "";
     const platformMap = {
       FACEBOOK: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
-      TWITTER: `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`,
-      X_SHARE: `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`,
+      TWITTER: `https://twitter.com/intent/tweet?text=${encodedFullText}`,
+      X_SHARE: `https://twitter.com/intent/tweet?text=${encodedFullText}`,
       LINKEDIN: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
-      WHATSAPP: `https://wa.me/?text=${encodedText}%0A${encodedUrl}`,
-      PINTEREST: `https://pinterest.com/pin/create/button/?url=${encodedUrl}&media=${encodedImage}&description=${encodedText}`,
-      TELEGRAM: `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`,
-      REDDIT: `https://reddit.com/submit?url=${encodedUrl}&title=${encodeURIComponent(effectivePollData.question || "Poll Results")}`,
+      WHATSAPP: `https://wa.me/?text=${encodedFullText}`,
+      PINTEREST: `https://pinterest.com/pin/create/button/?url=${encodedUrl}&media=${encodedImage}&description=${encodedFullText}`,
+      TELEGRAM: `https://t.me/share/url?url=${encodedUrl}&text=${encodedFullText}`,
+      REDDIT: `https://reddit.com/submit?url=${encodedUrl}&title=${encodedFullText}`,
       DISCORD: `https://discord.com/channels/@me`, // Discord doesn't support direct share URLs, opening app/web
-      THREADS: `https://www.threads.net/intent/post?text=${encodedText}%20${encodedUrl}`,
+      THREADS: `https://www.threads.net/intent/post?text=${encodedFullText}`,
       TIKTOK: "",
       IG_STORY: "",
     };
@@ -253,9 +273,24 @@ export default function ResultContent({ products: products = [], episodes: episo
 
   const copyToClipboard = async () => {
     try {
-      const shareText = `${pollData?.question || "Check out this poll"} - Vote now on SPOREFALL.COM`;
       const shareUrl = getUTMUrl("direct_copy");
-      await navigator.clipboard.writeText(`${shareText}\n\n${shareUrl}`);
+
+      const fullShareText = `SE Asia’s 1st Gen-AI sci-fi micro-drama just
+dropped the pen. ✍️
+
+Spore Fall wants YOU to decide:
+✊🏻 Resist
+🦅 Evolve
+
+Vote with me before it closes → ${shareUrl}
+First 1,000 unlock secret drops.
+
+Tag someone taking the red pill or blue pill
+below. 👇
+
+#ResistOrEvolve #SporeFall`;
+
+      await navigator.clipboard.writeText(fullShareText);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {}

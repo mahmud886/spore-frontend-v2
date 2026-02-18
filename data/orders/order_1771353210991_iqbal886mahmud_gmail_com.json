@@ -1,0 +1,110 @@
+{
+  "timestamp": "2026-02-17T18:33:30.989Z",
+  "orderId": "SPORE-S0LSSL5FU",
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "phone": "01670161693",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "Dhaka",
+      "state": "",
+      "postal_code": "1216",
+      "country": "BD"
+    }
+  },
+  "items": [
+    {
+      "id": 415484108,
+      "name": "Spore Fall: Long Sleeve Tee | Unisex | White  (Spore Fall: Long Sleeve Tee | Unisex | White )",
+      "description": "Spore Fall: Long Sleeve Tee | Unisex | White ",
+      "price": "42.50",
+      "images": [
+        {
+          "id": "main",
+          "url": "https://files.cdn.printful.com/files/9cb/9cbbf83397a8b247d20fb3a02b462db6_preview.png",
+          "alt": "Spore Fall: Long Sleeve Tee | Unisex | White "
+        }
+      ],
+      "variants": [
+        {
+          "id": 5157080803,
+          "name": "Spore Fall: Long Sleeve Tee | Unisex | White ",
+          "retail_price": "42.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/9cb/9cbbf83397a8b247d20fb3a02b462db6_preview.png",
+          "size": "S",
+          "color": "White",
+          "availability_status": "active"
+        },
+        {
+          "id": 5157089825,
+          "name": "Spore Fall: Long Sleeve Tee | Unisex | White  / M",
+          "retail_price": "29.00",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/9cb/9cbbf83397a8b247d20fb3a02b462db6_preview.png",
+          "size": "M",
+          "color": "White",
+          "availability_status": "active"
+        },
+        {
+          "id": 5157089826,
+          "name": "Spore Fall: Long Sleeve Tee | Unisex | White  / L",
+          "retail_price": "29.00",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/9cb/9cbbf83397a8b247d20fb3a02b462db6_preview.png",
+          "size": "L",
+          "color": "White",
+          "availability_status": "active"
+        },
+        {
+          "id": 5157089827,
+          "name": "Spore Fall: Long Sleeve Tee | Unisex | White  / XL",
+          "retail_price": "29.00",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/9cb/9cbbf83397a8b247d20fb3a02b462db6_preview.png",
+          "size": "XL",
+          "color": "White",
+          "availability_status": "active"
+        },
+        {
+          "id": 5157089828,
+          "name": "Spore Fall: Long Sleeve Tee | Unisex | White  / 2XL",
+          "retail_price": "31.00",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/9cb/9cbbf83397a8b247d20fb3a02b462db6_preview.png",
+          "size": "2XL",
+          "color": "White",
+          "availability_status": "active"
+        },
+        {
+          "id": 5157089829,
+          "name": "Spore Fall: Long Sleeve Tee | Unisex | White  / 3XL",
+          "retail_price": "30.50",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/9cb/9cbbf83397a8b247d20fb3a02b462db6_preview.png",
+          "size": "3XL",
+          "color": "White",
+          "availability_status": "active"
+        },
+        {
+          "id": 5157089830,
+          "name": "Spore Fall: Long Sleeve Tee | Unisex | White  / 4XL",
+          "retail_price": "33.00",
+          "currency": "USD",
+          "image": "https://files.cdn.printful.com/files/9cb/9cbbf83397a8b247d20fb3a02b462db6_preview.png",
+          "size": "4XL",
+          "color": "White",
+          "availability_status": "active"
+        }
+      ],
+      "category": "Apparel",
+      "external_id": "697349e4aa37b5",
+      "variant_id": 5157080803,
+      "image": "https://files.cdn.printful.com/files/9cb/9cbbf83397a8b247d20fb3a02b462db6_preview.png",
+      "quantity": 1,
+      "uniqueId": 5157080803
+    }
+  ],
+  "totalAmount": "42.50"
+}

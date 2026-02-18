@@ -1,0 +1,31 @@
+{
+  "orderId": "SPORE-ZWFISXH9S",
+  "status": "PAID",
+  "timestamp": "2026-02-14T11:18:14.205Z",
+  "stripeData": {
+    "sessionId": "cs_test_a17XCK6Is8XDfbVxRupjGCY2eGBUCiBCHirZlkWYrvVCbCwFZhIYKD7aSy",
+    "paymentIntentId": "pi_3T0grLKY7EJTycGh0FsXJR78",
+    "amountTotal": 25,
+    "currency": "usd",
+    "paymentStatus": "paid"
+  },
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "Dhaka",
+      "state": "Dhaka",
+      "postal_code": "1216",
+      "country": "US"
+    }
+  },
+  "products": [
+    {
+      "name": "Spore Fall: Long Sleeve Tee | Unisex | White",
+      "quantity": 1,
+      "price": 25,
+      "currency": "usd"
+    }
+  ]
+}

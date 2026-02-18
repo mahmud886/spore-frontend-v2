@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import { Suspense } from "react";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import CartDrawer from "./components/popups/CartDrawer";
 import { Analytics } from "./components/shared/Analytics";
 import BackgroundSetter from "./components/shared/BackgroundSetter";
 import ScrollToTop from "./components/shared/ScrollToTop";
@@ -90,6 +91,7 @@ export default function RootLayout({ children }) {
           <div className="cyber-screen-flicker">
             {/* max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 */}
             <Navbar />
+            <CartDrawer />
             {children}
             <Wrapper>
               <Footer />

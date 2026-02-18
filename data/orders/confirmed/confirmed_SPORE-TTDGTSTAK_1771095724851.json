@@ -1,0 +1,33 @@
+{
+  "orderId": "SPORE-TTDGTSTAK",
+  "status": "PAID",
+  "timestamp": "2026-02-14T19:02:04.851Z",
+  "stripeData": {
+    "sessionId": "cs_test_a1itEOBcmcuoSubRJhhlfExsHLSe5x3QE0BKMsfxlhs1TV5qdM6LBkZlZM",
+    "paymentIntentId": "pi_3T0o6EKY7EJTycGh1NE9MSHK",
+    "amountTotal": 25,
+    "currency": "usd",
+    "paymentStatus": "paid"
+  },
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "California",
+      "state": "NY",
+      "postal_code": "1216",
+      "country": "US"
+    }
+  },
+  "products": [
+    {
+      "name": "The Stacks: Clear Case for iPhone®",
+      "quantity": 1,
+      "price": 25,
+      "currency": "usd",
+      "variant_id": null
+    }
+  ],
+  "printfulError": "Printful API error: Recipient: Shipping address state and ZIP code don't match. Enter the correct state or ZIP code."
+}

@@ -1,0 +1,35 @@
+{
+  "orderId": "SPORE-0ICRM021U",
+  "status": "PAID",
+  "timestamp": "2026-02-17T18:08:11.351Z",
+  "type": "order",
+  "stripeData": {
+    "sessionId": "cs_test_a1oa7EwF6QnO1KrEji9U27vYvD5vLkwNb2qBsUNkl5yKECMVuH5kuCWT40",
+    "paymentIntentId": "pi_3T1sghKY7EJTycGh1K3ByBUi",
+    "amountTotal": 42.5,
+    "currency": "usd",
+    "paymentStatus": "paid"
+  },
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "phone": "01670161693",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "Dhaka",
+      "state": "CA",
+      "postal_code": "94501",
+      "country": "UN"
+    }
+  },
+  "products": [
+    {
+      "name": "Spore Fall: Long Sleeve Tee | Unisex | White  (Spore Fall: Long Sleeve Tee | Unisex | White )",
+      "quantity": 1,
+      "price": 42.5,
+      "currency": "usd",
+      "variant_id": "5157080803"
+    }
+  ],
+  "printfulError": "Printful API error: Recipient: Country is invalid."
+}

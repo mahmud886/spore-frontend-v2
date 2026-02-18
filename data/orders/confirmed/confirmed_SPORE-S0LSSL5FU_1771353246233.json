@@ -1,0 +1,37 @@
+{
+  "orderId": "SPORE-S0LSSL5FU",
+  "status": "PAID",
+  "timestamp": "2026-02-17T18:34:06.233Z",
+  "type": "order",
+  "stripeData": {
+    "sessionId": "cs_test_a14h6eVrQNJ17udHvjAJm0418XAnZjiUY8mbJb49n0VfHhL8Y4lzafE9C7",
+    "paymentIntentId": "pi_3T1t5nKY7EJTycGh0NcuMEMr",
+    "amountTotal": 42.5,
+    "currency": "usd",
+    "paymentStatus": "paid"
+  },
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "phone": "01670161693",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "Dhaka",
+      "state": "",
+      "postal_code": "1216",
+      "country": "BD"
+    }
+  },
+  "products": [
+    {
+      "name": "Spore Fall: Long Sleeve Tee | Unisex | White  (Spore Fall: Long Sleeve Tee | Unisex | White )",
+      "quantity": 1,
+      "price": 42.5,
+      "currency": "usd",
+      "variant_id": "5157080803"
+    }
+  ],
+  "printfulOrderId": 146415784,
+  "printfulStatus": "draft",
+  "printfulDashboardUrl": "https://www.printful.com/dashboard?order_id=146415784"
+}

@@ -1,0 +1,25 @@
+{
+  "orderId": "SPORE-5B1SZZ9LO",
+  "status": "PAID",
+  "timestamp": "2026-02-14T11:15:23.786Z",
+  "stripeData": {
+    "sessionId": "cs_test_a1ooR44q8YdEYdRagzYPepxPXM6YJeOJ2SsPTPej4JpLoIZQqLwlrYG6d3",
+    "paymentIntentId": "pi_3T0gobKY7EJTycGh1i9f6QbB",
+    "amountTotal": 25,
+    "currency": "usd",
+    "paymentStatus": "paid"
+  },
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {}
+  },
+  "products": [
+    {
+      "name": "Spore Fall: Tote Bag | Black",
+      "quantity": 1,
+      "price": 25,
+      "currency": "usd"
+    }
+  ]
+}

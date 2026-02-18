@@ -1,0 +1,35 @@
+{
+  "orderId": "SPORE-PDHB9FFA5",
+  "status": "PAID",
+  "timestamp": "2026-02-14T19:22:51.227Z",
+  "stripeData": {
+    "sessionId": "cs_test_a12x5JU4JS8Qfpqjmc7kT0bQ8yCYPQu8PmIqBwPRWryInQsNBmNC9fyuzD",
+    "paymentIntentId": "pi_3T0oQLKY7EJTycGh1k8pVwzI",
+    "amountTotal": 21.5,
+    "currency": "usd",
+    "paymentStatus": "paid"
+  },
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "Alameda",
+      "state": "CA",
+      "postal_code": "94501",
+      "country": "US"
+    }
+  },
+  "products": [
+    {
+      "name": "The Stacks: Clear Case for iPhone®",
+      "quantity": 1,
+      "price": 21.5,
+      "currency": "usd",
+      "variant_id": "5155860906"
+    }
+  ],
+  "printfulOrderId": 145960298,
+  "printfulStatus": "draft",
+  "printfulDashboardUrl": "https://www.printful.com/dashboard?order_id=145960298"
+}

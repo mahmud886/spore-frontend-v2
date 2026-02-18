@@ -1,0 +1,25 @@
+{
+  "orderId": "SPORE-CONF-1771073161885",
+  "status": "PAID",
+  "timestamp": "2026-02-14T12:46:01.885Z",
+  "stripeData": {
+    "sessionId": "cs_test_a1bHa6H3kwwAUYzBoh0lzFaTcHoEgJiENkNsQgof4ORYELSBUrOsGGL8uJ",
+    "paymentIntentId": "pi_3T0iEJKY7EJTycGh1dzdQjlZ",
+    "amountTotal": 39,
+    "currency": "usd",
+    "paymentStatus": "paid"
+  },
+  "customerData": {
+    "name": "MD IQBAL MAHMUD",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {}
+  },
+  "products": [
+    {
+      "name": "Support Spore Fall - THE ARCHIVIST",
+      "quantity": 1,
+      "price": 39,
+      "currency": "usd"
+    }
+  ]
+}

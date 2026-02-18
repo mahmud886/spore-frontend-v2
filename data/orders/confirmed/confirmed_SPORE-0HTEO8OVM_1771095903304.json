@@ -1,0 +1,33 @@
+{
+  "orderId": "SPORE-0HTEO8OVM",
+  "status": "PAID",
+  "timestamp": "2026-02-14T19:05:03.302Z",
+  "stripeData": {
+    "sessionId": "cs_test_a1wTTy0Wo4zsk6f7CLg04HsgCfV27sX88m4xWykCdELNjjS8YLbNVjrx4m",
+    "paymentIntentId": "pi_3T0o97KY7EJTycGh12zhoGl6",
+    "amountTotal": 25,
+    "currency": "usd",
+    "paymentStatus": "paid"
+  },
+  "customerData": {
+    "name": "Md. Iqbal Mahmud",
+    "email": "iqbal886mahmud@gmail.com",
+    "address": {
+      "line1": "Shahidbag, Mirpur 12, Pallabi",
+      "city": "California",
+      "state": "CA",
+      "postal_code": "94501",
+      "country": "US"
+    }
+  },
+  "products": [
+    {
+      "name": "Spore Fall: Long Sleeve Tee | Unisex | White",
+      "quantity": 1,
+      "price": 25,
+      "currency": "usd",
+      "variant_id": null
+    }
+  ],
+  "printfulError": "Printful API error: No items were added to this order"
+}

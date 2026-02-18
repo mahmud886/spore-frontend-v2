@@ -1,3 +1,4 @@
+import { createPendingDonation } from "@/app/lib/services/donations";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -48,13 +49,28 @@ export async function POST(req) {
       success_url: `${origin}/payment/payment-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/payment/payment-cancel`,
       metadata: {
+        type: "donation", // Key identifier for webhook
         tierId,
         tierName,
         supporterName: name,
+        customerEmail: email, // Store email in metadata for fallback
         supporterNote: note,
         mailingAddress,
       },
     });
+
+    // Save pending donation to Supabase (Background)
+    createPendingDonation({
+      stripeSessionId: session.id,
+      amount,
+      tierId,
+      tierName,
+      name,
+      email,
+      note,
+      mailingAddress,
+      metadata: session.metadata,
+    }).catch((err) => console.error("Failed to save pending donation:", err));
 
     return NextResponse.json({ url: session.url });
   } catch (error) {

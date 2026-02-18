@@ -266,17 +266,28 @@ async function getStoreProducts(limit = 20, offset = 0) {
  */
 async function getStoreProductDetail(productId) {
   try {
-    // Try the working products endpoint
-    const response = await printfulRequest(`/products/${productId}`);
+    // Try the store products endpoint first as it's most common for synced items
+    const response = await printfulRequest(`/store/products/${productId}`);
 
-    console.log("Product detail response:", response);
+    console.log("Store product detail response:", response);
 
     if ("result" in response) {
       return response.result;
     }
     return null;
   } catch (error) {
-    console.error("Error fetching product detail:", error);
+    console.error("Error fetching store product detail, trying catalog fallback:", error.message);
+
+    // Fallback to general products endpoint if store-specific fails
+    try {
+      const fallbackResponse = await printfulRequest(`/products/${productId}`);
+      if ("result" in fallbackResponse) {
+        return fallbackResponse.result;
+      }
+    } catch (fallbackError) {
+      console.error("Catalog fallback also failed:", fallbackError.message);
+    }
+
     throw error;
   }
 }
@@ -293,7 +304,18 @@ async function getStoreProductsByExternalIds(externalIds) {
 
     // Join external IDs with commas for the query parameter
     const externalIdsParam = externalIds.join(",");
-    // Since /products endpoint works, use it with external_ids parameter
+
+    // Try store products endpoint first
+    try {
+      const response = await printfulRequest(`/store/products?external_ids=${externalIdsParam}`);
+      if ("result" in response) {
+        return Array.isArray(response.result) ? response.result : [];
+      }
+    } catch (e) {
+      console.warn("Store products by external IDs failed, trying general products endpoint:", e.message);
+    }
+
+    // Fallback to general products endpoint
     const response = await printfulRequest(`/products?external_ids=${externalIdsParam}`);
 
     console.log("Products by external IDs response:", response);
@@ -489,9 +511,60 @@ async function createSyncProduct(productData) {
   }
 }
 
+/**
+ * Create an order in Printful
+ * @param {Object} orderData - Order data for Printful
+ */
+async function createOrder(orderData) {
+  try {
+    const storeId = getStoreId();
+    const endpoint = storeId ? `/orders?store_id=${storeId}` : "/orders";
+
+    const response = await printfulRequest(endpoint, {
+      method: "POST",
+      body: JSON.stringify(orderData),
+    });
+
+    if ("result" in response) {
+      console.log("Order created in Printful successfully:", response.result.id);
+      return response.result;
+    }
+
+    throw new Error("Invalid response format when creating order");
+  } catch (error) {
+    console.error("Error creating order in Printful:", error);
+    throw error;
+  }
+}
+
+/**
+ * Get an order from Printful by its external ID
+ * @param {string} externalId - The external ID of the order
+ */
+async function getOrderByExternalId(externalId) {
+  try {
+    const storeId = getStoreId();
+    // Printful allows fetching by external ID using the @ prefix
+    const endpoint = storeId ? `/orders/@${externalId}?store_id=${storeId}` : `/orders/@${externalId}`;
+
+    const response = await printfulRequest(endpoint);
+
+    if ("result" in response) {
+      return response.result;
+    }
+
+    return null;
+  } catch (error) {
+    console.error(`Error fetching order by external ID ${externalId}:`, error);
+    return null;
+  }
+}
+
 // Export all functions
 export {
+  createOrder,
   createSyncProduct,
+  getOrderByExternalId,
   getStoreProductDetail,
   getStoreProducts,
   getStoreProductsByExternalIds,
