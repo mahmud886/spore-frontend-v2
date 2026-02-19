@@ -235,10 +235,10 @@ below. 👇
 
     let shareLink = "";
     const platformMap = {
-      FACEBOOK: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+      FACEBOOK: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedFullText}`,
       TWITTER: `https://twitter.com/intent/tweet?text=${encodedFullText}`,
       X_SHARE: `https://twitter.com/intent/tweet?text=${encodedFullText}`,
-      LINKEDIN: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+      LINKEDIN: `https://www.linkedin.com/feed/?shareActive=true&text=${encodedFullText}`,
       WHATSAPP: `https://wa.me/?text=${encodedFullText}`,
       PINTEREST: `https://pinterest.com/pin/create/button/?url=${encodedUrl}&media=${encodedImage}&description=${encodedFullText}`,
       TELEGRAM: `https://t.me/share/url?url=${encodedUrl}&text=${encodedFullText}`,
