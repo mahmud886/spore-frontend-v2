@@ -92,6 +92,10 @@ export async function GET(request, { params }) {
     const fontPath = join(publicPath, "assets/fonts/mokoto/mokoto.ttf");
     const fontData = await readFile(fontPath);
 
+    // Read Gotham font file
+    const gothamPath = join(publicPath, "assets/fonts/gotham/GOTHAM-MEDIUM.TTF");
+    const gothamData = await readFile(gothamPath);
+
     // Read background image and convert to base64
     const bgPath = join(publicPath, "og-image-bg.jpg");
     const bgBuffer = await readFile(bgPath);
@@ -108,148 +112,234 @@ export async function GET(request, { params }) {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          fontFamily: "Mokoto, sans-serif",
           position: "relative",
-          backgroundColor: "black",
+          backgroundColor: "transparent",
         }}
       >
-        {/* Background Image */}
+        {/* Background Image - Absolute and Full Coverage */}
         <img
           src={bgBase64}
           style={{
             position: "absolute",
+            top: 0,
+            left: 0,
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            zIndex: -1,
           }}
         />
 
-        {/* Top Text */}
+        {/* Content Wrapper - Centered and Relative */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            marginBottom: 20,
-            color: "#C2FF02",
-            fontSize: 22,
-            lineHeight: 1.5,
-            letterSpacing: "0.05em",
-            textShadow: "0 0 10px rgba(0,0,0,0.8)",
-            textAlign: "center",
-            textTransform: "uppercase",
-          }}
-        >
-          <div>A DEADLY PATHOGEN THREATENS TO OVERRUN THE</div>
-          <div>NATION CITY OF LIONARA. JOIN THE RESISTANCE</div>
-          <div>OR EMBRACE THE EVOLUTION.</div>
-        </div>
-
-        {/* Central Card */}
-        <div
-          style={{
-            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+            height: "100%",
             position: "relative",
-            width: 800,
-            height: 400,
-            marginBottom: 30,
-            overflow: "hidden",
+            fontFamily: "Mokoto, sans-serif",
           }}
         >
-          {/* Dark Overlay for Text Readability */}
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              zIndex: 1,
-            }}
-          />
+          {/* Top Text */}
           <div
             style={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              justifyContent: "space-between",
-              width: "100%",
-              height: "100%",
-              padding: "20px 0",
-              position: "relative",
-              zIndex: 10,
+              marginBottom: 20,
+              color: "#C2FF02",
+              fontSize: 22,
+              lineHeight: 1.5,
+              letterSpacing: "0.05em",
+              textShadow: "0 0 10px rgba(0,0,0,0.8)",
+              textAlign: "center",
+              textTransform: "uppercase",
             }}
           >
-            <div style={{ display: "flex", color: "white", fontSize: 20, letterSpacing: "0.05em" }}>
-              TOTAL VOTES: {totalVotes.toLocaleString()}
-            </div>
+            <div>A DEADLY PATHOGEN THREATENS TO OVERRUN THE</div>
+            <div>NATION CITY OF LIONARA. JOIN THE RESISTANCE</div>
+            <div>OR EMBRACE THE EVOLUTION.</div>
+          </div>
+
+          {/* Central Card */}
+          <div
+            style={{
+              display: "flex",
+              position: "relative",
+              width: 800,
+              height: 250,
+              marginBottom: 30,
+              overflow: "hidden",
+            }}
+          >
+            {/* Dark Overlay for Text Readability */}
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                zIndex: 1,
+              }}
+            />
             <div
               style={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                color: "#C2FF02",
-                fontSize: 60,
-                lineHeight: 0.85,
-                textShadow: "0 0 30px rgba(194,255,2,0.5)",
+                justifyContent: "space-between",
+                width: "100%",
+                height: "100%",
+                padding: "20px 0",
+                position: "relative",
+                zIndex: 10,
               }}
             >
-              <span>SPORE</span>
-              <span>FALL</span>
-            </div>
-            <div style={{ display: "flex", color: "white", fontSize: 20, letterSpacing: "0.05em" }}>
-              #RESISTOREVOLVE
+              <div
+                style={{
+                  display: "flex",
+                  color: "white",
+                  fontSize: 20,
+                  letterSpacing: "0.05em",
+                  fontFamily: "sans-serif",
+                }}
+              >
+                Total Votes: {totalVotes.toLocaleString()}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  color: "#C2FF02",
+                  fontSize: 60,
+                  lineHeight: 0.85,
+                  textShadow: "0 0 30px rgba(194,255,2,0.5)",
+                }}
+              >
+                <span>SPORE</span>
+                <span>FALL</span>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  color: "white",
+                  fontSize: 20,
+                  letterSpacing: "0.05em",
+                  fontFamily: "Gotham, sans-serif",
+                }}
+              >
+                #ResistOrEvolve
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Bottom Section */}
-        <div style={{ width: 800, display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 1 }}>
-            <span style={{ color: "white", fontSize: 24, letterSpacing: "0.05em" }}>{option1Name}</span>
-            <span style={{ color: "#C2FF02", fontSize: 24, letterSpacing: "0.05em" }}>{option2Name}</span>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              width: "100%",
-              height: 40,
-              borderRadius: 20,
-              overflow: "hidden",
-              border: "1px solid rgba(255,255,255,0.2)",
-            }}
-          >
-            <div
-              style={{
-                width: `${percentage1}%`,
-                background: "white",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "black",
-                fontSize: 18,
-                fontWeight: "bold",
-              }}
-            >
-              {percentage1}%
+          {/* Bottom Section */}
+          <div style={{ width: 800, display: "flex", flexDirection: "column" }}>
+            {/* Top Labels */}
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
+              <span style={{ color: "white", fontSize: 24, letterSpacing: "0.05em", fontWeight: "bold" }}>
+                {option1Name}
+              </span>
+              <span style={{ color: "#C2FF02", fontSize: 24, letterSpacing: "0.05em", fontWeight: "bold" }}>
+                {option2Name}
+              </span>
             </div>
+
+            {/* Progress Bar */}
             <div
               style={{
-                width: `${percentage2}%`,
-                background: "#C2FF02",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "black",
-                fontSize: 18,
-                fontWeight: "bold",
+                position: "relative",
+                width: "100%",
+                height: 64, // h-16 = 64px
+                marginBottom: 5,
+                borderRadius: 32, // rounded-full
+                overflow: "hidden",
+                border: "1px solid rgba(255,255,255,0.1)", // border-white/10
+                backgroundColor: "rgba(0,0,0,0.4)", // bg-black/40
+                display: "flex", // Ensure children are flexed
               }}
             >
-              {percentage2}%
+              {/* Left Bar (Evolve) - Matches #9ca3af (gray-400) */}
+              <div
+                style={{
+                  width: `${percentage1}%`,
+                  height: "100%",
+                  backgroundImage:
+                    "repeating-linear-gradient(45deg, #9ca3af, #9ca3af 10px, #ffffff 10px, #ffffff 20px)",
+                  backgroundSize: "28px 28px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderTopLeftRadius: "9999px",
+                  borderBottomLeftRadius: "9999px",
+                }}
+              >
+                <span style={{ color: "black", fontSize: 24, fontWeight: "900", zIndex: 1 }}>{percentage1}%</span>
+              </div>
+
+              {/* Right Bar (Resist) - Matches #C2FF02 (neon green) and #a8db02 */}
+              <div
+                style={{
+                  width: `${percentage2}%`,
+                  height: "100%",
+                  backgroundImage:
+                    "repeating-linear-gradient(45deg, #C2FF02, #C2FF02 10px, #a8db02 10px, #a8db02 20px)",
+                  backgroundSize: "28px 28px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderTopRightRadius: "9999px",
+                  borderBottomRightRadius: "9999px",
+                }}
+              >
+                <span style={{ color: "black", fontSize: 24, fontWeight: "900", zIndex: 1 }}>{percentage2}%</span>
+              </div>
+
+              {/* VS Badge */}
+              <div
+                style={{
+                  position: "absolute",
+                  left: `${percentage1}%`,
+                  top: "50%",
+                  transform: "translate(-50%, -50%)", // Replaces negative margins
+                  width: 40, // w-10
+                  height: 40, // h-10
+                  borderRadius: "50%", // rounded-full
+                  backgroundColor: "black", // bg-black
+                  border: "2px solid #ef4444", // border-red-500 (#ef4444)
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  zIndex: 20, // z-20
+                  boxShadow: "0 0 20px rgba(239,68,68,0.5)", // shadow-[0_0_20px_rgba(239,68,68,0.5)]
+                }}
+              >
+                <span
+                  style={{
+                    color: "#ef4444", // text-red-500
+                    fontSize: 14, // text-sm
+                    fontWeight: "900", // font-black
+                    fontStyle: "italic", // italic
+                    letterSpacing: "-0.05em", // tracking-tighter
+                  }}
+                >
+                  VS
+                </span>
+              </div>
+            </div>
+
+            {/* Bottom Labels */}
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <span style={{ color: "rgba(255,255,255,0.7)", fontSize: 14, letterSpacing: "0.1em", fontWeight: "500" }}>
+                TRANSCEND HUMANITY
+              </span>
+              <span style={{ color: "rgba(255,255,255,0.7)", fontSize: 14, letterSpacing: "0.1em", fontWeight: "500" }}>
+                BURN THE OLD WORLD
+              </span>
             </div>
           </div>
         </div>
@@ -261,6 +351,11 @@ export async function GET(request, { params }) {
           {
             name: "Mokoto",
             data: fontData,
+            style: "normal",
+          },
+          {
+            name: "Gotham",
+            data: gothamData,
             style: "normal",
           },
         ],

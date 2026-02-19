@@ -234,8 +234,10 @@ below. 👇
     const encodedImage = encodeURIComponent(imageUrl);
 
     let shareLink = "";
+    // Note: Facebook deprecated the 'quote' parameter and generally ignores pre-filled text in sharer.php.
+    // However, we include it as a fallback in case it's supported in some contexts, but 'u' (URL) is the primary parameter.
     const platformMap = {
-      FACEBOOK: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedFullText}`,
+      FACEBOOK: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedFullText}&hashtag=%23ResistOrEvolve`,
       TWITTER: `https://twitter.com/intent/tweet?text=${encodedFullText}`,
       X_SHARE: `https://twitter.com/intent/tweet?text=${encodedFullText}`,
       LINKEDIN: `https://www.linkedin.com/feed/?shareActive=true&text=${encodedFullText}`,
