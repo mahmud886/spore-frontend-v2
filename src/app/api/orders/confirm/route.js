@@ -1,9 +1,7 @@
 import { createOrder } from "@/app/lib/printful";
 import { updateDonationPaymentStatus } from "@/app/lib/services/donations";
 import { updateOrderPaymentStatus } from "@/app/lib/services/orders";
-import fs from "fs";
 import { NextResponse } from "next/server";
-import path from "path";
 import Stripe from "stripe";
 
 const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY) : null;
@@ -82,14 +80,14 @@ export async function POST(req) {
     console.log("FULL DATA:", JSON.stringify(confirmedOrderData, null, 2));
     console.log("=======================================");
 
-    // 4. STORE CONFIRMED DATA TO DISK
-    const dirPath = path.join(process.cwd(), "data", "orders", "confirmed");
-    if (!fs.existsSync(dirPath)) {
-      fs.mkdirSync(dirPath, { recursive: true });
-    }
-    const fileName = `confirmed_${confirmedOrderData.orderId}_${Date.now()}.json`;
-    const filePath = path.join(dirPath, fileName);
-    fs.writeFileSync(filePath, JSON.stringify(confirmedOrderData, null, 2));
+    // 4. STORE CONFIRMED DATA TO DISK (Disabled for Production - Read-only FS)
+    // const dirPath = path.join(process.cwd(), "data", "orders", "confirmed");
+    // if (!fs.existsSync(dirPath)) {
+    //   fs.mkdirSync(dirPath, { recursive: true });
+    // }
+    // const fileName = `confirmed_${confirmedOrderData.orderId}_${Date.now()}.json`;
+    // const filePath = path.join(dirPath, fileName);
+    // fs.writeFileSync(filePath, JSON.stringify(confirmedOrderData, null, 2));
 
     // Skip Printful for donations
     if (isDonation) {
@@ -206,7 +204,7 @@ export async function POST(req) {
           confirmedOrderData.printfulDashboardUrl = printfulOrder.dashboard_url;
 
           // Re-save with Printful info
-          fs.writeFileSync(filePath, JSON.stringify(confirmedOrderData, null, 2));
+          // fs.writeFileSync(filePath, JSON.stringify(confirmedOrderData, null, 2));
         }
       } catch (pError) {
         console.error("❌ Printful Order Creation Failed:");
@@ -215,7 +213,7 @@ export async function POST(req) {
           console.error("- Response:", JSON.stringify(pError.response, null, 2));
         }
         confirmedOrderData.printfulError = pError.message;
-        fs.writeFileSync(filePath, JSON.stringify(confirmedOrderData, null, 2));
+        // fs.writeFileSync(filePath, JSON.stringify(confirmedOrderData, null, 2));
       }
     } else {
       console.warn("⚠️ Skipping Printful order: PRINTFUL_API_KEY is not set.");
