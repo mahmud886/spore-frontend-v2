@@ -143,8 +143,11 @@ export default async function BlogDetailsPage({ params }) {
               Render content with line breaks preserved.
               Since the content is plain text with newlines, we can split by newline
               and render paragraphs, or use whitespace-pre-wrap style.
-            */}
-            <div className="font-body text-white/80 leading-relaxed whitespace-pre-wrap space-y-6">{blog.content}</div>
+          {/* Content */}
+            <div
+              className="font-body text-white/80 leading-relaxed space-y-6 blog-content"
+              dangerouslySetInnerHTML={{ __html: blog.content }}
+            />
           </div>
 
           {/* Footer / Share / Navigation */}

@@ -49,6 +49,7 @@ export async function getBlogBySlug(slug) {
 
   return {
     ...blog,
+    content: blog.content,
     description: blog.excerpt,
     image: blog.cover_image,
     imageAlt: blog.title,
