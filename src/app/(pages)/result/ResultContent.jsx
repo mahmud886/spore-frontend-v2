@@ -84,7 +84,9 @@ export default function ResultContent({ products: products = [], episodes: episo
     }
 
     const totalVotes = (pollData.options || []).reduce((sum, opt) => sum + (opt.votes || opt.vote_count || 0), 0);
-    const imageUrl = `${window.location.origin}/api/polls/${pollData.id}/image?format=png&size=facebook`;
+    // Add a timestamp to bust social media caches (especially Facebook)
+    const timestamp = new Date().getTime();
+    const imageUrl = `${window.location.origin}/api/polls/${pollData.id}/image?format=png&size=facebook&t=${timestamp}`;
     const shareUrl = window.location.href.split("?")[0];
 
     const updateMetaTag = (property, content) => {
@@ -252,6 +254,17 @@ below. 👇
     };
 
     shareLink = platformMap[platformUpper] || "";
+
+    if (platformUpper === "FACEBOOK") {
+      // Facebook doesn't support pre-filling text, so we copy it to clipboard for the user
+      navigator.clipboard
+        .writeText(fullShareText)
+        .then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        })
+        .catch(() => {});
+    }
 
     if (shareLink) {
       console.log("Opening share link:", shareLink);

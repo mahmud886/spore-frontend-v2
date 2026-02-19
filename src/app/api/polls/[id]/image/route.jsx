@@ -148,7 +148,7 @@ export async function GET(request, { params }) {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              marginBottom: 20,
+              marginBottom: 40,
               color: "#C2FF02",
               fontSize: 22,
               lineHeight: 1.5,
@@ -170,7 +170,7 @@ export async function GET(request, { params }) {
               position: "relative",
               width: 800,
               height: 250,
-              marginBottom: 30,
+              marginBottom: 50,
               overflow: "hidden",
             }}
           >
@@ -333,14 +333,14 @@ export async function GET(request, { params }) {
             </div>
 
             {/* Bottom Labels */}
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            {/* <div style={{ display: "flex", justifyContent: "space-between" }}>
               <span style={{ color: "rgba(255,255,255,0.7)", fontSize: 14, letterSpacing: "0.1em", fontWeight: "500" }}>
                 TRANSCEND HUMANITY
               </span>
               <span style={{ color: "rgba(255,255,255,0.7)", fontSize: 14, letterSpacing: "0.1em", fontWeight: "500" }}>
                 BURN THE OLD WORLD
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>,
