@@ -62,8 +62,8 @@ export async function generateMetadata({ searchParams: searchParamsPromise }) {
   };
   const sizeParam = platformSizeMap[platform] || "facebook";
   const ogImage = pollIdForImage
-    ? `${base}/api/polls/${encodeURIComponent(pollIdForImage)}/image?size=${sizeParam}&format=jpg`
-    : `${base}/api/og`;
+    ? `${base}/api/polls/${encodeURIComponent(pollIdForImage)}/image?size=${sizeParam}&format=jpg&v=3`
+    : `${base}/api/polls/default/image?size=${sizeParam}&format=jpg&v=3`;
 
   const url = `${base}/result${episodeId || pollParam ? "?" : ""}${
     episodeId ? `episode=${encodeURIComponent(episodeId)}` : ""
