@@ -61,9 +61,11 @@ export async function generateMetadata({ searchParams: searchParamsPromise }) {
     tiktok: "tiktok",
   };
   const sizeParam = platformSizeMap[platform] || "facebook";
+  // Bump version to force cache refresh on social platforms
+  const version = "5";
   const ogImage = pollIdForImage
-    ? `${base}/api/polls/${encodeURIComponent(pollIdForImage)}/image?size=${sizeParam}&format=jpg&v=3`
-    : `${base}/api/polls/default/image?size=${sizeParam}&format=jpg&v=3`;
+    ? `${base}/api/polls/${encodeURIComponent(pollIdForImage)}/image?size=${sizeParam}&format=jpg&v=${version}`
+    : `${base}/api/polls/default/image?size=${sizeParam}&format=jpg&v=${version}`;
 
   const url = `${base}/result${episodeId || pollParam ? "?" : ""}${
     episodeId ? `episode=${encodeURIComponent(episodeId)}` : ""
