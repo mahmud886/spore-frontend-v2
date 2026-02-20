@@ -98,7 +98,7 @@ export default async function BlogDetailsPage({ params }) {
               </span>
             </div>
 
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading mb-8 leading-tight glitch-text">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-subheading mb-8 leading-tight glitch-text">
               {blog.title}
             </h1>
 
