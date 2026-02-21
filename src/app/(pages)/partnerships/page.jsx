@@ -18,7 +18,20 @@ export async function generateMetadata() {
   return {
     title,
     description,
-    keywords: ["Partnerships", "Investors", "Sci-Fi IP", "Transmedia", "Entertainment Investment"],
+    keywords: [
+      // Top Level SEO
+      "Spore Fall", "Sporefall", "The Spore Fall", "The Spore", "The Sporefall", "Spore",
+      "Spore Fall Saga", "Sporefall Saga", "The Spore Saga", "The Sporefall Saga", "Spore Saga",
+      "Spore Fall Chronicles", "Sporefall Chronicles", "The Spore Chronicles", "The Sporefall Chronicles", "Spore Chronicles",
+      // Partnership specific
+      "Partnerships", "Investors", "Sci-Fi IP", "Transmedia", "Entertainment Investment",
+      "Edenstone Group", "Edenstone IP",
+      "Scalable intellectual property", "IP development platform", "De-risking IP development",
+      "Community co-creation", "Franchise valuation levers", "Original IP valuation",
+      "Media franchise development", "Scalable entertainment franchise", "Media and entertainment investment opportunities",
+      "AI-enhanced storytelling", "AI world-building", "Web3 entertainment", "Web3 community engagement",
+      "Multi-platform narrative", "Transmedia IP", "Immersive storytelling", "Interactive narrative experience"
+    ],
     openGraph: {
       title,
       description,
