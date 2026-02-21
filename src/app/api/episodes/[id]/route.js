@@ -23,6 +23,11 @@ export async function GET(request, { params }) {
       return createErrorResponse("Failed to fetch episode", 500, error.message);
     }
 
+    // Remove sensitive data
+    if (data) {
+      delete data.password;
+    }
+
     return createResponse({ episode: data });
   } catch (error) {
     return createErrorResponse("Internal server error", 500, error.message);
@@ -101,6 +106,11 @@ export async function PUT(request, { params }) {
         return createErrorResponse("Episode with this unique ID already exists", 409, error.message);
       }
       return createErrorResponse("Failed to update episode", 500, error.message);
+    }
+
+    // Remove sensitive data
+    if (data) {
+      delete data.password;
     }
 
     return createResponse({

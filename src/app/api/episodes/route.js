@@ -48,8 +48,14 @@ export async function GET(request) {
       return createErrorResponse("Failed to fetch episodes", 500, error.message);
     }
 
+    // Remove sensitive data from all episodes
+    const sanitizedEpisodes = (data || []).map((episode) => {
+      const { password, ...rest } = episode;
+      return rest;
+    });
+
     return createResponse({
-      episodes: data || [],
+      episodes: sanitizedEpisodes,
       total: count || 0,
       limit,
       offset,
@@ -114,6 +120,11 @@ export async function POST(request) {
         return createErrorResponse("Episode with this unique ID already exists", 409, error.message);
       }
       return createErrorResponse("Failed to create episode", 500, error.message);
+    }
+
+    // Remove sensitive data
+    if (data) {
+      delete data.password;
     }
 
     return createResponse(
