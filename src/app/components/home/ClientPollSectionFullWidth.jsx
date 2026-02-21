@@ -13,36 +13,40 @@ export default function ClientPollSectionFullWidth({ poll }) {
 
   if (!poll) return null;
 
-  const evolveOption = poll.options?.find((opt) => {
-    const name = (opt?.name || opt?.text || "").toUpperCase();
-    return name === "EVOLVE" || name === "EVOLUTION";
-  });
-  const resistOption = poll.options?.find((opt) => {
-    const name = (opt?.name || opt?.text || "").toUpperCase();
-    return name === "RESIST" || name === "RESISTANCE" || name === "CONTAIN";
-  });
+  // Helper to extract name safely
+  const getName = (opt, fallback) => {
+    if (!opt) return fallback;
+    return (opt.text || opt.option_text || opt.name || opt.label || opt.title || fallback).toUpperCase();
+  };
 
-  const firstOption = evolveOption || poll.options?.[0];
-  const secondOption = resistOption || poll.options?.[1];
+  // Helper to extract description safely
+  const getDescription = (opt, defaultLabel) => {
+    if (!opt) return defaultLabel;
+    if (opt.description) return opt.description;
 
-  const firstOptionName = firstOption?.name || firstOption?.text || "EVOLVE";
-  const secondOptionName = secondOption?.name || secondOption?.text || "RESIST";
-  const firstOptionDescription =
-    firstOption?.description || "Transcend humanity. Unlock your latent code. Be something more.";
-  const secondOptionDescription =
-    secondOption?.description || "Preserve Order. Burn the old world. Rebuild from ashes.";
+    // Fallback for Evolve/Resist themes only if description is missing
+    const name = getName(opt, "").toUpperCase();
+    if (name === "EVOLVE" || name === "EVOLUTION")
+      return "Transcend humanity. Unlock your latent code. Be something more.";
+    if (name === "RESIST" || name === "RESISTANCE" || name === "CONTAIN")
+      return "Preserve Order. Burn the old world. Rebuild from ashes.";
+
+    return defaultLabel;
+  };
+
+  const firstOption = poll.options?.[0];
+  const secondOption = poll.options?.[1];
+
+  const firstOptionName = getName(firstOption, "OPTION 1");
+  const secondOptionName = getName(secondOption, "OPTION 2");
+
+  const firstOptionDescription = getDescription(firstOption, "Make your choice.");
+  const secondOptionDescription = getDescription(secondOption, "Decide the future.");
+
   const phase = poll.title || "Phase 02: Alignment";
   const title = poll.question || poll.description || "Shape The Next Chapter of the Story";
 
-  const subtitle =
-    evolveOption && resistOption
-      ? "EVOLVE vs RESIST"
-      : poll.options?.length
-        ? poll.options
-            .map((opt) => opt?.name || opt?.text || "")
-            .filter(Boolean)
-            .join(" vs ")
-        : "EVOLVE vs RESIST";
+  const subtitle = firstOption && secondOption ? `${firstOptionName} vs ${secondOptionName}` : "CHOOSE YOUR SIDE";
 
   const submitVote = async (optionId) => {
     if (isSubmitting) return;

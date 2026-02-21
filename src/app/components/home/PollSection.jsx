@@ -17,57 +17,55 @@ export default async function PollSection() {
 
   if (!pollData) return null;
 
-  // Calculate pollResultProps and heroHeaderProps
-  const evolveOption = pollData.options?.find((opt) => {
-    const name = (opt?.name || opt?.text || "").toUpperCase();
-    return name === "EVOLVE" || name === "EVOLUTION";
-  });
-  const resistOption = pollData.options?.find((opt) => {
-    const name = (opt?.name || opt?.text || "").toUpperCase();
-    return name === "RESIST" || name === "RESISTANCE" || name === "CONTAIN";
-  });
+  // Helper to extract name safely
+  const getName = (opt, fallback) => {
+    if (!opt) return fallback;
+    return (opt.text || opt.option_text || opt.name || opt.label || opt.title || fallback).toUpperCase();
+  };
 
-  const option1 = evolveOption || pollData.options[0];
-  const option2 = resistOption || pollData.options[1] || pollData.options[0];
-
-  const getSubLabel = (opt, defaultLabel) => {
-    if (opt?.description) return opt.description;
-    const name = (opt?.name || opt?.text || "").toUpperCase();
+  // Helper to extract description safely
+  const getDescription = (opt, defaultLabel) => {
+    if (!opt) return defaultLabel;
+    if (opt.description) return opt.description;
+    // Fallback for Evolve/Resist themes only if description is missing
+    const name = getName(opt, "").toUpperCase();
     if (name === "EVOLVE" || name === "EVOLUTION") return "TRANSCEND HUMANITY";
     if (name === "RESIST" || name === "RESISTANCE" || name === "CONTAIN") return "BURN THE OLD WORLD";
     return defaultLabel;
   };
 
-  const pollResultProps =
-    option1 && option2
-      ? {
-          faction1: {
-            name: (option1.text || option1.option_text || "EVOLVE").toUpperCase(),
-            subLabel: getSubLabel(option1, "TRANSCEND HUMANITY"),
-            percentage:
-              (option1.votes || option1.vote_count || 0) + (option2.votes || option2.vote_count || 0) > 0
-                ? Math.round(
-                    ((option1.votes || option1.vote_count || 0) /
-                      ((option1.votes || option1.vote_count || 0) + (option2.votes || option2.vote_count || 0))) *
-                      100,
-                  )
-                : 50,
-          },
-          faction2: {
-            name: (option2.text || option2.option_text || "RESIST").toUpperCase(),
-            subLabel: getSubLabel(option2, "BURN THE OLD WORLD"),
-            percentage:
-              (option1.votes || option1.vote_count || 0) + (option2.votes || option2.vote_count || 0) > 0
-                ? Math.round(
-                    ((option2.votes || option2.vote_count || 0) /
-                      ((option1.votes || option1.vote_count || 0) + (option2.votes || option2.vote_count || 0))) *
-                      100,
-                  )
-                : 50,
-          },
-          centerLabel: pollData.question || pollData.title || "THE CITY STANDS DIVIDED",
-        }
-      : null;
+  const option1 = pollData.options[0];
+  const option2 = pollData.options[1] || { text: "OPTION 2", votes: 0 };
+
+  const pollResultProps = option1
+    ? {
+        faction1: {
+          name: getName(option1, "OPTION 1"),
+          subLabel: getDescription(option1, ""),
+          percentage:
+            (option1.votes || option1.vote_count || 0) + (option2.votes || option2.vote_count || 0) > 0
+              ? Math.round(
+                  ((option1.votes || option1.vote_count || 0) /
+                    ((option1.votes || option1.vote_count || 0) + (option2.votes || option2.vote_count || 0))) *
+                    100,
+                )
+              : 50,
+        },
+        faction2: {
+          name: getName(option2, "OPTION 2"),
+          subLabel: getDescription(option2, ""),
+          percentage:
+            (option1.votes || option1.vote_count || 0) + (option2.votes || option2.vote_count || 0) > 0
+              ? Math.round(
+                  ((option2.votes || option2.vote_count || 0) /
+                    ((option1.votes || option1.vote_count || 0) + (option2.votes || option2.vote_count || 0))) *
+                    100,
+                )
+              : 50,
+        },
+        centerLabel: pollData.question || pollData.title || "THE CITY STANDS DIVIDED",
+      }
+    : null;
 
   const heroHeaderProps = {
     heading: "A NATION\nDIVIDED",

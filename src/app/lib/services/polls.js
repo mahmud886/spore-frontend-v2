@@ -66,5 +66,7 @@ export async function getLiveNotEndedPolls() {
 
 export async function getLatestLiveNotEndedPoll() {
   const list = await getLiveNotEndedPolls();
-  return list[0] || null;
+  // Prioritize episode polls
+  const episodePoll = list.find((p) => p.episodeId);
+  return episodePoll || list[0] || null;
 }

@@ -55,9 +55,7 @@ export default function ProductCard({ product }) {
               <Image
                 alt={imageAlt || name}
                 className={`${
-                  customContent
-                    ? "relative z-10 w-2/3 h-2/3 object-contain"
-                    : "w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500"
+                  customContent ? "relative z-10 w-2/3 h-2/3 object-contain" : "w-full h-full object-cover"
                 }`}
                 src={image}
                 width={imageWidth}

@@ -312,57 +312,60 @@ below. 👇
   };
 
   const getPollResultProps = () => {
-    if (!pollData || !pollData.options || pollData.options.length < 2) {
+    // Helper to extract name safely
+    const getName = (opt, fallback) => {
+      if (!opt) return fallback;
+      return (opt.text || opt.option_text || opt.name || opt.label || opt.title || fallback).toUpperCase();
+    };
+
+    // Helper to extract description safely
+    const getDescription = (opt, defaultLabel) => {
+      if (!opt) return defaultLabel;
+      if (opt.description) return opt.description;
+      // Fallback for Evolve/Resist themes only if description is missing
+      const name = getName(opt, "").toUpperCase();
+      if (name === "EVOLVE" || name === "EVOLUTION") return "TRANSCEND HUMANITY";
+      if (name === "RESIST" || name === "RESISTANCE" || name === "CONTAIN") return "BURN THE OLD WORLD";
+      return defaultLabel;
+    };
+
+    // Handle missing or partial data
+    if (!pollData || !pollData.options || pollData.options.length === 0) {
       return {
         faction1: {
-          name: "EVOLVE",
-          subLabel: "TRANSCEND HUMANITY",
+          name: "OPTION 1",
+          subLabel: "Loading options...",
           percentage: 50,
         },
         faction2: {
-          name: "RESIST",
-          subLabel: "BURN THE OLD WORLD",
+          name: "OPTION 2",
+          subLabel: "Loading options...",
           percentage: 50,
         },
         centerLabel: "THE CITY STANDS DIVIDED",
       };
     }
 
-    const evolveOption = pollData.options?.find((opt) => {
-      const name = (opt?.name || opt?.text || "").toUpperCase();
-      return name === "EVOLVE" || name === "EVOLUTION";
-    });
-    const resistOption = pollData.options?.find((opt) => {
-      const name = (opt?.name || opt?.text || "").toUpperCase();
-      return name === "RESIST" || name === "RESISTANCE" || name === "CONTAIN";
-    });
-
-    const option1 = evolveOption || pollData.options[0];
-    const option2 = resistOption || pollData.options[1] || pollData.options[0];
-
-    const getSubLabel = (opt, defaultLabel) => {
-      if (opt?.description) return opt.description;
-      const name = (opt?.name || opt?.text || "").toUpperCase();
-      if (name === "EVOLVE" || name === "EVOLUTION") return "TRANSCEND HUMANITY";
-      if (name === "RESIST" || name === "RESISTANCE" || name === "CONTAIN") return "BURN THE OLD WORLD";
-      return defaultLabel;
-    };
+    // Dynamic handling: Take first two options, or fallback if only 1 exists
+    const option1 = pollData.options[0];
+    const option2 = pollData.options[1] || { text: "OPTION 2", votes: 0 };
 
     const votes1 = option1.votes || option1.vote_count || 0;
     const votes2 = option2.votes || option2.vote_count || 0;
     const totalVotes = votes1 + votes2;
+
     const percentage1 = totalVotes > 0 ? Math.round((votes1 / totalVotes) * 100) : 50;
-    const percentage2 = totalVotes > 0 ? Math.round((votes2 / totalVotes) * 100) : 50;
+    const percentage2 = totalVotes > 0 ? 100 - percentage1 : 50;
 
     return {
       faction1: {
-        name: (option1.text || option1.option_text || "EVOLVE").toUpperCase(),
-        subLabel: getSubLabel(option1, "TRANSCEND HUMANITY"),
+        name: getName(option1, "OPTION 1"),
+        subLabel: getDescription(option1, ""),
         percentage: percentage1,
       },
       faction2: {
-        name: (option2.text || option2.option_text || "RESIST").toUpperCase(),
-        subLabel: getSubLabel(option2, "BURN THE OLD WORLD"),
+        name: getName(option2, "OPTION 2"),
+        subLabel: getDescription(option2, ""),
         percentage: percentage2,
       },
       centerLabel: pollData.question || pollData.title || "THE CITY STANDS DIVIDED",

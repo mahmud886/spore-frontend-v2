@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, ShoppingCart, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { Wrapper } from "./shared/Wrapper";
 
 export default function Navbar() {
@@ -14,7 +14,13 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const toggleCart = useCartStore((state) => state.toggleCart);
   const itemCount = useCartStore((state) => state.getItemCount());
-  const isClient = typeof window !== "undefined";
+
+  const isClient = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+
   const [currentHash, setCurrentHash] = useState("");
 
   useEffect(() => {
@@ -132,7 +138,7 @@ export default function Navbar() {
               aria-label="Toggle Cart"
             >
               <ShoppingCart size={20} className="group-hover:scale-110 transition-transform" />
-              {itemCount > 0 && (
+              {isClient && itemCount > 0 && (
                 <motion.span
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}

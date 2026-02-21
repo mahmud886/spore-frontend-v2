@@ -60,16 +60,8 @@ function getDynamicCenterLabel(faction1Percentage, faction2Percentage) {
 }
 
 export default function PollResultSection({
-  faction1 = {
-    name: "EVOLVE",
-    subLabel: "TRANSCEND HUMANITY",
-    percentage: 50,
-  },
-  faction2 = {
-    name: "RESIST",
-    subLabel: "BURN THE OLD WORLD",
-    percentage: 50,
-  },
+  faction1 = { name: "OPTION 1", subLabel: "Loading...", percentage: 50 },
+  faction2 = { name: "OPTION 2", subLabel: "Loading...", percentage: 50 },
   centerLabel, // Will be dynamically generated if not provided
 }) {
   // Generate dynamic center label based on percentages

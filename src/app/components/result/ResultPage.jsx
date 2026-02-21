@@ -12,19 +12,7 @@ import PollResultSection from "./PollResultSection";
 export default function ResultPage({
   heroHeaderProps,
   countdownProps,
-  pollResultProps = {
-    faction1: {
-      name: "EVOLVE",
-      subLabel: "TRANSCEND HUMANITY",
-      percentage: 50,
-    },
-    faction2: {
-      name: "RESIST",
-      subLabel: "BURN THE OLD WORLD",
-      percentage: 50,
-    },
-    centerLabel: "THE CITY STANDS DIVIDED",
-  },
+  pollResultProps,
   identityArtifactProps,
   userProfileProps,
   productsProps,
