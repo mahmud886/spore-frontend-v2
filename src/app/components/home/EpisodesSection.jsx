@@ -521,6 +521,12 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
   };
 
   const handleWatchNowClick = (episode) => {
+    // Check for locked status first
+    if (episode.status === "locked") {
+      router.push(`/premiere/${episode.id}`);
+      return;
+    }
+
     // Check if episode has a videoUrl
     if (episode.videoUrl) {
       // Open YouTube modal
@@ -966,7 +972,12 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
             )}
             {episode.status === "locked" && (
               <button
-                className="border border-white/20 text-white/30 text-[9px] font-bold px-3 py-1.5 uppercase transition-all duration-300 group-hover:bg-white group-hover:border-white group-hover:text-black"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleWatchNowClick(episode);
+                }}
+                className="cursor-pointer border border-white/20 text-white/30 text-[9px] font-bold px-3 py-1.5 uppercase transition-all duration-300 group-hover:bg-white group-hover:border-white group-hover:text-black"
                 style={{
                   borderTopRightRadius: "4px",
                   borderBottomLeftRadius: "4px",
