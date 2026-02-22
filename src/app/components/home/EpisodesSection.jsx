@@ -798,7 +798,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
           }}
         >
           <Image
-            alt={episode.title}
+            alt={`Watch Spore Episode: ${episode.title}`}
             className={`object-cover w-full h-full group-hover:scale-110 transition-transform duration-500 ${
               episode.status === "locked" ? "grayscale" : episode.status === "upcoming" ? "grayscale" : ""
             }`}

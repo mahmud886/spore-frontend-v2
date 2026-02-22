@@ -111,7 +111,7 @@ export default function ShareMediaModal({ isOpen, onClose, imageUrl, shareUrl, p
                   imageUrl && (
                     <Image
                       src={imageUrl}
-                      alt="Share Preview"
+                      alt="Spore Content Share Preview - Social Media Asset"
                       fill
                       className={`object-cover transition-opacity duration-500 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
                       unoptimized

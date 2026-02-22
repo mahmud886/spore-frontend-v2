@@ -10,7 +10,7 @@ export const InvestorsAndPartners = () => {
           <Image
             width={523}
             height={380}
-            alt="Futuristic Handshake"
+            alt="Edenstone Group - Strategic Investment and Partnership Opportunities"
             className="relative rounded-lg w-full h-auto object-cover border border-white/20"
             src="/assets/images/partnerships/investors-partners.webp"
           />

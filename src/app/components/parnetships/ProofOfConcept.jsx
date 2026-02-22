@@ -11,7 +11,7 @@ export const ProofOfConcept = () => {
           <Image
             width={636}
             height={462}
-            alt="Spore Fall Visual"
+            alt="Spore Fall: Flagship Narrative Universe and Proof of Concept"
             className="relative rounded-lg w-full h-full object-cover border border-white/20"
             src="/assets/images/partnerships/proof-of-concept.webp"
           />

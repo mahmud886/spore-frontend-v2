@@ -29,7 +29,7 @@ export function PrologueSection() {
         <div className="absolute inset-0 h-[800px]">
           <Image
             src="/assets/images/synopsis.webp"
-            alt="Prologue Background"
+            alt="Spore Prologue: Atmospheric Sci-Fi Background"
             className="w-full h-full object-cover"
             fill
             sizes="100vw"
@@ -70,7 +70,7 @@ export function PrologueSection() {
                 >
                   <Image
                     src={thumbSrc}
-                    alt="Prologue Video Thumbnail"
+                    alt="Watch Spore Prologue Video: An Introduction to the Spore Universe"
                     fill
                     sizes="100vw"
                     priority={false}

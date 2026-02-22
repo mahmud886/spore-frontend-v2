@@ -9,7 +9,7 @@ export const PartnerInWorldBuilding = () => {
           <Image
             width={600}
             height={276}
-            alt="World Building Header"
+            alt="Edenstone Group Partner Program: Building New Story Worlds"
             className="w-full h-auto min-h-[256px] object-cover grayscale hover:grayscale-0 transition-all duration-700"
             src="/assets/images/partnerships/partner-in-word-build.webp"
           />

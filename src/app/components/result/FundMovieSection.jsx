@@ -29,7 +29,7 @@ export default function FundMovieSection() {
               <div className="relative aspect-video w-full overflow-hidden">
                 <Image
                   src="/assets/images/fund-the-movie.jpg"
-                  alt="Fund The Movie"
+                  alt="Fund the Spore Movie - Cinematic Experience"
                   fill
                   sizes="(max-width: 1268px) 100vw, 1268px"
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"

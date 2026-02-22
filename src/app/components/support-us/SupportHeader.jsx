@@ -59,7 +59,7 @@ export const SupportHeader = () => {
             <Image
               width={141}
               height={141}
-              alt="Creator Profile"
+              alt="Spore Fall Creator Profile - A Message from the Team"
               className="w-[300px] h-[300px] rounded-full object-cover"
               src="/assets/images/support-us/support-image.webp"
             />

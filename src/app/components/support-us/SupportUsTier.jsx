@@ -324,7 +324,7 @@ export const SupportUsTier = () => {
                     >
                       <Image
                         src="/assets/images/support-us/stripe-logo.svg"
-                        alt="Stripe"
+                        alt="Stripe - Secure Payment Processor"
                         width={60}
                         height={25}
                         className="h-10 w-auto "

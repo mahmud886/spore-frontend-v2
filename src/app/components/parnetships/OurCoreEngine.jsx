@@ -6,21 +6,21 @@ const CORE_ENGINE_DATA = [
     description:
       "We craft rich, detailed universes using AI tools to create coherent lore, complex ecosystems, and evolving storylines—as seen in Spore Fall.",
     image: "/assets/images/partnerships/core-engine1.webp",
-    alt: "AI Powered World Building",
+    alt: "Edenstone Core Engine: AI-Powered World Building",
   },
   {
     title: "Transmedia Development",
     description:
       "We engineer narratives to unfold as interconnected experiences across digital, physical, and interactive platforms. Whether a film, an (AR) augmented reality activation, or a digital collectible, each serves as a unique entry point into a deeper experience.",
     image: "/assets/images/partnerships/core-engine2.webp",
-    alt: "Transmedia Development",
+    alt: "Edenstone Core Engine: Transmedia Development",
   },
   {
     title: "Community & Audience Co-Creation:",
     description:
       "A story universe needs a heartbeat. Web 3.0 is our connective pulse, bridging narrative, community, and engagement. By leveraging Web 3.0 tools—from digital ownership to interactive protocols—we empower fandom to actively participate in and help shape the unfolding saga, transforming viewers into vested co-authors.",
     image: "/assets/images/partnerships/core-engine3.webp",
-    alt: "Community & Audience Co-Creation",
+    alt: "Edenstone Core Engine: Web3 Community Co-Creation",
   },
 ];
 

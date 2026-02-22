@@ -134,7 +134,7 @@ export default function CharacterLogsSection() {
           }}
         >
           <Image
-            alt={character.name}
+            alt={`Spore Character: ${character.name}${character.role ? ` - ${character.role}` : ""}`}
             className="w-full h-[450px] object-cover grayscale-0 md:grayscale md:group-hover:grayscale-0 group-active:grayscale-0 transition-all duration-500"
             src={character.image}
             width={400}

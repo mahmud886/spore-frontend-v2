@@ -19,7 +19,7 @@ export default function BackgroundSetter() {
       <Image
         key={image.src || pathname}
         src={image}
-        alt="Background"
+        alt="Spore Atmospheric Background - Immersive Environment"
         fill
         sizes="100vw"
         quality={50}

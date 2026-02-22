@@ -6,7 +6,7 @@ import TacticalDirective from "./TacticalDirective";
 const defaultProfileData = {
   image:
     "https://lh3.googleusercontent.com/aida-public/AB6AXuB0qDeLy5D9bP6hKf2MgmfOoz_9i-IRvsXv9lcRcARRm6MPkBQAYM-0Fo5jj6HenXgeoql-UmS0j1YnJ4y1AhPKQ8d0MEVWdAKkNfNl4KEJuvY0Kzsat93csYj1laH0GomuyfjUjMpaOtJ7rk3-k4eCAZs_KMGtKkVFlIxl7Ii5wGeBlkOAS7Ai2wLx6El6JlYhwK3rtrIVw-GALu0BBHwATkkK_EeuIIT4cv4be0V90Ho1A_yJyRH40RCZEh8xtywgcL2IV8xjblc",
-  imageAlt: "Character Portrait",
+  imageAlt: "Spore Character Identity Portrait",
   id: "992-ALPHA",
   factionId: "Evolutionist",
   broadcastCode: "LIO-7F3A",

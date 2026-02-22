@@ -250,7 +250,7 @@ export default function ClientPollSectionFullWidth({ poll }) {
 
                   <Image
                     src="/assets/images/evolve.png"
-                    alt="Evolve"
+                    alt="Evolve Faction Icon - Transcend Humanity"
                     width={72}
                     height={72}
                     className="relative z-20 opacity-90 group-hover:opacity-100 transition-opacity brightness-125"
@@ -305,7 +305,7 @@ export default function ClientPollSectionFullWidth({ poll }) {
 
                   <Image
                     src="/assets/images/resist.png"
-                    alt="Resist"
+                    alt="Resist Faction Icon - Preserve Order"
                     width={72}
                     height={72}
                     className="relative z-20 opacity-90 group-hover:opacity-100 transition-opacity"

@@ -50,7 +50,7 @@ export default function AboutHeader() {
         >
           <div className="bg-terminal-gray rounded-sm overflow-hidden border border-white/10 group cursor-pointer relative cyber-hologram">
             <Image
-              alt="Episode Preview"
+              alt="Spore Episode 1: The Outbreak - Video Preview"
               className="w-full aspect-[2/3] object-cover opacity-40 group-hover:opacity-60 transition-opacity"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKnxVs1-FKyRHwg68QCQiOT_wE7qZPxXZ81q-6YBb27bQsKIXaiUSeqFyg6I5dVtl-lq3PjeFHkZKV07IdAXdeYgfqHKQzWFxKqH_H05QBfs8ZrrTWN6Cub_3wew-CX3GcEUGxwsmaQTHG1jEzLrz68Elgibvj-BkThb4m-iiwO7WZxpF6pl3EMgDZP9v-U5zcrMQqJ-f-Q-jalNXwSMp-n06SiZQBAt9UY0N_2K62Qv1CGT5LdOeyyV6Y-D7_1J1zvSX8C8_Xfo8"
               width={400}

@@ -15,7 +15,7 @@ const PartnershipsHeader = () => {
           <h2 className="text-lg md:text-[24px] font-subheading font-light leading-relaxed mb-4">by</h2>
           <div className="flex flex-col items-center">
             <Image
-              alt="Edenstone Logo"
+              alt="Edenstone Group - Building Scalable IP and Story Worlds"
               className="w-[300px] h-[182px] opacity-80"
               width={256}
               height={155}
