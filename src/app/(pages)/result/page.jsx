@@ -38,13 +38,13 @@ export async function generateMetadata({ searchParams: searchParamsPromise }) {
     }
   }
   const title = poll
-    ? `${(poll.question || poll.title || "Poll Results").toUpperCase()} | SPORE FALL`
-    : "POLL RESULTS | SPORE FALL | a Sci-Fi Saga";
+    ? `Poll Results: ${poll.question || poll.title} | SPORE FALL`
+    : "Poll Results: Shape the Future of Lionara | SPORE FALL Saga";
   const totalVotes =
     poll && Array.isArray(poll.options) ? poll.options.reduce((sum, o) => sum + (o.vote_count || o.votes || 0), 0) : 0;
   const description = poll
-    ? `View the latest results for: ${poll.question || poll.title}. Join ${totalVotes} others in shaping this Sci-Fi Saga.`
-    : `A deadly pathogen threatens to overrun the nation city of Lionara. Join ${totalVotes} others in shaping the resistance or embracing the evolution.`;
+    ? `See live results for: ${poll.question || poll.title}. Is the Resistance or Evolution winning? Join ${totalVotes} others in shaping the next chapter of this Sci-Fi Saga.`
+    : `See live poll results for Spore Fall. Is the Resistance or Evolution winning? Your vote determines the fate of Lionara in this immersive Sci-Fi audio drama.`;
   const pollIdForImage = poll ? poll.id : pollParam || "";
   const platform = (searchParams?.utm_source || "").toLowerCase();
   const platformSizeMap = {
@@ -62,8 +62,9 @@ export async function generateMetadata({ searchParams: searchParamsPromise }) {
   };
   const sizeParam = platformSizeMap[platform] || "facebook";
   // Bump version to force cache refresh on social platforms
-  const version = "8";
-  const ogImage = `${base}/api/polls/${encodeURIComponent(pollIdForImage)}/image?size=${sizeParam}&format=png&v=${version}`;
+  const version = "10";
+  // Use jpg format for better compression and smaller file size (<300KB for WhatsApp)
+  const ogImage = `${base}/api/polls/${encodeURIComponent(pollIdForImage)}/image?size=${sizeParam}&format=jpg&v=${version}`;
 
   const url = `${base}/result${episodeId || pollParam ? "?" : ""}${
     episodeId ? `episode=${encodeURIComponent(episodeId)}` : ""
@@ -83,7 +84,7 @@ export async function generateMetadata({ searchParams: searchParamsPromise }) {
           width: 1200,
           height: 630,
           alt: `Poll Results for: ${title}`,
-          type: "image/png",
+          type: "image/jpeg",
         },
       ],
       locale: "en_US",
