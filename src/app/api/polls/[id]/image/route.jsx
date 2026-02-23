@@ -101,6 +101,11 @@ export async function GET(request, { params }) {
     const bgBuffer = await readFile(bgPath);
     const bgBase64 = `data:image/jpeg;base64,${bgBuffer.toString("base64")}`;
 
+    // Read card background image
+    const cardBgPath = join(publicPath, "assets/images/result-background.png");
+    const cardBgBuffer = await readFile(cardBgPath);
+    const cardBgBase64 = `data:image/png;base64,${cardBgBuffer.toString("base64")}`;
+
     const imageResponse = new ImageResponse(
       <div
         style={{
