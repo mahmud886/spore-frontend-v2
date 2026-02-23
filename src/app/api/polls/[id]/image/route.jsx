@@ -15,8 +15,7 @@ export async function GET(request, { params }) {
     const { id } = resolvedParams;
     const { searchParams } = new URL(request.url);
     const size = searchParams.get("size") || "facebook";
-    // We default to PNG as it is natively supported by ImageResponse and avoids sharp dependency issues
-    const format = "png";
+    const format = (searchParams.get("format") || "jpg").toLowerCase();
 
     if (!id) {
       return NextResponse.json({ error: "Poll ID is required" }, { status: 400 });
@@ -354,14 +353,34 @@ export async function GET(request, { params }) {
             style: "normal",
           },
         ],
+      },
+    );
+
+    const pngBuffer = await imageResponse.arrayBuffer();
+
+    if (format === "png") {
+      return new Response(pngBuffer, {
         headers: {
           "Content-Type": "image/png",
           "Cache-Control": "public, max-age=300",
         },
-      },
-    );
+      });
+    }
 
-    return imageResponse;
+    // Default to JPEG for weight optimization
+    const jpegBuffer = await sharp(Buffer.from(pngBuffer))
+      .jpeg({
+        quality: 60,
+        mozjpeg: true,
+      })
+      .toBuffer();
+
+    return new Response(jpegBuffer, {
+      headers: {
+        "Content-Type": "image/jpeg",
+        "Cache-Control": "public, max-age=300",
+      },
+    });
   } catch (error) {
     console.error("Error generating poll image:", error);
     return new Response(`Error: ${error.message}`, { status: 500 });
