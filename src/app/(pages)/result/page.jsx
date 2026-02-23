@@ -62,10 +62,8 @@ export async function generateMetadata({ searchParams: searchParamsPromise }) {
   };
   const sizeParam = platformSizeMap[platform] || "facebook";
   // Bump version to force cache refresh on social platforms
-  const version = "5";
-  const ogImage = pollIdForImage
-    ? `${base}/api/polls/${encodeURIComponent(pollIdForImage)}/image?size=${sizeParam}&format=jpg&v=${version}`
-    : `${base}/api/polls/default/image?size=${sizeParam}&format=jpg&v=${version}`;
+  const version = "8";
+  const ogImage = `${base}/api/polls/${encodeURIComponent(pollIdForImage)}/image?size=${sizeParam}&format=png&v=${version}`;
 
   const url = `${base}/result${episodeId || pollParam ? "?" : ""}${
     episodeId ? `episode=${encodeURIComponent(episodeId)}` : ""
@@ -85,7 +83,7 @@ export async function generateMetadata({ searchParams: searchParamsPromise }) {
           width: 1200,
           height: 630,
           alt: `Poll Results for: ${title}`,
-          type: "image/jpeg",
+          type: "image/png",
         },
       ],
       locale: "en_US",
@@ -95,7 +93,14 @@ export async function generateMetadata({ searchParams: searchParamsPromise }) {
       card: "summary_large_image",
       title,
       description,
-      images: [ogImage],
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: `Poll Results for: ${title}`,
+        },
+      ],
     },
   };
 }

@@ -3,7 +3,6 @@ import { readFile } from "fs/promises";
 import { ImageResponse } from "next/og";
 import { NextResponse } from "next/server";
 import { join } from "path";
-import sharp from "sharp";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -16,7 +15,8 @@ export async function GET(request, { params }) {
     const { id } = resolvedParams;
     const { searchParams } = new URL(request.url);
     const size = searchParams.get("size") || "facebook";
-    const format = (searchParams.get("format") || "jpg").toLowerCase();
+    // We default to PNG as it is natively supported by ImageResponse and avoids sharp dependency issues
+    const format = "png";
 
     if (!id) {
       return NextResponse.json({ error: "Poll ID is required" }, { status: 400 });
@@ -354,34 +354,14 @@ export async function GET(request, { params }) {
             style: "normal",
           },
         ],
-      },
-    );
-
-    const pngBuffer = await imageResponse.arrayBuffer();
-
-    if (format === "png") {
-      return new Response(pngBuffer, {
         headers: {
           "Content-Type": "image/png",
           "Cache-Control": "public, max-age=300",
         },
-      });
-    }
-
-    // Default to JPEG for weight optimization
-    const jpegBuffer = await sharp(Buffer.from(pngBuffer))
-      .jpeg({
-        quality: 80,
-        mozjpeg: true,
-      })
-      .toBuffer();
-
-    return new Response(jpegBuffer, {
-      headers: {
-        "Content-Type": "image/jpeg",
-        "Cache-Control": "public, max-age=300",
       },
-    });
+    );
+
+    return imageResponse;
   } catch (error) {
     console.error("Error generating poll image:", error);
     return new Response(`Error: ${error.message}`, { status: 500 });
