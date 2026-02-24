@@ -256,12 +256,12 @@ export default function ProductDetailClient({ product, relatedProducts = [] }) {
 
           {/* Description */}
           <div className="prose prose-invert max-w-none pt-8 border-t border-white/10">
-            <h3 className="text-lg font-medium text-white mb-4">Description</h3>
+            {/* <h3 className="text-lg font-medium text-white mb-4">Description</h3>
             <p className="text-gray-400 leading-relaxed">
               {product.description !== product.name
                 ? product.description
                 : `Experience the ultimate in cyber-tactical gear with the ${product.name}. Designed for the modern urban operator, this item combines futuristic aesthetics with premium durability. Perfect for your daily missions in the concrete jungle.`}
-            </p>
+            </p> */}
 
             <div className="mt-6 grid grid-cols-2 gap-4">
               <div className="bg-white/5 p-4 rounded-lg">
