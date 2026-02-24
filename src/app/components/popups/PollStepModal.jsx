@@ -226,6 +226,9 @@ export default function PollStepModal({
             const secondOptionDescription =
               secondOption?.description || "Preserve Order. Burn the old world. Rebuild from ashes.";
 
+            const firstOptionImageUrl = firstOption?.image_url || "/assets/images/evolve.png";
+            const secondOptionImageUrl = secondOption?.image_url || "/assets/images/resist.png";
+
             return (
               <div className="flex items-stretch justify-end w-full h-full relative z-10">
                 <PollMiddlePopup
@@ -249,6 +252,8 @@ export default function PollStepModal({
                   secondOptionName={secondOptionName}
                   firstOptionDescription={firstOptionDescription}
                   secondOptionDescription={secondOptionDescription}
+                  firstOptionImageUrl={firstOptionImageUrl}
+                  secondOptionImageUrl={secondOptionImageUrl}
                   onEvolveClick={() => {
                     if (isSubmitting) return; // Prevent clicks while submitting
 

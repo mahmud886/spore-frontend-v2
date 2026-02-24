@@ -11,6 +11,8 @@ export default function PollMiddlePopup({
   secondOptionName = "RESIST",
   firstOptionDescription = "Transcend humanity. Unlock your latent code. Be something more.",
   secondOptionDescription = "Preserve Order. Burn the old world. Rebuild from ashes.",
+  firstOptionImageUrl = "/assets/images/evolve.png",
+  secondOptionImageUrl = "/assets/images/resist.png",
   onEvolveClick,
   onContainClick,
   onClose,
@@ -63,10 +65,10 @@ export default function PollMiddlePopup({
               disabled={!onEvolveClick}
               className="faction-card group relative flex flex-col items-center text-center p-4 md:p-8 rounded-xl border border-white/5 bg-gradient-to-b from-zinc-900/20 to-primary/20 hover:from-zinc-900/30 hover:to-primary/40 hover:border-primary/30 transition-all duration-500 outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <div className="w-10 h-10 md:w-16 md:h-16 rounded-full bg-primary/10 flex items-center justify-center mb-3 md:mb-8 group-hover:scale-110 transition-transform duration-500 relative">
+              <div className="w-10 h-10 md:w-16 md:h-16 rounded-full bg-primary/10 flex items-center justify-center mb-3 md:mb-8 group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
                 <Image
-                  src="/assets/images/evolve.png"
-                  alt="Evolve Faction - Transcend Humanity"
+                  src={firstOptionImageUrl}
+                  alt={`${firstOptionName} Faction Icon`}
                   fill
                   className="object-contain p-2 md:p-3"
                 />
@@ -86,10 +88,10 @@ export default function PollMiddlePopup({
               disabled={!onContainClick}
               className="faction-card group relative flex flex-col items-center text-center p-4 md:p-8 rounded-xl border border-white/5 bg-gradient-to-b from-zinc-900/20 to-cyan-950/20 hover:from-zinc-900/30 hover:to-cyan-900/40 hover:border-cyan-500/30 transition-all duration-500 outline-none focus:ring-2 focus:ring-cyan-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <div className="w-10 h-10 md:w-16 md:h-16 rounded-full bg-cyan-500/10 flex items-center justify-center mb-3 md:mb-8 group-hover:scale-110 transition-transform duration-500 relative">
+              <div className="w-10 h-10 md:w-16 md:h-16 rounded-full bg-cyan-500/10 flex items-center justify-center mb-3 md:mb-8 group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
                 <Image
-                  src="/assets/images/resist.png"
-                  alt="Resist Faction - Preserve Order"
+                  src={secondOptionImageUrl}
+                  alt={`${secondOptionName} Faction Icon`}
                   fill
                   className="object-contain p-2 md:p-3"
                 />

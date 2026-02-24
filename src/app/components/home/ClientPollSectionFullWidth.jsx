@@ -37,6 +37,9 @@ export default function ClientPollSectionFullWidth({ poll }) {
   const firstOption = poll.options?.[0];
   const secondOption = poll.options?.[1];
 
+  const firstOptionImageUrl = firstOption?.image_url || "/assets/images/evolve.png";
+  const secondOptionImageUrl = secondOption?.image_url || "/assets/images/resist.png";
+
   const firstOptionName = getName(firstOption, "OPTION 1");
   const secondOptionName = getName(secondOption, "OPTION 2");
 
@@ -249,11 +252,11 @@ export default function ClientPollSectionFullWidth({ poll }) {
                   ></motion.div>
 
                   <Image
-                    src="/assets/images/evolve.png"
-                    alt="Evolve Faction Icon - Transcend Humanity"
+                    src={firstOptionImageUrl}
+                    alt={`${firstOptionName} Faction Icon`}
                     width={72}
                     height={72}
-                    className="relative z-20 opacity-90 group-hover:opacity-100 transition-opacity brightness-125"
+                    className="relative z-20 opacity-90 group-hover:opacity-100 transition-opacity brightness-125 object-contain"
                   />
                 </div>
 
@@ -304,11 +307,11 @@ export default function ClientPollSectionFullWidth({ poll }) {
                   ></motion.div>
 
                   <Image
-                    src="/assets/images/resist.png"
-                    alt="Resist Faction Icon - Preserve Order"
+                    src={secondOptionImageUrl}
+                    alt={`${secondOptionName} Faction Icon`}
                     width={72}
                     height={72}
-                    className="relative z-20 opacity-90 group-hover:opacity-100 transition-opacity"
+                    className="relative z-20 opacity-90 group-hover:opacity-100 transition-opacity object-contain"
                   />
                 </div>
 
