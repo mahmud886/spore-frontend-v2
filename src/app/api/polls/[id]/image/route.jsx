@@ -3,10 +3,42 @@ import { readFile } from "fs/promises";
 import { ImageResponse } from "next/og";
 import { NextResponse } from "next/server";
 import { join } from "path";
+import sharp from "sharp";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const runtime = "nodejs";
+
+// Cache assets in memory
+let cachedMokotoFont = null;
+let cachedGothamFont = null;
+let cachedBgBase64 = null;
+
+async function getAssets() {
+  if (cachedMokotoFont && cachedGothamFont && cachedBgBase64) {
+    return { mokoto: cachedMokotoFont, gotham: cachedGothamFont, bg: cachedBgBase64 };
+  }
+
+  const publicPath = join(process.cwd(), "public");
+
+  const [mokoto, gotham, bgRawBuffer] = await Promise.all([
+    readFile(join(publicPath, "assets/fonts/mokoto/mokoto.ttf")),
+    readFile(join(publicPath, "assets/fonts/gotham/GOTHAM-MEDIUM.TTF")),
+    readFile(join(publicPath, "og-image-bg.jpg")),
+  ]);
+
+  // Pre-process background image to 1200x630 at quality 40 to reduce base64 size in SVG
+  const bgBuffer = await sharp(bgRawBuffer)
+    .resize(1200, 630, { fit: "cover" })
+    .jpeg({ quality: 40, mozjpeg: true })
+    .toBuffer();
+
+  cachedMokotoFont = mokoto;
+  cachedGothamFont = gotham;
+  cachedBgBase64 = `data:image/jpeg;base64,${bgBuffer.toString("base64")}`;
+
+  return { mokoto: cachedMokotoFont, gotham: cachedGothamFont, bg: cachedBgBase64 };
+}
 
 export async function GET(request, { params }) {
   try {
@@ -21,10 +53,25 @@ export async function GET(request, { params }) {
       return NextResponse.json({ error: "Poll ID is required" }, { status: 400 });
     }
 
-    const pollId = id;
+    let pollId = id;
 
     // Fetch poll data
-    let { data: poll, error: pollError } = await supabase.from("polls").select("*").eq("id", pollId).single();
+    let { data: poll, error: pollError } = await supabase.from("polls").select("*").eq("id", pollId).maybeSingle();
+
+    // If not found by ID, try finding by episode_id
+    if (!poll && pollId !== "default") {
+      const { data: pollsByEpisode } = await supabase
+        .from("polls")
+        .select("*")
+        .eq("episode_id", pollId)
+        .order("created_at", { ascending: false });
+
+      if (pollsByEpisode && pollsByEpisode.length > 0) {
+        poll = pollsByEpisode.find((p) => p.status === "LIVE") || pollsByEpisode[0];
+        pollError = null;
+        pollId = poll.id;
+      }
+    }
 
     // Handle "default" or not found polls gracefully
     if ((pollError || !poll) && pollId === "default") {
@@ -86,19 +133,8 @@ export async function GET(request, { params }) {
     const option1Name = (option1.name || option1.text || option1.option_text || "EVOLVE").toUpperCase();
     const option2Name = (option2.name || option2.text || option2.option_text || "RESIST").toUpperCase();
 
-    // Read the font file
-    const publicPath = join(process.cwd(), "public");
-    const fontPath = join(publicPath, "assets/fonts/mokoto/mokoto.ttf");
-    const fontData = await readFile(fontPath);
-
-    // Read Gotham font file
-    const gothamPath = join(publicPath, "assets/fonts/gotham/GOTHAM-MEDIUM.TTF");
-    const gothamData = await readFile(gothamPath);
-
-    // Read background image and convert to base64
-    const bgPath = join(publicPath, "og-image-bg.jpg");
-    const bgBuffer = await readFile(bgPath);
-    const bgBase64 = `data:image/jpeg;base64,${bgBuffer.toString("base64")}`;
+    // Get assets from cache or load them
+    const { mokoto, gotham, bg } = await getAssets();
 
     const imageResponse = new ImageResponse(
       <div
@@ -112,7 +148,7 @@ export async function GET(request, { params }) {
       >
         {/* Background Image - Absolute and Full Coverage */}
         <img
-          src={bgBase64}
+          src={bg}
           style={{
             position: "absolute",
             top: 0,
@@ -344,12 +380,12 @@ export async function GET(request, { params }) {
         fonts: [
           {
             name: "Mokoto",
-            data: fontData,
+            data: mokoto,
             style: "normal",
           },
           {
             name: "Gotham",
-            data: gothamData,
+            data: gotham,
             style: "normal",
           },
         ],
@@ -368,19 +404,31 @@ export async function GET(request, { params }) {
     }
 
     // Default to JPEG for weight optimization
-    const jpegBuffer = await sharp(Buffer.from(pngBuffer))
-      .jpeg({
-        quality: 60,
-        mozjpeg: true,
-      })
-      .toBuffer();
+    try {
+      const jpegBuffer = await sharp(Buffer.from(pngBuffer))
+        .jpeg({
+          quality: 20,
+          mozjpeg: true,
+          chromaSubsampling: "4:2:0",
+          progressive: true,
+        })
+        .toBuffer();
 
-    return new Response(jpegBuffer, {
-      headers: {
-        "Content-Type": "image/jpeg",
-        "Cache-Control": "public, max-age=300",
-      },
-    });
+      return new Response(jpegBuffer, {
+        headers: {
+          "Content-Type": "image/jpeg",
+          "Cache-Control": "public, max-age=300",
+        },
+      });
+    } catch (sharpError) {
+      console.error("Sharp optimization failed, falling back to PNG:", sharpError);
+      return new Response(pngBuffer, {
+        headers: {
+          "Content-Type": "image/png",
+          "Cache-Control": "public, max-age=300",
+        },
+      });
+    }
   } catch (error) {
     console.error("Error generating poll image:", error);
     return new Response(`Error: ${error.message}`, { status: 500 });
