@@ -8,10 +8,9 @@ import { fadeUp } from "../../utils/animations";
 
 export async function generateMetadata() {
   const base = getBaseUrl();
-  const title = "SUPPORT THE UNIVERSE | SPORE FALL | a Sci-Fi Saga";
-  const description =
-    "A deadly pathogen threatens to overrun the nation city of Lionara. Join the Inner Circle and help us bring this Sci-Fi Saga beyond the screen.";
-  const ogImage = `${base}/api/og?title=${encodeURIComponent("SUPPORT THE UNIVERSE")}&subtitle=${encodeURIComponent("A DEADLY PATHOGEN THREATENS TO OVERRUN THE NATION CITY OF LIONARA. JOIN THE INNER CIRCLE.")}`;
+  const title = "SUPPORT THE UNIVERSE | SPORE FALL";
+  const description = "Back movie making & unlock secret drops.";
+  const ogImage = `${base}/api/og?title=${encodeURIComponent("SUPPORT THE UNIVERSE")}&subtitle=${encodeURIComponent("Back movie making & unlock secret drops. Help us shape the future of Spore Fall.")}`;
 
   return {
     title,

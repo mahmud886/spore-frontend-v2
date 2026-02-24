@@ -10,10 +10,9 @@ import { fadeUp } from "../../utils/animations";
 
 export async function generateMetadata() {
   const base = getBaseUrl();
-  const title = "PARTNERSHIPS | SPORE FALL | a Sci-Fi Saga";
-  const description =
-    "Collaborate with us in building the next generation of sci-fi narrative experiences. Join the resistance or embrace the evolution of this Sci-Fi Saga.";
-  const ogImage = `${base}/api/og?title=${encodeURIComponent("PARTNERSHIPS")}&subtitle=${encodeURIComponent("COLLABORATE WITH US IN BUILDING THE NEXT GENERATION OF SCI-FI NARRATIVE EXPERIENCES.")}`;
+  const title = "PARTNERSHIPS | SPORE FALL";
+  const description = "Explore partnership opportunities in our IP pipeline and studio engine";
+  const ogImage = `${base}/api/og?title=${encodeURIComponent("PARTNERSHIPS")}&subtitle=${encodeURIComponent("Explore partnership opportunities in our IP pipeline and studio engine")}`;
 
   return {
     title,
