@@ -21,7 +21,7 @@ export default function BlogCard({ post }) {
           {image && image !== "#" ? (
             <Image
               alt={imageAlt || title}
-              className="w-full h-48 object-cover grayscale hover:grayscale-0 transition duration-500"
+              className="w-full h-48 object-cover  transition duration-500"
               src={image}
               width={400}
               height={192}

@@ -6,14 +6,57 @@ import { Menu, ShoppingCart, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
+import VaultLockPopup from "./popups/VaultLockPopup";
 import { Wrapper } from "./shared/Wrapper";
 
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isVaultLocked, setIsVaultLocked] = useState(false);
+  const [isVaultPopupOpen, setIsVaultPopupOpen] = useState(false);
   const toggleCart = useCartStore((state) => state.toggleCart);
   const itemCount = useCartStore((state) => state.getItemCount());
+
+  useEffect(() => {
+    const checkVaultStatus = () => {
+      const unlocked = localStorage.getItem("sporefall_vault_unlocked") === "true";
+      setIsVaultLocked(!unlocked);
+
+      // If we are on the vault-7 page and it's locked, show the popup
+      if (!unlocked && pathname === "/vault-7") {
+        setIsVaultPopupOpen(true);
+      }
+    };
+
+    checkVaultStatus();
+    // Also listen for storage changes in case it's unlocked in another tab
+    window.addEventListener("storage", checkVaultStatus);
+    return () => window.removeEventListener("storage", checkVaultStatus);
+  }, [pathname]);
+
+  const handleVaultClick = (e) => {
+    if (isVaultLocked && pathname !== "/vault-7") {
+      e.preventDefault();
+      setIsVaultPopupOpen(true);
+      setIsMobileMenuOpen(false);
+    }
+  };
+
+  const handleVaultUnlock = () => {
+    localStorage.setItem("sporefall_vault_unlocked", "true");
+    setIsVaultLocked(false);
+    setIsVaultPopupOpen(false);
+    router.push("/vault-7");
+  };
+
+  const handleVaultPopupClose = () => {
+    setIsVaultPopupOpen(false);
+    // If user is on vault-7 page and closes popup without unlocking, redirect to home
+    if (pathname === "/vault-7") {
+      router.push("/");
+    }
+  };
 
   const isClient = useSyncExternalStore(
     () => () => {},
@@ -114,7 +157,11 @@ export default function Navbar() {
               >
                 HOME
               </Link>
-              <Link href="/vault-7" className={`${getActiveClass(pathname === "/vault-7")} transition-colors`}>
+              <Link
+                href="/vault-7"
+                onClick={handleVaultClick}
+                className={`${getActiveClass(pathname === "/vault-7")} transition-colors`}
+              >
                 VAULT 7
               </Link>
               <Link href="/shop" className={`${getActiveClass(pathname === "/shop")} transition-colors`}>
@@ -189,7 +236,10 @@ export default function Navbar() {
                 </Link>
                 <Link
                   href="/vault-7"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    setIsMobileMenuOpen(false);
+                    handleVaultClick(e);
+                  }}
                   className={`${getActiveClass(pathname === "/vault-7")} transition-colors text-sm font-bold font-subheading tracking-widest uppercase py-2`}
                 >
                   VAULT 7
@@ -220,6 +270,7 @@ export default function Navbar() {
           )}
         </AnimatePresence>
       </Wrapper>
+      <VaultLockPopup isOpen={isVaultPopupOpen} onClose={handleVaultPopupClose} onUnlock={handleVaultUnlock} />
     </nav>
   );
 }
