@@ -100,7 +100,7 @@ export default function NewsletterSection() {
       const result = await response.json();
 
       if (response.ok) {
-        setPopupMessage(result.message);
+        setPopupMessage("STAY VIGILANT\nWe’ll Be in Touch!");
         setPopupType("success");
         setShowPopup(true);
         setFormData({ name: "", email: "", message: "" });
@@ -236,7 +236,7 @@ export default function NewsletterSection() {
               <NotificationPopup
                 isOpen={showPopup}
                 message={popupMessage}
-                title={popupType === "success" ? "Success" : "Error"}
+                title={popupType === "success" ? "SUCCESS" : "Error"}
                 onClose={() => setShowPopup(false)}
               />
             </div>

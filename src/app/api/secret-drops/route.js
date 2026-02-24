@@ -138,7 +138,7 @@ export async function POST(request) {
     return new Response(
       JSON.stringify({
         success: true,
-        message: "Thank you for your submission!",
+        message: "STAY VIGILANT\nWe’ll Be in Touch!",
         data: data[0],
       }),
       {
