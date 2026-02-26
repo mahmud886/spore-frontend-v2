@@ -12,6 +12,7 @@ import ShimmerCard from "../shared/ShimmerCard";
 const NotificationPopup = dynamic(() => import("../popups/NotificationPopup"), { ssr: false });
 const PollStepModal = dynamic(() => import("../popups/PollStepModal"), { ssr: false });
 const YouTubeModal = dynamic(() => import("../popups/YouTubeModal"), { ssr: false });
+const NotifyMeModal = dynamic(() => import("../popups/NotifyMeModal"), { ssr: false });
 
 export default function EpisodesSection({ episodes: episodesProp = [] }) {
   const router = useRouter();
@@ -31,6 +32,8 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
   const [selectedEpisodeForVideo, setSelectedEpisodeForVideo] = useState(null);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
+  const [isNotifyMeOpen, setIsNotifyMeOpen] = useState(false);
+  const [notifyEpisodeNumber, setNotifyEpisodeNumber] = useState(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -851,7 +854,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
             {episode.title}
           </h4>
           <p
-            className={`text-[12px] leading-relaxed mb-4 mr-4 flex-1 transition-colors duration-300 ${
+            className={`text-[12px] leading-relaxed mb-4 mr-4 flex-1 line-clamp-3 min-h-[58px] transition-colors duration-300 ${
               episode.status === "available"
                 ? "text-white/70 group-hover:text-black"
                 : episode.status === "upcoming"
@@ -936,32 +939,40 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
                   );
                 })()}
                 {/* Watch Now Button */}
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleWatchNowClick(episode);
-                  }}
-                  disabled={pollLoading}
-                  className="border border-primary text-white text-[9px] font-bold px-3 py-1.5 uppercase flex items-center gap-1 transition-all duration-300 group-hover:bg-white group-hover:border-white group-hover:text-black disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-                  style={{
-                    borderTopRightRadius: "4px",
-                    borderBottomLeftRadius: "4px",
-                  }}
-                >
-                  {pollLoading && selectedEpisodeId === (episode.id || episode.uniqueEpisodeId) ? (
-                    <>Loading...</>
-                  ) : (
-                    <>
-                      Watch Now <ArrowRight className="w-3 h-3 group-hover:text-black" />
-                    </>
-                  )}
-                </button>
+                {episode.videoUrl && (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleWatchNowClick(episode);
+                    }}
+                    disabled={pollLoading}
+                    className="border border-primary text-white text-[9px] font-bold px-3 py-1.5 uppercase flex items-center gap-1 transition-all duration-300 group-hover:bg-white group-hover:border-white group-hover:text-black disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                    style={{
+                      borderTopRightRadius: "4px",
+                      borderBottomLeftRadius: "4px",
+                    }}
+                  >
+                    {pollLoading && selectedEpisodeId === (episode.id || episode.uniqueEpisodeId) ? (
+                      <>Loading...</>
+                    ) : (
+                      <>
+                        Watch Now <ArrowRight className="w-3 h-3 group-hover:text-black" />
+                      </>
+                    )}
+                  </button>
+                )}
               </div>
             )}
             {episode.status === "upcoming" && (
               <button
-                className="border border-orange-600 text-orange-600 text-[9px] font-bold px-3 py-1.5 uppercase flex items-center gap-1 transition-all duration-300 group-hover:bg-white group-hover:border-white group-hover:text-black"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setNotifyEpisodeNumber(episode.episodeNumber || episode.title);
+                  setIsNotifyMeOpen(true);
+                }}
+                className="border border-orange-600 text-orange-600 text-[9px] font-bold px-3 py-1.5 uppercase flex items-center gap-1 transition-all duration-300 group-hover:bg-white group-hover:border-white group-hover:text-black cursor-pointer"
                 style={{
                   borderTopRightRadius: "4px",
                   borderBottomLeftRadius: "4px",
@@ -1077,6 +1088,12 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
         onClose={handleCloseNotification}
         message={notificationMessage}
         title="Lionara City  Public Service"
+      />
+      {/* Notify Me Modal - Opens when Notify Me button is clicked for upcoming episodes */}
+      <NotifyMeModal
+        isOpen={isNotifyMeOpen}
+        onClose={() => setIsNotifyMeOpen(false)}
+        episodeNumber={notifyEpisodeNumber}
       />
     </>
   );
