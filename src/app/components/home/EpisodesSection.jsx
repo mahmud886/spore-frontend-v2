@@ -1005,6 +1005,9 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
 
   const isResultPage = pathname === "/result";
 
+  const featuredEpisodes = episodes.filter((ep) => ep.visibility === "FEATURED" || ep.visibility === "featured");
+  const regularEpisodes = episodes.filter((ep) => ep.visibility !== "FEATURED" && ep.visibility !== "featured");
+
   if (loading) {
     return (
       <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "pt-0 pb-24 px-8"} cyber-hex-grid`}>
@@ -1031,28 +1034,45 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
     );
   }
 
-  if (episodes.length === 0) {
-    return (
-      <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "pt-0 pb-24 px-8"} cyber-hex-grid`}>
-        <div className="text-center py-20">
-          <p className="text-white/60 text-sm">No episodes available at the moment.</p>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <>
-      <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "pt-0 pb-24 px-8"} cyber-hex-grid`} ref={rootRef}>
-        <Carousel
-          items={episodes}
-          renderItem={renderEpisodeCard}
-          itemsPerView={{ mobile: 1, tablet: 2, desktop: 4 }}
-          gridClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch"
-          titleComponent={<SectionTitle>Episodes</SectionTitle>}
-          lazyInit
-        />
-      </section>
+      {featuredEpisodes.length > 0 && (
+        <section
+          id="featured-episodes"
+          className={`${isResultPage ? "pt-0 pb-12 px-0" : "pt-0 pb-12 px-8"} cyber-hex-grid`}
+        >
+          <Carousel
+            items={featuredEpisodes}
+            renderItem={renderEpisodeCard}
+            itemsPerView={{ mobile: 1, tablet: 2, desktop: 4 }}
+            gridClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch"
+            titleComponent={<SectionTitle>Featured Episodes</SectionTitle>}
+            lazyInit
+          />
+        </section>
+      )}
+
+      {regularEpisodes.length > 0 && (
+        <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "pt-0 pb-24 px-8"} cyber-hex-grid`} ref={rootRef}>
+          <Carousel
+            items={regularEpisodes}
+            renderItem={renderEpisodeCard}
+            itemsPerView={{ mobile: 1, tablet: 2, desktop: 4 }}
+            gridClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch"
+            titleComponent={<SectionTitle>Episodes</SectionTitle>}
+            lazyInit
+          />
+        </section>
+      )}
+
+      {episodes.length === 0 && (
+        <section className={`${isResultPage ? "pt-0 pb-24 px-0" : "pt-0 pb-24 px-8"} cyber-hex-grid`}>
+          <div className="text-center py-20">
+            <p className="text-white/60 text-sm">No episodes available at the moment.</p>
+          </div>
+        </section>
+      )}
+
       {/* Poll Modal - Opens when available episode is clicked */}
       <PollStepModal
         isOpen={isPollModalOpen && !!pollData}

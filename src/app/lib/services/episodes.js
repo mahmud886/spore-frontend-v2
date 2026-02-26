@@ -15,9 +15,18 @@ export async function getEpisodes({ limit = 100, offset = 0, visibility, accessL
     const data = json.episodes || [];
     return data.map((episode) => {
       let s = "locked";
-      if (episode.visibility === "AVAILABLE") s = "available";
-      else if (episode.visibility === "UPCOMING" || episode.visibility === "COMING_SOON") s = "upcoming";
-      else if (episode.visibility === "LOCKED" || episode.visibility === "PRIVATE") s = "locked";
+      const visibility = (episode.visibility || "").toUpperCase();
+      const status = (episode.status || "").toUpperCase();
+
+      // Priority 1: Check status field
+      if (status === "AVAILABLE") s = "available";
+      else if (status === "UPCOMING" || status === "COMING_SOON") s = "upcoming";
+      else if (status === "LOCKED" || status === "PRIVATE") s = "locked";
+      // Priority 2: Fallback to visibility field if status is not clear
+      else if (visibility === "AVAILABLE" || visibility === "FEATURED") s = "available";
+      else if (visibility === "UPCOMING" || visibility === "COMING_SOON") s = "upcoming";
+      else if (visibility === "LOCKED" || visibility === "PRIVATE") s = "locked";
+
       return {
         id: episode.id || episode._id,
         title:
@@ -37,6 +46,7 @@ export async function getEpisodes({ limit = 100, offset = 0, visibility, accessL
         uniqueEpisodeId: episode.unique_episode_id || episode.uniqueEpisodeId,
         videoUrl: episode.video_url || episode.videoUrl,
         releaseDate: episode.release_datetime || episode.releaseDate,
+        visibility: episode.visibility,
       };
     });
   } catch {
@@ -55,9 +65,17 @@ export async function getEpisodeById(id) {
     if (!episode) return null;
 
     let s = "locked";
-    if (episode.visibility === "AVAILABLE") s = "available";
-    else if (episode.visibility === "UPCOMING" || episode.visibility === "COMING_SOON") s = "upcoming";
-    else if (episode.visibility === "LOCKED" || episode.visibility === "PRIVATE") s = "locked";
+    const visibility = (episode.visibility || "").toUpperCase();
+    const status = (episode.status || "").toUpperCase();
+
+    // Priority 1: Check status field
+    if (status === "AVAILABLE") s = "available";
+    else if (status === "UPCOMING" || status === "COMING_SOON") s = "upcoming";
+    else if (status === "LOCKED" || status === "PRIVATE") s = "locked";
+    // Priority 2: Fallback to visibility field if status is not clear
+    else if (visibility === "AVAILABLE" || visibility === "FEATURED") s = "available";
+    else if (visibility === "UPCOMING" || visibility === "COMING_SOON") s = "upcoming";
+    else if (visibility === "LOCKED" || visibility === "PRIVATE") s = "locked";
 
     return {
       id: episode.id || episode._id,
@@ -77,6 +95,7 @@ export async function getEpisodeById(id) {
       uniqueEpisodeId: episode.unique_episode_id || episode.uniqueEpisodeId,
       videoUrl: episode.video_url || episode.videoUrl,
       releaseDate: episode.release_datetime || episode.releaseDate,
+      visibility: episode.visibility,
     };
   } catch {
     return null;

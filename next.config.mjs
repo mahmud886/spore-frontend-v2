@@ -57,6 +57,11 @@ const nextConfig = {
         hostname: "files.cdn.printful.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
     ],
   },
   // Remove console logs in production
