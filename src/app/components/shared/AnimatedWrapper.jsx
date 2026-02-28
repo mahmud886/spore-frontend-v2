@@ -51,13 +51,21 @@ export function AnimatedWrapper({ children, variant = fadeUp, className = "", st
 /**
  * AnimatedCard - For cards with hover effects
  */
-export function AnimatedCard({ children, className = "", hoverGlow = true, hoverFloat = true }) {
+export function AnimatedCard({ children, className = "", style = {}, hoverGlow = true, hoverFloat = true }) {
   const prefersReducedMotion =
     typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
+    return (
+      <div className={className} style={style}>
+        {children}
+      </div>
+    );
   }
 
-  return <motion.div className={`${className} ${hoverGlow ? "cyber-glitch-hover" : ""}`}>{children}</motion.div>;
+  return (
+    <motion.div className={`${className} ${hoverGlow ? "cyber-glitch-hover" : ""}`} style={style}>
+      {children}
+    </motion.div>
+  );
 }

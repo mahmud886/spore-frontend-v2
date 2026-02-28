@@ -9,6 +9,7 @@ import { AnimatedCard } from "../shared/AnimatedWrapper";
 import Carousel from "../shared/Carousel";
 import { SectionTitle } from "../shared/SectionTitle";
 import ShimmerCard from "../shared/ShimmerCard";
+import FeaturedEpisodeCard from "./FeaturedEpisodeCard";
 const NotificationPopup = dynamic(() => import("../popups/NotificationPopup"), { ssr: false });
 const PollStepModal = dynamic(() => import("../popups/PollStepModal"), { ssr: false });
 const YouTubeModal = dynamic(() => import("../popups/YouTubeModal"), { ssr: false });
@@ -1050,9 +1051,15 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
         >
           <Carousel
             items={featuredEpisodes}
-            renderItem={renderEpisodeCard}
-            itemsPerView={{ mobile: 1, tablet: 2, desktop: 4 }}
-            gridClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch"
+            renderItem={(episode) => (
+              <FeaturedEpisodeCard
+                key={episode.id || `featured-${episode.episodeNumber}`}
+                episode={episode}
+                onWatchClick={handleWatchNowClick}
+              />
+            )}
+            itemsPerView={{ mobile: 1, tablet: 2, desktop: 2 }}
+            gridClassName="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch"
             titleComponent={<SectionTitle>Featured Episodes</SectionTitle>}
             lazyInit
           />

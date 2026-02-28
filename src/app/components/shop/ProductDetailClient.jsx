@@ -263,7 +263,7 @@ export default function ProductDetailClient({ product, relatedProducts = [] }) {
                 : `Experience the ultimate in cyber-tactical gear with the ${product.name}. Designed for the modern urban operator, this item combines futuristic aesthetics with premium durability. Perfect for your daily missions in the concrete jungle.`}
             </p> */}
 
-            <div className="mt-6 grid grid-cols-2 gap-4">
+            {/* <div className="mt-6 grid grid-cols-2 gap-4">
               <div className="bg-white/5 p-4 rounded-lg">
                 <h4 className="text-primary text-sm font-bold mb-1">PREMIUM MATERIALS</h4>
                 <p className="text-xs text-gray-400">High-quality construction for maximum durability.</p>
@@ -272,7 +272,7 @@ export default function ProductDetailClient({ product, relatedProducts = [] }) {
                 <h4 className="text-primary text-sm font-bold mb-1">CYBER AESTHETIC</h4>
                 <p className="text-xs text-gray-400">Futuristic design language inspired by cyberpunk culture.</p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
