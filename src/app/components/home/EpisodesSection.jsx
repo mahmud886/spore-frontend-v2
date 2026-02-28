@@ -524,7 +524,14 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
   };
 
   const handleWatchNowClick = (episode) => {
-    // Check for locked status first
+    // Check for upcoming status first - show Notify Me modal
+    if (episode.status === "upcoming") {
+      setNotifyEpisodeNumber(episode.episodeNumber || episode.title);
+      setIsNotifyMeOpen(true);
+      return;
+    }
+
+    // Check for locked status
     if (episode.status === "locked") {
       router.push(`/premiere/${episode.id}`);
       return;

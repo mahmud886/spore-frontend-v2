@@ -1,13 +1,15 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ShareMediaModal from "../../components/popups/ShareMediaModal";
+import WelcomeModal from "../../components/popups/WelcomeModal";
 import ResultPage from "../../components/result/ResultPage";
 import { trackEvent } from "../../components/shared/Analytics";
 import ResultLoader from "../../components/shared/skeletons/ResultLoader";
 
 export default function ResultContent({ products: products = [], episodes: episodes = [], blogs: blogs = [] }) {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const episodeId = searchParams.get("episode");
   const pollIdParam = searchParams.get("poll") || searchParams.get("pollId");
@@ -21,6 +23,18 @@ export default function ResultContent({ products: products = [], episodes: episo
   const [loading, setLoading] = useState(!!episodeId || !!pollId);
   const [copied, setCopied] = useState(false);
   const [shareModal, setShareModal] = useState({ isOpen: false, platform: "", imageUrl: "" });
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
+
+  useEffect(() => {
+    // Check for UTM parameters to show Welcome Modal after 1 second
+    const utmSource = searchParams.get("utm_source");
+    if (utmSource) {
+      const timer = setTimeout(() => {
+        setIsWelcomeModalOpen(true);
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (pollId) {
@@ -378,28 +392,35 @@ below. 👇
     };
   };
 
-  if (loading) {
-    return <ResultLoader />;
-  }
-
   return (
     <>
-      <ResultPage
-        pollResultProps={getPollResultProps()}
-        countdownProps={getCountdownProps()}
-        pollData={pollData}
-        onShare={handleShare}
-        copied={copied}
-        productsProps={{ products }}
-        episodesProps={{ episodes }}
-        blogProps={{ posts: blogs }}
-      />
+      {loading ? (
+        <ResultLoader />
+      ) : (
+        <ResultPage
+          pollResultProps={getPollResultProps()}
+          countdownProps={getCountdownProps()}
+          pollData={pollData}
+          onShare={handleShare}
+          copied={copied}
+          productsProps={{ products }}
+          episodesProps={{ episodes }}
+          blogProps={{ posts: blogs }}
+        />
+      )}
       <ShareMediaModal
         isOpen={shareModal.isOpen}
         onClose={() => setShareModal({ ...shareModal, isOpen: false })}
         platform={shareModal.platform}
         imageUrl={shareModal.imageUrl}
         shareUrl={getUTMUrl(shareModal.platform || "instagram")}
+      />
+      <WelcomeModal
+        isOpen={isWelcomeModalOpen}
+        onClose={() => {
+          setIsWelcomeModalOpen(false);
+          router.push("/");
+        }}
       />
     </>
   );
