@@ -10,20 +10,18 @@ export const revalidate = 0;
 export const runtime = "nodejs";
 
 // Cache assets in memory
-let cachedMokotoFont = null;
-let cachedGothamFont = null;
+let cachedSkatebladeFont = null;
 let cachedBgBase64 = null;
 
 async function getAssets() {
-  if (cachedMokotoFont && cachedGothamFont && cachedBgBase64) {
-    return { mokoto: cachedMokotoFont, gotham: cachedGothamFont, bg: cachedBgBase64 };
+  if (cachedSkatebladeFont && cachedBgBase64) {
+    return { skateblade: cachedSkatebladeFont, bg: cachedBgBase64 };
   }
 
   const publicPath = join(process.cwd(), "public");
 
-  const [mokoto, gotham, bgRawBuffer] = await Promise.all([
-    readFile(join(publicPath, "assets/fonts/mokoto/mokoto.ttf")),
-    readFile(join(publicPath, "assets/fonts/gotham/GOTHAM-MEDIUM.TTF")),
+  const [skateblade, bgRawBuffer] = await Promise.all([
+    readFile(join(publicPath, "assets/fonts/Skateblade-Regular.ttf")),
     readFile(join(publicPath, "og-image-bg.jpg")),
   ]);
 
@@ -33,11 +31,10 @@ async function getAssets() {
     .jpeg({ quality: 40, mozjpeg: true })
     .toBuffer();
 
-  cachedMokotoFont = mokoto;
-  cachedGothamFont = gotham;
+  cachedSkatebladeFont = skateblade;
   cachedBgBase64 = `data:image/jpeg;base64,${bgBuffer.toString("base64")}`;
 
-  return { mokoto: cachedMokotoFont, gotham: cachedGothamFont, bg: cachedBgBase64 };
+  return { skateblade: cachedSkatebladeFont, bg: cachedBgBase64 };
 }
 
 export async function GET(request, { params }) {
@@ -134,7 +131,7 @@ export async function GET(request, { params }) {
     const option2Name = (option2.name || option2.text || option2.option_text || "RESIST").toUpperCase();
 
     // Get assets from cache or load them
-    const { mokoto, gotham, bg } = await getAssets();
+    const { skateblade, bg } = await getAssets();
 
     const imageResponse = new ImageResponse(
       <div
@@ -169,7 +166,7 @@ export async function GET(request, { params }) {
             width: "100%",
             height: "100%",
             position: "relative",
-            fontFamily: "Mokoto, sans-serif",
+            fontFamily: "Skateblade, sans-serif",
           }}
         >
           {/* Top Text */}
@@ -355,13 +352,8 @@ export async function GET(request, { params }) {
         height: height,
         fonts: [
           {
-            name: "Mokoto",
-            data: mokoto,
-            style: "normal",
-          },
-          {
-            name: "Gotham",
-            data: gotham,
+            name: "Skateblade",
+            data: skateblade,
             style: "normal",
           },
         ],

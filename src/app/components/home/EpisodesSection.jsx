@@ -849,7 +849,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
           }`}
         >
           <h4
-            className={`text-[16px] font-display font-bold uppercase mb-2 tracking-wide transition-colors duration-300 ${
+            className={`text-[16px] font-display font-bold uppercase mb-2 tracking-normal transition-colors duration-300 ${
               episode.status === "available"
                 ? "text-white group-hover:text-black"
                 : episode.status === "upcoming"
@@ -876,7 +876,7 @@ export default function EpisodesSection({ episodes: episodesProp = [] }) {
           </p>
           <div className="flex items-center justify-between pb-2">
             <span
-              className={`text-[10px] uppercase tracking-widest transition-colors duration-300 ${
+              className={`text-[10px] uppercase tracking-normal transition-colors duration-300 ${
                 episode.status === "available"
                   ? "text-white/50 group-hover:text-black/60"
                   : episode.status === "upcoming"

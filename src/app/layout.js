@@ -10,27 +10,27 @@ import VerticalLines from "./components/shared/VerticalLines";
 import { Wrapper } from "./components/shared/Wrapper";
 import "./globals.css";
 
-const gotham = localFont({
+const spaceMono = localFont({
   variable: "--font-body",
   display: "swap",
   src: [
-    { path: "../../public/assets/fonts/gotham/Gotham-Book.otf", weight: "400", style: "normal" },
-    { path: "../../public/assets/fonts/gotham/Gotham-BookItalic.otf", weight: "400", style: "italic" },
-    { path: "../../public/assets/fonts/gotham/Gotham-Medium.otf", weight: "500", style: "normal" },
-    { path: "../../public/assets/fonts/gotham/Gotham-MediumItalic.otf", weight: "500", style: "italic" },
+    { path: "../../public/assets/fonts/SpaceMono-Regular.ttf", weight: "400", style: "normal" },
+    { path: "../../public/assets/fonts/SpaceMono-Italic.ttf", weight: "400", style: "italic" },
+    { path: "../../public/assets/fonts/SpaceMono-Bold.ttf", weight: "700", style: "normal" },
+    { path: "../../public/assets/fonts/SpaceMono-BoldItalic.ttf", weight: "700", style: "italic" },
   ],
 });
 
-const astro = localFont({
+const skateblade = localFont({
   variable: "--font-heading",
   display: "swap",
-  src: [{ path: "../../public/assets/fonts/astro/astro.ttf", weight: "400", style: "normal" }],
+  src: [{ path: "../../public/assets/fonts/Skateblade-Regular.ttf", weight: "400", style: "normal" }],
 });
 
-const mokoto = localFont({
+const gugi = localFont({
   variable: "--font-subheading",
   display: "swap",
-  src: [{ path: "../../public/assets/fonts/mokoto/mokoto.ttf", weight: "400", style: "normal" }],
+  src: [{ path: "../../public/assets/fonts/Gugi-Regular.ttf", weight: "400", style: "normal" }],
 });
 
 export const metadata = {
@@ -122,7 +122,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`dark ${gotham.variable} ${astro.variable} ${mokoto.variable}`}>
+    <html lang="en" className={`dark ${spaceMono.variable} ${skateblade.variable} ${gugi.variable}`}>
       <head>
         <link rel="preconnect" href="https://lh3.googleusercontent.com" crossOrigin="" />
         <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
