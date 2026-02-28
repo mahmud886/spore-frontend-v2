@@ -304,18 +304,15 @@ below. 👇
     try {
       const shareUrl = getUTMUrl("direct_copy");
 
-      const fullShareText = `SE Asia’s 1st Gen-AI sci-fi micro-drama just
-dropped the pen. ✍️
+      const fullShareText = `✊🏻 Resist or 🦅 Evolve?
 
-Spore Fall wants YOU to decide:
-✊🏻 Resist
-🦅 Evolve
+Southeast Asia's 1st Gen-AI sci-fi micro-drama, Spore Fall, is handing the pen to the audience. You decide what happens next.
 
-Vote with me before it closes → ${shareUrl}
-First 1,000 unlock secret drops.
+🎁 First 1,000 voters unlock exclusive secret drops.
 
-Tag someone taking the red pill or blue pill
-below. 👇
+Vote now & shape the story 👇
+
+${shareUrl}
 
 #ResistOrEvolve #SporeFall`;
 

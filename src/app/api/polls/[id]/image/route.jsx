@@ -180,17 +180,16 @@ export async function GET(request, { params }) {
               alignItems: "center",
               marginBottom: 40,
               color: "#C2FF02",
-              fontSize: 22,
+              fontSize: 40,
               lineHeight: 1.5,
               letterSpacing: "0.05em",
               textShadow: "0 0 10px rgba(0,0,0,0.8)",
               textAlign: "center",
               textTransform: "uppercase",
+              maxWidth: 600,
             }}
           >
-            <div>A DEADLY PATHOGEN THREATENS TO OVERRUN THE</div>
-            <div>NATION CITY OF LIONARA. JOIN THE RESISTANCE</div>
-            <div>OR EMBRACE THE EVOLUTION.</div>
+            <div>{pollQuestion}</div>
           </div>
 
           {/* Central Card */}
@@ -220,25 +219,13 @@ export async function GET(request, { params }) {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                justifyContent: "space-between",
+                justifyContent: "center",
                 width: "100%",
                 height: "100%",
-                padding: "20px 0",
                 position: "relative",
                 zIndex: 10,
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  color: "white",
-                  fontSize: 20,
-                  letterSpacing: "0.05em",
-                  fontFamily: "sans-serif",
-                }}
-              >
-                Total Votes: {totalVotes.toLocaleString()}
-              </div>
               <div
                 style={{
                   display: "flex",
@@ -252,17 +239,6 @@ export async function GET(request, { params }) {
               >
                 <span>SPORE</span>
                 <span>FALL</span>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  color: "white",
-                  fontSize: 20,
-                  letterSpacing: "0.05em",
-                  fontFamily: "Gotham, sans-serif",
-                }}
-              >
-                #ResistOrEvolve
               </div>
             </div>
           </div>
