@@ -133,6 +133,11 @@ export async function GET(request, { params }) {
     // Get assets from cache or load them
     const { skateblade, bg } = await getAssets();
 
+    // Read card background image
+    const cardBgPath = join(publicPath, "assets/images/result-background.png");
+    const cardBgBuffer = await readFile(cardBgPath);
+    const cardBgBase64 = `data:image/png;base64,${cardBgBuffer.toString("base64")}`;
+
     const imageResponse = new ImageResponse(
       <div
         style={{
